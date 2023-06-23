@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import bosses from './bosses.json';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCFsrRbVJgtrlZPZE3iJh5uKE8oHW657G8",
@@ -16,6 +17,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+
+export const getBosses = () => {
+  return firebase.firestore().collection('bosses').get();
+}
 
 export const addBossData = (bossData) => {
   const batch = db.batch();
@@ -48,3 +53,12 @@ export const saveBossData = async (filteredBosses) => {
   }
 };
 
+export const manuallyAddBosses = async () => {
+  try {
+    bosses.forEach((boss) => {
+      firebase.firestore().collection('bosses').add(boss);
+    });
+  } catch (error) {
+    console.error('Error fetching or adding bosses:', error);
+  }
+};
