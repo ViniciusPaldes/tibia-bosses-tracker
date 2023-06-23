@@ -7,6 +7,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useFetchBosses } from '../../services/boss';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
 function BossesList() {
   const classes = useStyles();
   const [expandedBoss, setExpandedBoss] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedBoss, setSelectedBoss] = useState(null);
   const bosses = useFetchBosses();
 
   const handleExpandClick = (boss) => {
@@ -48,8 +54,22 @@ function BossesList() {
   };
 
   const handleCheck = (boss) => {
-    // Handle check button click here
-    console.log('Checking boss:', boss.name);
+    setSelectedBoss(boss);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    setSelectedBoss(null);
+  };
+
+  const handleConfirm = (confirmed) => {
+    if (confirmed) {
+      console.log('Boss killed:', selectedBoss.name);
+    } else {
+      console.log('Boss not found:', selectedBoss.name);
+    }
+    handleDialogClose();
   };
 
   return (
@@ -82,6 +102,23 @@ function BossesList() {
           </Card>
         ))}
       </div>
+
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Confirmar status do Boss</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Você matou o boss "{selectedBoss?.name}"?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleConfirm(true)} color="primary">
+            Sim
+          </Button>
+          <Button onClick={() => handleConfirm(false)} color="primary">
+            Não
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
