@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useFetchBosses } from '../services/boss';
@@ -10,10 +9,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import { saveCheckToFirestore } from '../services/firebase';
+import { Snackbar, TextareaAutosize } from '@material-ui/core';
+import { Alert } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   main: {
-    flex:1,
+    flex: 1,
   },
   root: {
     width: 300,
@@ -57,32 +59,91 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'none',
     minHeight: '100px',
   },
+
+  dialogTitle: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: theme.spacing(2),
+  },
+  dialogContent: {
+    width: '400px',
+  },
+  dialogActions: {
+    justifyContent: 'center',
+  },
+  confirmationButton: {
+    margin: theme.spacing(2),
+  },
+  lootTextarea: {
+    width: '100%',
+    resize: 'vertical',
+    minHeight: '100px',
+    marginBottom: theme.spacing(2),
+  },
 }));
+
+function UserFeedback(props) {
+  return <Alert elevation={6} variant="filled" {...props} />;
+}
 
 function BossesList() {
   const classes = useStyles();
-  const [expandedBoss, setExpandedBoss] = useState(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedBoss, setSelectedBoss] = useState(null);
   const bosses = useFetchBosses();
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [lootDialogOpen, setLootDialogOpen] = useState(false);
+  const [selectedBoss, setSelectedBoss] = useState(null);
+  const [lootText, setLootText] = useState('');
+  const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
 
   const handleCheck = (boss) => {
     setSelectedBoss(boss);
-    setDialogOpen(true);
+    setConfirmDialogOpen(true);
   };
 
-  const handleDialogClose = () => {
-    setDialogOpen(false);
+  const handleConfirmDialogClose = () => {
+    setConfirmDialogOpen(false);
     setSelectedBoss(null);
   };
 
-  const handleConfirm = (confirmed) => {
+  const handleLootDialogClose = () => {
+    setLootDialogOpen(false);
+    setSelectedBoss(null);
+    setLootText('');
+  };
+
+  const handleConfirm = async (confirmed) => {
     if (confirmed) {
-      console.log('Boss killed:', selectedBoss.name);
+      setLootDialogOpen(true);
     } else {
-      console.log('Boss not found:', selectedBoss.name);
+      // Handle if user did not defeat the boss
     }
-    handleDialogClose();
+    handleConfirmDialogClose();
+  };
+
+  const handleSaveLoot = async () => {
+    const loot = lootText.trim(); // Remove leading/trailing whitespace
+    if (loot) {
+      // Save the loot to Firestore
+      try {
+        await saveCheckToFirestore(selectedBoss.id, true, loot);
+        setConfirmationMessage('Loot saved successfully!');
+      } catch (error) {
+        console.error('Error saving loot:', error);
+        setConfirmationMessage('Failed to save loot. Please try again.');
+      }
+    }
+    setConfirmationOpen(true);
+    handleLootDialogClose();
+  };
+
+  const handleConfirmationClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setConfirmationOpen(false);
   };
 
   // Organize bosses by type
@@ -129,22 +190,66 @@ function BossesList() {
           </div>
         </div>
       ))}
-      <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Confirm Boss Status</DialogTitle>
-        <DialogContent>
+      <Dialog open={confirmDialogOpen} onClose={handleConfirmDialogClose}>
+        <DialogTitle className={classes.dialogTitle}>
+          Confirm Boss Status
+        </DialogTitle>
+        <DialogContent className={classes.dialogContent}>
           <Typography variant="body1">
             Did you defeat the boss "{selectedBoss?.name}"?
           </Typography>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => handleConfirm(true)} color="primary">
+        <DialogActions className={classes.dialogActions}>
+          <Button 
+            onClick={() => handleConfirm(true)}
+            color="primary"
+            variant="contained"
+            className={classes.confirmationButton}
+          >
             Yes
           </Button>
-          <Button onClick={() => handleConfirm(false)} color="primary">
+          <Button 
+            onClick={() => handleConfirm(false)} 
+            color="primary"
+            variant="contained"
+            className={classes.confirmationButton}
+          >
             No
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog 
+        open={lootDialogOpen} 
+        onClose={handleLootDialogClose}
+      >
+        <DialogTitle className={classes.dialogTitle}>Enter Loot</DialogTitle>
+        <DialogContent className={classes.dialogContent}>
+          <Typography variant="body1">Enter the loot obtained:</Typography>
+          <TextareaAutosize
+            rowsMin={3}
+            className={classes.lootTextarea}
+            placeholder="Enter loot..."
+            value={lootText}
+            onChange={(e) => setLootText(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button 
+            onClick={handleSaveLoot} color="primary"
+            variant="contained"
+          >
+            Save
+          </Button>
+          <Button onClick={handleLootDialogClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Snackbar open={confirmationOpen} autoHideDuration={5000} onClose={handleConfirmationClose}>
+        <UserFeedback onClose={handleConfirmationClose} severity={confirmationMessage.includes('Failed') ? 'error' : 'success'}>
+          {confirmationMessage}
+        </UserFeedback>
+      </Snackbar>
     </div>
   );
 }

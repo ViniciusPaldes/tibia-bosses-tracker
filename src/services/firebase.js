@@ -62,3 +62,29 @@ export const manuallyAddBosses = async () => {
     console.error('Error fetching or adding bosses:', error);
   }
 };
+
+// Function to save check data to Firestore
+export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
+  try {
+    // Create a new Firestore document reference for the check
+    const checkRef = db.collection('checks').doc();
+
+    // Create the check object with the provided data
+    const checkData = {
+      userId,
+      bossId,
+      killed,
+      loot,
+      timestamp: db.FieldValue.serverTimestamp() // Add server timestamp
+    };
+
+    // Save the check data to Firestore
+    await checkRef.set(checkData);
+
+    return checkRef.id; // Return the ID of the saved check document
+  } catch (error) {
+    throw new Error('Error saving check: ' + error.message);
+  }
+};
+
+
