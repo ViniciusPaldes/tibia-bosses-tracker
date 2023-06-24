@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import bosses from './bosses.json';
-
+import { useState, useEffect } from "react";
 const firebaseConfig = {
   apiKey: "AIzaSyCFsrRbVJgtrlZPZE3iJh5uKE8oHW657G8",
   authDomain: "tibia-boss-tracker-6caba.firebaseapp.com",
@@ -17,10 +17,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
-
-export const getBosses = () => {
-  return firebase.firestore().collection('bosses').get();
-}
 
 export const addBossData = (bossData) => {
   const batch = db.batch();
@@ -92,4 +88,47 @@ export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
   }
 };
 
+export const addTimestampIntoBosses = async (bossesCollection) => {
+  const bossesData = bossesCollection.docs.map((doc) => {
+    const bossData = doc.data();
+    return { id: doc.id, ...bossData, timestamp: null };
+  });
 
+  // Fetch the checks collection and get the latest timestamp for each boss
+  const checksCollection = await firebase.firestore().collection('checks').get();
+  checksCollection.docs.forEach((checkDoc) => {
+    const checkData = checkDoc.data();
+    const bossId = checkData.bossId;
+
+    // Find the corresponding boss in the bossesData array
+    const bossIndex = bossesData.findIndex((boss) => boss.id === bossId);
+    if (bossIndex !== -1) {
+      // Check if the timestamp is greater than the current stored timestamp
+      const timestamp = checkData.timestamp.toDate();
+      if (!bossesData[bossIndex].timestamp || timestamp > bossesData[bossIndex].timestamp) {
+        bossesData[bossIndex].timestamp = timestamp;
+      }
+    }
+  });
+
+  return bossesData;
+}
+
+export const useFetchBosses = () => {
+  const [bosses, setBosses] = useState([]);
+
+  useEffect(() => {
+    const fetchBosses = async () => {
+      try {
+        const bossesCollection = await  firebase.firestore().collection('bosses').get();
+        setBosses(await addTimestampIntoBosses(bossesCollection))
+      } catch (error) {
+        console.error('Error fetching bosses from Firestore:', error);
+      }
+    };
+
+    fetchBosses();
+  }, []);
+
+  return bosses;
+};
