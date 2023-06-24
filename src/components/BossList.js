@@ -3,18 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { useFetchBosses } from '../../services/boss';
+import { useFetchBosses } from '../services/boss';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    flex:1,
+  },
   root: {
-    maxWidth: 300,
+    width: 300,
     marginBottom: theme.spacing(2),
   },
   bossName: {
@@ -36,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
     gap: theme.spacing(2),
+    justifyItems: 'center'
   },
   tableContainer: {
     marginBottom: theme.spacing(4),
@@ -43,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
   tableTitle: {
     marginBottom: theme.spacing(2),
     textAlign: 'center',
-    color: '#00aaff', 
     fontWeight: 'bold'
   },
   imageContainer: {
@@ -95,34 +97,33 @@ function BossesList() {
   }, {});
 
   return (
-    <div>
+    <div className={classes.main}>
       {Object.entries(bossesByType).map(([bossType, bossList]) => (
         <div className={classes.tableContainer} key={bossType}>
-          <Typography variant="h5" component="h2" className={classes.tableTitle}>
+          <Typography variant="h5" component="h2" color="primary" className={classes.tableTitle}>
             {bossType}
           </Typography>
           <div className={classes.gridContainer}>
             {bossList.map((boss) => (
               <Card className={classes.root} key={boss.name}>
-                  <CardActionArea>
-                    <div className={classes.imageContainer}>
-                      <img src={boss.image} alt={boss.name} className={classes.image} />
-                    </div>
-                    <CardContent>
-                      <Typography variant="h6" component="h3" gutterBottom
-                        className={classes.bossName}>
-                        {boss.name.length > 25 ? `${boss.name.slice(0, 25)}...` : boss.name}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                <Button
-                  className={classes.checkButton}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleCheck(boss)}
-                >
-                  Check
-                </Button>
+                <CardActionArea>
+                  <div className={classes.imageContainer}>
+                    <img src={boss.image} alt={boss.name} className={classes.image} />
+                  </div>
+                  <div className={classes.cardContent}>
+                    <Typography variant="h6" component="h3" gutterBottom className={classes.bossName}>
+                      {boss.name.length > 25 ? `${boss.name.slice(0, 25)}...` : boss.name}
+                    </Typography>
+                    <Button
+                      className={classes.checkButton}
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleCheck(boss)}
+                    >
+                      Check
+                    </Button>
+                  </div>
+                </CardActionArea>
               </Card>
             ))}
           </div>
