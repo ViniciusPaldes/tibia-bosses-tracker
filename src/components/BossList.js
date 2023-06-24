@@ -4,12 +4,11 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { useFetchBosses } from '../services/boss';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { saveCheckToFirestore } from '../services/firebase';
+import { saveCheckToFirestore, useFetchBosses } from '../services/firebase';
 import { Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
 
@@ -82,6 +81,19 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100px',
     marginBottom: theme.spacing(2),
   },
+  lastCheck: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  lastCheckLabel: {
+    fontWeight: 'bold',
+  },
+  lastCheckTimestamp: {
+    marginLeft: 8,
+    color: '#555555',
+  },
 }));
 
 function UserFeedback(props) {
@@ -103,7 +115,7 @@ function BossesList() {
     setConfirmDialogOpen(true);
   };
 
-  const handleConfirmDialogClose = () => {
+  const handleConfirmDialogClose = async () => {
     setConfirmDialogOpen(false);
     setSelectedBoss(null);
   };
@@ -156,6 +168,7 @@ function BossesList() {
     return acc;
   }, {});
 
+
   return (
     <div className={classes.main}>
       {Object.entries(bossesByType).map(([bossType, bossList]) => (
@@ -174,6 +187,14 @@ function BossesList() {
                     <Typography variant="h6" component="h3" gutterBottom className={classes.bossName}>
                       {boss.name.length > 25 ? `${boss.name.slice(0, 25)}...` : boss.name}
                     </Typography>
+                    <div className={classes.lastCheck}>
+                      <Typography variant="body2" className={classes.lastCheckLabel}>
+                        Last Check:
+                      </Typography>
+                      <Typography variant="body2" className={classes.lastCheckTimestamp}>
+                        {boss.timestamp ? boss.timestamp.toLocaleString('pt-BR') : '-'}
+                      </Typography>
+                    </div>
                     <Button
                       className={classes.checkButton}
                       variant="contained"
