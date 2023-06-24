@@ -109,6 +109,7 @@ function BossesList() {
   };
 
   const handleLootDialogClose = () => {
+    handleConfirmDialogClose();
     setLootDialogOpen(false);
     setSelectedBoss(null);
     setLootText('');
@@ -119,21 +120,19 @@ function BossesList() {
       setLootDialogOpen(true);
     } else {
       // Handle if user did not defeat the boss
+      handleConfirmDialogClose();
     }
-    handleConfirmDialogClose();
   };
 
-  const handleSaveLoot = async () => {
-    const loot = lootText.trim(); // Remove leading/trailing whitespace
-    if (loot) {
-      // Save the loot to Firestore
-      try {
-        await saveCheckToFirestore(selectedBoss.id, true, loot);
-        setConfirmationMessage('Loot saved successfully!');
-      } catch (error) {
-        console.error('Error saving loot:', error);
-        setConfirmationMessage('Failed to save loot. Please try again.');
-      }
+  const handleSave = async (killed) => {
+    const loot = lootText?.trim(); // Remove leading/trailing whitespace
+    try {
+      await saveCheckToFirestore(null, selectedBoss.id, killed, loot);
+      setConfirmationMessage('Saved successfully!');
+    } catch (error) {
+      setConfirmationMessage('Failed to save. Please try again.');
+    } finally {
+      handleConfirmDialogClose();
     }
     setConfirmationOpen(true);
     handleLootDialogClose();
@@ -166,7 +165,7 @@ function BossesList() {
           </Typography>
           <div className={classes.gridContainer}>
             {bossList.map((boss) => (
-              <Card className={classes.root} key={boss.name}>
+              <Card className={classes.root} key={boss.id}>
                 <CardActionArea>
                   <div className={classes.imageContainer}>
                     <img src={boss.image} alt={boss.name} className={classes.image} />
@@ -200,33 +199,47 @@ function BossesList() {
           </Typography>
         </DialogContent>
         <DialogActions className={classes.dialogActions}>
-          <Button 
+          <Button
             onClick={() => handleConfirm(true)}
             color="primary"
             variant="contained"
             className={classes.confirmationButton}
+            style={{ backgroundColor: '#006400', color: '#fff' }} // Dark green color for "Yes" button
           >
             Yes
           </Button>
-          <Button 
-            onClick={() => handleConfirm(false)} 
+          <Button
+            onClick={() => handleSave(false)}
             color="primary"
             variant="contained"
             className={classes.confirmationButton}
+            style={{ backgroundColor: '#dc143c', color: '#fff' }} // Dark red color for "No" button
           >
             No
           </Button>
         </DialogActions>
+        <DialogActions className={classes.dialogActions} style={{ marginTop: '-2rem' }}>
+          <Button
+            onClick={handleConfirmDialogClose}
+            color="primary"
+            variant="text"
+            className={classes.confirmationButton}
+            style={{ color: '#000' }} // Black color for "Cancel" button
+          >
+            Cancel Check
+          </Button>
+        </DialogActions>
       </Dialog>
-      <Dialog 
-        open={lootDialogOpen} 
+
+      <Dialog
+        open={lootDialogOpen}
         onClose={handleLootDialogClose}
       >
         <DialogTitle className={classes.dialogTitle}>Enter Loot</DialogTitle>
         <DialogContent className={classes.dialogContent}>
-          <Typography variant="body1">Enter the loot obtained:</Typography>
+          <Typography variant="body1" >Enter the loot obtained:</Typography>
           <TextareaAutosize
-            rowsMin={3}
+            minRows={3}
             className={classes.lootTextarea}
             placeholder="Enter loot..."
             value={lootText}
@@ -234,8 +247,8 @@ function BossesList() {
           />
         </DialogContent>
         <DialogActions>
-          <Button 
-            onClick={handleSaveLoot} color="primary"
+          <Button
+            onClick={() => handleSave(true)} color="primary"
             variant="contained"
           >
             Save
@@ -245,7 +258,7 @@ function BossesList() {
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar open={confirmationOpen} autoHideDuration={5000} onClose={handleConfirmationClose}>
+      <Snackbar open={confirmationOpen} autoHideDuration={3000} onClose={handleConfirmationClose}>
         <UserFeedback onClose={handleConfirmationClose} severity={confirmationMessage.includes('Failed') ? 'error' : 'success'}>
           {confirmationMessage}
         </UserFeedback>

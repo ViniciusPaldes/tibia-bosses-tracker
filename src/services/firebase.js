@@ -69,13 +69,18 @@ export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
     // Create a new Firestore document reference for the check
     const checkRef = db.collection('checks').doc();
 
+    console.log('userId:', userId);
+    console.log('bossId:', bossId);
+    console.log('killed:', killed);
+    console.log('loot:', loot);
+    console.log('timestamp:', firebase.firestore.FieldValue.serverTimestamp());
     // Create the check object with the provided data
     const checkData = {
       userId,
       bossId,
       killed,
       loot,
-      timestamp: db.FieldValue.serverTimestamp() // Add server timestamp
+      timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add server timestamp
     };
 
     // Save the check data to Firestore
