@@ -88,25 +88,16 @@ export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
   }
 };
 
-export const addTimestampIntoBosses = (bossesData, checks) => {
-  const updatedBosses = [...bossesData];
+export const addChecksIntoBosses = (bossesData, checks) => {
+  const updatedBosses = bossesData.map((boss) => ({
+    ...boss,
+    checks: checks.filter((check) => check.bossId === boss.id),
+  }));
 
-  checks.forEach((checkData) => {
-    const bossId = checkData.bossId;
-    const bossIndex = updatedBosses.findIndex((boss) => boss.id === bossId);
-
-    if (bossIndex !== -1) {
-      if (checkData.timestamp) { // Check if timestamp exists
-        const timestamp = checkData.timestamp.toDate();
-        if (!updatedBosses[bossIndex].timestamp || timestamp > updatedBosses[bossIndex].timestamp) {
-          updatedBosses[bossIndex].timestamp = timestamp;
-        }
-      }
-    }
-  });
-
+  console.log("updatedBosses",updatedBosses)
   return updatedBosses;
 };
+
 
 export const useFetchBosses = () => {
   const [bosses, setBosses] = useState([]);
@@ -119,13 +110,13 @@ export const useFetchBosses = () => {
         const unsubscribeChecks = firebase.firestore().collection('checks')
           .onSnapshot((snapshot) => {
             const checks = snapshot.docs.map((doc) => doc.data());
-            setBosses((prevBosses) => addTimestampIntoBosses(prevBosses, checks));
+            setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
           });
 
         const checksSnapshot = await firebase.firestore().collection('checks').get();
         const checks = checksSnapshot.docs.map((doc) => doc.data());
 
-        setBosses(addTimestampIntoBosses(bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })), checks));
+        setBosses(addChecksIntoBosses(bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })), checks));
 
         return () => {
           unsubscribeChecks();
