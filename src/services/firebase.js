@@ -88,31 +88,25 @@ export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
   }
 };
 
-export const addTimestampIntoBosses = async (bossesCollection) => {
-  const bossesData = bossesCollection.docs.map((doc) => {
-    const bossData = doc.data();
-    return { id: doc.id, ...bossData, timestamp: null };
-  });
+export const addTimestampIntoBosses = (bossesData, checks) => {
+  const updatedBosses = [...bossesData];
 
-  // Fetch the checks collection and get the latest timestamp for each boss
-  const checksCollection = await firebase.firestore().collection('checks').get();
-  checksCollection.docs.forEach((checkDoc) => {
-    const checkData = checkDoc.data();
+  checks.forEach((checkData) => {
     const bossId = checkData.bossId;
+    const bossIndex = updatedBosses.findIndex((boss) => boss.id === bossId);
 
-    // Find the corresponding boss in the bossesData array
-    const bossIndex = bossesData.findIndex((boss) => boss.id === bossId);
     if (bossIndex !== -1) {
-      // Check if the timestamp is greater than the current stored timestamp
-      const timestamp = checkData.timestamp.toDate();
-      if (!bossesData[bossIndex].timestamp || timestamp > bossesData[bossIndex].timestamp) {
-        bossesData[bossIndex].timestamp = timestamp;
+      if (checkData.timestamp) { // Check if timestamp exists
+        const timestamp = checkData.timestamp.toDate();
+        if (!updatedBosses[bossIndex].timestamp || timestamp > updatedBosses[bossIndex].timestamp) {
+          updatedBosses[bossIndex].timestamp = timestamp;
+        }
       }
     }
   });
 
-  return bossesData;
-}
+  return updatedBosses;
+};
 
 export const useFetchBosses = () => {
   const [bosses, setBosses] = useState([]);
@@ -120,8 +114,22 @@ export const useFetchBosses = () => {
   useEffect(() => {
     const fetchBosses = async () => {
       try {
-        const bossesCollection = await  firebase.firestore().collection('bosses').get();
-        setBosses(await addTimestampIntoBosses(bossesCollection))
+        const bossesCollection = await firebase.firestore().collection('bosses').get();
+
+        const unsubscribeChecks = firebase.firestore().collection('checks')
+          .onSnapshot((snapshot) => {
+            const checks = snapshot.docs.map((doc) => doc.data());
+            setBosses((prevBosses) => addTimestampIntoBosses(prevBosses, checks));
+          });
+
+        const checksSnapshot = await firebase.firestore().collection('checks').get();
+        const checks = checksSnapshot.docs.map((doc) => doc.data());
+
+        setBosses(addTimestampIntoBosses(bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })), checks));
+
+        return () => {
+          unsubscribeChecks();
+        };
       } catch (error) {
         console.error('Error fetching bosses from Firestore:', error);
       }
@@ -132,3 +140,4 @@ export const useFetchBosses = () => {
 
   return bosses;
 };
+
