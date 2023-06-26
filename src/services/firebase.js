@@ -64,12 +64,7 @@ export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
   try {
     // Create a new Firestore document reference for the check
     const checkRef = db.collection('checks').doc();
-
-    console.log('userId:', userId);
-    console.log('bossId:', bossId);
-    console.log('killed:', killed);
-    console.log('loot:', loot);
-    console.log('timestamp:', firebase.firestore.FieldValue.serverTimestamp());
+    
     // Create the check object with the provided data
     const checkData = {
       userId,
@@ -93,8 +88,6 @@ export const addChecksIntoBosses = (bossesData, checks) => {
     ...boss,
     checks: checks.filter((check) => check.bossId === boss.id),
   }));
-
-  console.log("updatedBosses",updatedBosses)
   return updatedBosses;
 };
 
@@ -130,5 +123,24 @@ export const useFetchBosses = () => {
   }, []);
 
   return bosses;
+};
+
+export const saveKillStatisticsToFirestore = async () => {
+  try {
+    const response = await fetch('https://api.tibiadata.com/v3/killstatistics/Venebra');
+    const data = await response.json();
+    const currentDate = new Date().toISOString();
+
+    // Save the response and current date to Firestore with the current date as the document name
+    const firestore = firebase.firestore();
+    await firestore.collection('killStatistics').doc(currentDate).set({
+      data,
+      currentDate,
+    });
+
+    console.log('Kill statistics saved to Firestore.');
+  } catch (error) {
+    console.error('Error saving kill statistics to Firestore:', error);
+  }
 };
 
