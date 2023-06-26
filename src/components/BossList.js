@@ -11,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { saveCheckToFirestore, useFetchBosses } from '../services/firebase';
 import { Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
+import BossCard from './BossCard';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -93,6 +94,15 @@ const useStyles = makeStyles((theme) => ({
   lastCheckTimestamp: {
     marginLeft: 8,
     color: '#555555',
+  },
+  chanceHigh: {
+    color: 'green',
+  },
+  chanceMedium: {
+    color: 'yellow',
+  },
+  chanceLow: {
+    color: 'red',
   },
 }));
 
@@ -200,34 +210,11 @@ function BossesList() {
           </Typography>
           <div className={classes.gridContainer}>
             {bossList.map((boss) => (
-              <Card className={classes.root} key={boss.id}>
-                <CardActionArea>
-                  <div className={classes.imageContainer}>
-                    <img src={boss.image} alt={boss.name} className={classes.image} />
-                  </div>
-                  <div className={classes.cardContent}>
-                    <Typography variant="h6" component="h3" gutterBottom className={classes.bossName}>
-                      {boss.name.length > 25 ? `${boss.name.slice(0, 25)}...` : boss.name}
-                    </Typography>
-                    <div className={classes.lastCheck}>
-                      <Typography variant="body2" className={classes.lastCheckLabel}>
-                        Last Check:
-                      </Typography>
-                      <Typography variant="body2" className={classes.lastCheckTimestamp}>
-                        {getMostRecentTimestamp(boss)}
-                      </Typography>
-                    </div>
-                    <Button
-                      className={classes.checkButton}
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleCheck(boss)}
-                    >
-                      Check
-                    </Button>
-                  </div>
-                </CardActionArea>
-              </Card>
+              <BossCard
+                boss={boss}
+                handleCheck={handleCheck}
+                getMostRecentTimestamp={getMostRecentTimestamp}
+              />
             ))}
           </div>
         </div>
