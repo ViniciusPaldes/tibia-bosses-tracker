@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
   navigationButtons: {
     display: 'flex',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'center', 
     width: '100%',
   },
   backButton: {

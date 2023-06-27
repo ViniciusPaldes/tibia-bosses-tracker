@@ -194,3 +194,77 @@ export const fetchBossesLastDayKilled = async () => {
   }
 };
 
+export const getDaysSinceLastKill = async () => {
+  try {
+    const firestore = firebase.firestore();
+
+    // Fetch all boss documents from the 'bosses' collection
+    const bossesQuerySnapshot = await firestore.collection('bosses').get();
+    const bossesData = bossesQuerySnapshot.docs.map((doc) => doc.data());
+    
+    // Fetch the kill statistics from Firestore
+    const killStatisticsQuerySnapshot = await firestore.collection('killStatistics').get();
+    const bossKills = [];
+
+    killStatisticsQuerySnapshot.forEach((doc) => {
+      const killStatistic = doc.data().data.killstatistics;
+      
+      if (killStatistic && killStatistic.entries) {
+        killStatistic.entries.forEach((entry) => {
+          const bossName = entry.race.toLowerCase().trim();
+
+          // Find the boss in the 'bosses' data with matching name
+          const boss = bossesData.find((boss) => boss.name.toLowerCase().trim() === bossName);
+
+          if (boss && entry.last_day_killed >= 1) {
+            const timestamp = doc.data().data?.information?.timestamp;
+            const lastKillDate = new Date(timestamp).setHours(0, 0, 0, 0);
+            const today = new Date().setHours(0, 0, 0, 0);
+            const daysDiff = Math.round((today - lastKillDate) / (1000 * 60 * 60 * 24));
+
+            bossKills.push({
+              boss: boss,
+              lastKillTimestamp: timestamp,
+              daysSinceLastKill: daysDiff || 1,
+            });
+          }
+        });
+      }
+    });
+    return bossKills;
+  } catch (error) {
+    console.error('Error fetching boss kills:', error);
+    return [];
+  }
+};
+
+export const calculateBossChance = async () => {
+  try {
+    const bossKills = await getDaysSinceLastKill();
+    const calculatedBosses = bossKills.map((bossKill) => {
+      const { boss, daysSinceLastKill } = bossKill;
+      const { starting_day, end_day } = boss;
+
+      if (
+        daysSinceLastKill >= starting_day &&
+        daysSinceLastKill <= end_day
+      ) {
+        return { ...boss, chance: 'High' };
+      } else if (
+        daysSinceLastKill === starting_day - 1 ||
+        daysSinceLastKill === end_day + 1
+      ) {
+        return { ...boss, chance: 'Medium', daysSinceLastKill };
+      } else {
+        return { ...boss, chance: 'No', daysSinceLastKill };
+      }
+    });
+    console.log("Calculated Bosses", calculatedBosses)
+    return calculatedBosses;
+  } catch (error) {
+    console.error('Error calculating boss chance:', error);
+    return [];
+  }
+};
+
+

@@ -1,50 +1,62 @@
 [
     {
         "type": "Rookgaard",
+        "city": "Rookgaard",
         "infoUrl": "https://tibia.fandom.com/wiki/Rottie_the_Rotworm",
         "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b7999a89-cdfe-4970-8099-8df7e2463ccf.gif",
         "name": "Rottie The Rotworm"
     },
     {
         "type": "Rookgaard",
+        "city": "Rookgaard",
         "infoUrl": "https://tibia.fandom.com/wiki/Teleskor",
         "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/301bb375-da77-44a2-94c6-37afa16de1d0.gif",
         "name": "Teleskor"
     },
     {
         "type": "Rookgaard",
+        "city": "Rookgaard",
         "infoUrl": "https://tibia.fandom.com/wiki/Apprentice_Sheng",
         "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b2e02105-94ce-4f31-8fa9-defaba747869.gif",
         "name": "Apprentice Sheng"
     },
     {
         "type": "Rookgaard",
+        "city": "Rookgaard",
         "infoUrl": "https://tibia.fandom.com/wiki/Munster",
         "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/db26d1b2-0b29-4f9d-af8e-a615258bc490.gif",
         "name": "Munster"
     },
     {
         "type": "Vampire Lords",
+        "city": "Darashia",
+        "latlong": "32968,32400,12:2",
         "infoUrl": "https://tibia.fandom.com/wiki/Arachir_the_Ancient_One",
         "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/5d787796-0c6f-4178-80a3-b6b9889f9160.gif",
         "name": "Arachir The Ancient One"
     },
     {
         "type": "Vampire Lords",
+        "city": "Liberty Bay",
+        "latlong": "32008,32795,10:4",
         "infoUrl": "https://tibia.fandom.com/wiki/Diblis_the_Fair",
         "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/a26be308-3010-47da-ae6f-fa5e30072024.gif",
         "name": "Diblis The Fair"
     },
     {
         "type": "Vampire Lords",
-        "infoUrl": "https://tibia.fandom.com/wiki/Sir_Valorcrest",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/3406c41b-01a3-4386-8e42-1d34e1084cf9.gif",
+        "city": "Edron",
+        "latlong": "33270,31770,10:4",
+        "infoUrl": "https://www.tibiawiki.com.br/wiki/Sir_Valorcrest",
+        "image": "https://www.tibiawiki.com.br/images/3/32/Sir_Valorcrest.gif",
         "name": "Sir Valorcrest"
     },
     {
         "type": "Vampire Lords",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Pale_Count",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/9d0b5e5f-3623-4ac5-90dd-82fe2c88808e.gif",
+        "city": "Darashia",
+        "latlong": "32973,32420,15:2",
+        "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Pale_Count",
+        "image": "https://www.tibiawiki.com.br/images/1/11/The_Pale_Count.gif",
         "name": "The Pale Count"
     },
     {
