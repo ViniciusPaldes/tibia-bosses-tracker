@@ -254,11 +254,12 @@ export const calculateBossChance = async (bossObject) => {
       const { boss, daysSinceLastKill } = bossKill;
       const { starting_day, end_day } = boss;
 
-      if (
-        daysSinceLastKill >= starting_day &&
-        daysSinceLastKill <= end_day
-      ) {
-        return { ...boss, chance: 'High' };
+      if (daysSinceLastKill >= starting_day) {
+        if  (daysSinceLastKill > end_day + 2) {
+          return { ...boss, chance: 'Puff' };
+        } else {
+          return { ...boss, chance: 'High' };
+        }
       } else if (
         daysSinceLastKill === starting_day - 1 ||
         daysSinceLastKill === end_day + 1
