@@ -168,7 +168,7 @@ export const fetchBossesLastDayKilled = async () => {
 
           if (boss) {
             bossKills.push({
-              bossName: boss.name,
+              boss: boss,
               lastDayKilled: entry.last_day_killed,
             });
           }
