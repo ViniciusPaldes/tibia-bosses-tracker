@@ -152,8 +152,18 @@ export const fetchBossesLastDayKilled = async () => {
     const bossesQuerySnapshot = await firestore.collection('bosses').get();
     const bossesData = bossesQuerySnapshot.docs.map((doc) => doc.data());
 
-    // Fetch the kill statistics from Firestore
-    const killStatisticsQuerySnapshot = await firestore.collection('killStatistics').get();
+    // Fetch the latest killStatistics document
+    const killStatisticsQuerySnapshot = await firestore
+      .collection('killStatistics')
+      .orderBy('currentDate', 'desc')
+      .limit(1)
+      .get();
+
+      console.log("killStatisticsQuerySnapshot", killStatisticsQuerySnapshot)
+    if (killStatisticsQuerySnapshot.empty) {
+      console.log('No kill statistics found.');
+      return [];
+    }
     const bossKills = [];
 
     killStatisticsQuerySnapshot.forEach((doc) => {
