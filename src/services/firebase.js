@@ -27,8 +27,6 @@ export const addBossData = (bossData) => {
     batch.set(docRef, boss);
   });
 
-  console.log("Batch with boss data", bossData)
-
   return batch.commit();
 };
 
@@ -109,7 +107,17 @@ export const useFetchBosses = () => {
         const checksSnapshot = await firebase.firestore().collection('checks').get();
         const checks = checksSnapshot.docs.map((doc) => doc.data());
 
-        setBosses(addChecksIntoBosses(bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })), checks));
+        const updatedBosses = addChecksIntoBosses(
+          bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })),
+          checks
+        );
+
+        const updatedBossesWithChance = await Promise.all(updatedBosses.map(async (boss) => {
+          const calculatedBoss = await calculateBossChance(boss);
+          return { ...boss, chance: calculatedBoss?.chance || "No" };
+        }));
+        
+        setBosses(updatedBossesWithChance);
 
         return () => {
           unsubscribeChecks();
@@ -124,6 +132,7 @@ export const useFetchBosses = () => {
 
   return bosses;
 };
+
 
 export const saveKillStatisticsToFirestore = async () => {
   try {
@@ -159,7 +168,6 @@ export const fetchBossesLastDayKilled = async () => {
       .limit(1)
       .get();
 
-      console.log("killStatisticsQuerySnapshot", killStatisticsQuerySnapshot)
     if (killStatisticsQuerySnapshot.empty) {
       console.log('No kill statistics found.');
       return [];
@@ -185,8 +193,6 @@ export const fetchBossesLastDayKilled = async () => {
         });
       }
     });
-
-    console.log('Bosses Last Day Killed:', bossKills);
     return bossKills;
   } catch (error) {
     console.error('Error fetching bosses last day killed:', error);
@@ -200,7 +206,10 @@ export const getDaysSinceLastKill = async () => {
 
     // Fetch all boss documents from the 'bosses' collection
     const bossesQuerySnapshot = await firestore.collection('bosses').get();
-    const bossesData = bossesQuerySnapshot.docs.map((doc) => doc.data());
+    const bossesData = bossesQuerySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
     
     // Fetch the kill statistics from Firestore
     const killStatisticsQuerySnapshot = await firestore.collection('killStatistics').get();
@@ -238,7 +247,7 @@ export const getDaysSinceLastKill = async () => {
   }
 };
 
-export const calculateBossChance = async () => {
+export const calculateBossChance = async (bossObject) => {
   try {
     const bossKills = await getDaysSinceLastKill();
     const calculatedBosses = bossKills.map((bossKill) => {
@@ -259,12 +268,19 @@ export const calculateBossChance = async () => {
         return { ...boss, chance: 'No', daysSinceLastKill };
       }
     });
-    console.log("Calculated Bosses", calculatedBosses)
+
+    if (bossObject) {
+      const filteredBoss = calculatedBosses.filter(
+        (boss) => boss.id === bossObject.id
+      );
+      return filteredBoss.length > 0 ? filteredBoss[0] : null;
+    }
+
+    console.log("calculateBossChance", calculatedBosses.chance)
     return calculatedBosses;
   } catch (error) {
     console.error('Error calculating boss chance:', error);
     return [];
   }
 };
-
 

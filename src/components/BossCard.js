@@ -70,11 +70,11 @@ const BossCard = ({ boss, handleCheck }) => {
     // Function to get the chance image based on the chance color
     const getChanceImage = () => {
         switch (boss?.chance) {
-            case 'high':
+            case 'High':
                 return highChanceImage;
-            case 'medium':
+            case 'Medium':
                 return mediumChanceImage;
-            case 'low':
+            case 'No':
             default:
                 return lowChanceImage;
         }
