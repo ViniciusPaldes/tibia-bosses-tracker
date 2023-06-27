@@ -64,7 +64,7 @@ export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
   try {
     // Create a new Firestore document reference for the check
     const checkRef = db.collection('checks').doc();
-    
+
     // Create the check object with the provided data
     const checkData = {
       userId,
@@ -141,6 +141,46 @@ export const saveKillStatisticsToFirestore = async () => {
     console.log('Kill statistics saved to Firestore.');
   } catch (error) {
     console.error('Error saving kill statistics to Firestore:', error);
+  }
+};
+
+export const fetchBossesLastDayKilled = async () => {
+  try {
+    const firestore = firebase.firestore();
+
+    // Fetch all boss documents from the 'bosses' collection
+    const bossesQuerySnapshot = await firestore.collection('bosses').get();
+    const bossesData = bossesQuerySnapshot.docs.map((doc) => doc.data());
+
+    // Fetch the kill statistics from Firestore
+    const killStatisticsQuerySnapshot = await firestore.collection('killStatistics').get();
+    const bossKills = [];
+
+    killStatisticsQuerySnapshot.forEach((doc) => {
+      const killStatistic = doc.data().data.killstatistics;
+
+      if (killStatistic && killStatistic.entries) {
+        killStatistic.entries.forEach((entry) => {
+          const bossName = entry.race.toLowerCase().trim();
+
+          // Find the boss in the 'bosses' data with matching name
+          const boss = bossesData.find((boss) => boss.name.toLowerCase().trim() === bossName);
+
+          if (boss) {
+            bossKills.push({
+              bossName: boss.name,
+              lastDayKilled: entry.last_day_killed,
+            });
+          }
+        });
+      }
+    });
+
+    console.log('Bosses Last Day Killed:', bossKills);
+    return bossKills;
+  } catch (error) {
+    console.error('Error fetching bosses last day killed:', error);
+    return [];
   }
 };
 
