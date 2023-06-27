@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import highChanceImage from '../assets/high_chance.png';
 import mediumChanceImage from '../assets/medium_chance.png';
 import lowChanceImage from '../assets/no_chance.png';
+import { getMostRecentTimestamp } from '../services/date';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BossCard = ({ boss, handleCheck, getMostRecentTimestamp, getChanceColor }) => {
+const BossCard = ({ boss, handleCheck }) => {
     const classes = useStyles();
 
     // Function to get the chance image based on the chance color
