@@ -24,7 +24,7 @@ const AdminPage = () => {
   }
   
   const handleBossesJson = async () => {
-    const bosses = await getBossesFromFirestore()
+    // const bosses = await getBossesFromFirestore()
   }
 
   return (

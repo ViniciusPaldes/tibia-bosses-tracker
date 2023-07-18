@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainAppBar from './components/MainAppBar';
-import BossDetail from './components/BossDetail';
-import AdminPage from './components/AdminPage';
+// import BossDetail from './components/BossDetail';
+// import AdminPage from './components/AdminPage';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './screen/Home';
 import Sidebar from './screen/Sidebar';
-import DependencyList from './components/DependencyList';
+// import DependencyList from './components/DependencyList';
 
 const theme = createMuiTheme({
   typography: {
