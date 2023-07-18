@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFetchBosses } from '../services/firebase';
-import { Card, CardContent, Typography, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
+import { Card, CardContent, Typography, ListItemAvatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({

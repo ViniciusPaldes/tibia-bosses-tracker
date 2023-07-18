@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { fetchBossesLastDayKilled } from '../services/firebase';
-import BossCard from './BossCard';
 import KilledBossItem from './KilledBossItem';
 import Button from '@material-ui/core/Button';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
