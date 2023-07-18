@@ -1,494 +1,712 @@
 [
     {
-        "type": "Rookgaard",
-        "city": "Rookgaard",
-        "infoUrl": "https://tibia.fandom.com/wiki/Rottie_the_Rotworm",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b7999a89-cdfe-4970-8099-8df7e2463ccf.gif",
-        "name": "Rottie The Rotworm"
-    },
-    {
-        "type": "Rookgaard",
-        "city": "Rookgaard",
-        "infoUrl": "https://tibia.fandom.com/wiki/Teleskor",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/301bb375-da77-44a2-94c6-37afa16de1d0.gif",
-        "name": "Teleskor"
-    },
-    {
-        "type": "Rookgaard",
-        "city": "Rookgaard",
-        "infoUrl": "https://tibia.fandom.com/wiki/Apprentice_Sheng",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b2e02105-94ce-4f31-8fa9-defaba747869.gif",
-        "name": "Apprentice Sheng"
-    },
-    {
-        "type": "Rookgaard",
-        "city": "Rookgaard",
-        "infoUrl": "https://tibia.fandom.com/wiki/Munster",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/db26d1b2-0b29-4f9d-af8e-a615258bc490.gif",
-        "name": "Munster"
-    },
-    {
-        "type": "Vampire Lords",
-        "city": "Darashia",
-        "latlong": "32968,32400,12:2",
-        "infoUrl": "https://tibia.fandom.com/wiki/Arachir_the_Ancient_One",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/5d787796-0c6f-4178-80a3-b6b9889f9160.gif",
-        "name": "Arachir The Ancient One"
-    },
-    {
-        "type": "Vampire Lords",
-        "city": "Liberty Bay",
-        "latlong": "32008,32795,10:4",
-        "infoUrl": "https://tibia.fandom.com/wiki/Diblis_the_Fair",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/a26be308-3010-47da-ae6f-fa5e30072024.gif",
-        "name": "Diblis The Fair"
-    },
-    {
-        "type": "Vampire Lords",
-        "city": "Edron",
-        "latlong": "33270,31770,10:4",
-        "infoUrl": "https://www.tibiawiki.com.br/wiki/Sir_Valorcrest",
-        "image": "https://www.tibiawiki.com.br/images/3/32/Sir_Valorcrest.gif",
-        "name": "Sir Valorcrest"
-    },
-    {
-        "type": "Vampire Lords",
-        "city": "Darashia",
-        "latlong": "32973,32420,15:2",
-        "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Pale_Count",
-        "image": "https://www.tibiawiki.com.br/images/1/11/The_Pale_Count.gif",
-        "name": "The Pale Count"
-    },
-    {
-        "type": "Vampire Lords",
-        "infoUrl": "https://tibia.fandom.com/wiki/Zevelon_Duskbringer",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/90d5651b-8f34-4dda-bb46-9f69d27889a7.gif",
-        "name": "Zevelon Duskbringer"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Yaga_the_Crone",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/13235148-b2c2-4ffd-87c5-8445eb862fed.gif",
-        "name": "Yaga The Crone"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Zarabustor",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/c0e515a4-3d35-45d0-b9c6-9af72b6d9188.gif",
-        "name": "Zarabustor"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Captain_Jones",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/f1cd1723-b2d1-4153-9d1f-ca37ed2128e8.gif",
-        "name": "Captain Jones"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Smuggler_Baron_Silvertoe",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/227e07cf-d39c-4e0b-97bb-c80cdd4bcd0d.gif",
-        "name": "Smuggler Baron Silvertoe"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Furyosa",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/53596fd9-58db-4159-a8a8-f67f43506886.gif",
-        "name": "Furyosa"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Man_in_the_Cave",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e8cc767b-2cf1-4c04-aa06-7005093b77ce.gif",
-        "name": "Man In The Cave"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Barbaria",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/dfa6913d-c979-4e83-a27f-f2f7a864ddc9.gif",
-        "name": "Barbaria"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Fernfang",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/524ff4a0-cb9d-4601-8e0f-c1a70653d52c.gif",
-        "name": "Fernfang"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Grandfather_Tridian",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/a23ad201-41aa-4c9d-a9f2-166fbe8decce.gif",
-        "name": "Grandfather Tridian"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Rukor_Zad",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e4aaed64-f6e6-48ba-af0d-fffaac16314c.gif",
-        "name": "Rukor Zad"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Tzumrah_the_Dazzler",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4768dd14-c0fa-457b-894c-af61174c0afc.gif",
-        "name": "Tzumrah The Dazzler"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Xenia",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/5b4265f0-dc15-4b40-ba7c-f1b615f64e8d.gif",
-        "name": "Xenia"
-    },
-    {
-        "type": "Humans Heroes",
-        "infoUrl": "https://tibia.fandom.com/wiki/Zushuka",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/8b20c478-023b-45b4-87c0-3f6d4837fd94.gif",
-        "name": "Zushuka"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Cublarc_the_Plunderer",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/0d24b350-543b-4033-a02f-31d9ea73d6b9.gif",
-        "name": "Cublarc The Plunderer"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Warlord_Ruzad",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/6fa9426c-ade6-4885-b8de-a476d4fae12c.gif",
-        "name": "Warlord Ruzad"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Foreman_Kneebiter",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/268418b2-ad3d-433c-8535-0931ec255ed2.gif",
-        "name": "Foreman Kneebiter"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Battlemaster_Zunzu",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/736340a5-dd21-4e9d-b37b-33325907ece3.gif",
-        "name": "Battlemaster Zunzu"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Zulazza_the_Corruptor",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4718f002-2977-4cb7-ad5e-cd21515fd5bf.gif",
-        "name": "Zulazza The Corruptor"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Big_Boss_Trolliver",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4ad306e4-cc97-4de8-87fc-4fa231446e47.gif",
-        "name": "Big Boss Trolliver"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Voice_Of_Ruin",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/879e8c09-41af-435a-bda4-b8b25ce08075.gif",
-        "name": "The Voice Of Ruin"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/High_Templar_Cobrass",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ed98859a-c5b2-4db3-b677-08977c6ab496.gif",
-        "name": "High Templar Cobrass"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Dharalion",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/5176fa58-5dee-490d-a86b-56f7de5f7025.gif",
-        "name": "Dharalion"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Flamecaller_Zazrak",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/a2f0a291-1649-46a8-b991-55d2e59a9076.gif",
-        "name": "Flamecaller Zazrak"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/General_Murius",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/11882922-a1f7-4b0d-bd29-58ae42f315c4.gif",
-        "name": "General Murius"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Gravelord_Oshuran",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/7032dee9-3c3d-4a5c-9e8e-c2848428b6d6.gif",
-        "name": "Gravelord Oshuran"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/Ocyakao",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/700b3565-fa16-4db0-af88-8415a24d7d38.gif",
-        "name": "Ocyakao"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Evil_Eye",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/7170c24d-5636-4488-b866-4d51232685a7.gif",
-        "name": "The Evil Eye"
-    },
-    {
-        "type": "Tribe Chiefs",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Old_Whopper",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/29276205-a124-44f5-b35b-671efb9541ab.gif",
-        "name": "The Old Whopper"
-    },
-    {
-        "type": "Pits of Inferno Leaders",
-        "infoUrl": "https://tibia.fandom.com/wiki/Countess_Sorrow",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/c4ca15bd-fb43-4cf5-8f96-b9b1d08d7e3c.gif",
-        "name": "Countess Sorrow"
-    },
-    {
-        "type": "Pits of Inferno Leaders",
-        "infoUrl": "https://tibia.fandom.com/wiki/Mr._Punish",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/40755d2f-c0d5-43db-a329-3ddfb24ef0c3.gif",
-        "name": "Mr. Punish"
-    },
-    {
-        "type": "Pits of Inferno Leaders",
-        "infoUrl": "https://tibia.fandom.com/wiki/Dracola",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/6ec710d9-1b07-4c2f-aacc-9827b2cd1f8e.gif",
-        "name": "Dracola"
-    },
-    {
-        "type": "Pits of Inferno Leaders",
-        "infoUrl": "https://tibia.fandom.com/wiki/Massacre",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/bd8afa3c-dfad-476a-b3de-231c76f2fd5a.gif",
-        "name": "Massacre"
-    },
-    {
-        "type": "Pits of Inferno Leaders",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Handmaiden",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/43ba5f8f-d3ae-4779-a0f4-c150f83295a0.gif",
-        "name": "The Handmaiden"
-    },
-    {
-        "type": "Pits of Inferno Leaders",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Imperor",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e19e976c-6912-41f5-bf4c-3a5a1ca17e7a.gif",
-        "name": "The Imperor"
-    },
-    {
-        "type": "Pits of Inferno Leaders",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Plasmother",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/f86d7462-7cc7-4199-82b5-4f6761988428.gif",
-        "name": "The Plasmother"
-    },
-    {
-        "type": "Loyal Partners",
-        "infoUrl": "https://tibia.fandom.com/wiki/Midnight_Panther",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/2915de96-c118-4ed2-9d77-17e5ffdb8e67.gif",
-        "name": "Midnight Panther"
-    },
-    {
-        "type": "Loyal Partners",
-        "infoUrl": "https://tibia.fandom.com/wiki/Undead_Cavebear",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/00134742-0ba7-4887-94b7-b8a5b0aa5e07.gif",
-        "name": "Undead Cavebear"
-    },
-    {
-        "type": "Loyal Partners",
-        "infoUrl": "https://tibia.fandom.com/wiki/Draptor",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/947dcf92-4e89-46e6-a8b4-2a3fb7af0562.gif",
-        "name": "Draptor (WOTE)"
-    },
-    {
-        "type": "Loyal Partners",
-        "infoUrl": "https://tibia.fandom.com/wiki/Zao_Raids#Dragons_raid_on_Muggy_Plains",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/24e8f143-3237-450d-8373-48c54cfc89c9.gif",
-        "name": "Grand Mother Foulscale and Draptor Raid (Zao)"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Grorlam",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/31ce36da-ea81-4d5c-b9ba-9f057a9296e5.gif",
-        "name": "Grorlam"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Zomba",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/fc0890cf-14ff-497d-b6a4-c495b5dec01d.gif",
-        "name": "Zomba"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Hatebreeder",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/064c69d5-2dab-416e-9a27-a04fb75f12a4.gif",
-        "name": "Hatebreeder"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Willi_Wasp",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e8480db3-c795-479a-8733-fe97041d1db3.gif",
-        "name": "Willi Wasp"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Rotworm_Queen",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
-        "name": "Rotworm Queen"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Hairman_the_Huge",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/868141c7-6f49-4f82-aaa5-86dc665445b2.gif",
-        "name": "Hairman The Huge"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Dreadmaw",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/7e3d9e1a-bc66-4a80-8bbe-2e2cd2e8ae21.gif",
-        "name": "Dreadmaw"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Weakened_Shlorg",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/030ca5ac-0bc1-4d40-bb8d-122b447cf0f8.gif",
-        "name": "Shlorg"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Big_Bad_One",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/f4348c8e-caf1-4056-b81a-cd50c199db68.gif",
-        "name": "The Big Bad One"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Tyrn",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/9eac848a-924e-4d76-8a88-b7627e853993.gif",
-        "name": "Tyrn"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/White_Pale",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ba92016c-60a5-45b3-a7f2-81dadff772b3.gif",
-        "name": "White Pale"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Hirintror",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/39d153ac-2835-4253-b6b1-c8dce3e021ce.gif",
-        "name": "Hirintror"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Fleabringer",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/16c05ee9-a84c-41e4-af85-af188848d8bf.gif",
-        "name": "Fleabringer"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Grorlam",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/31ce36da-ea81-4d5c-b9ba-9f057a9296e5.gif",
-        "name": "Grorlam"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Fleabringer",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/16c05ee9-a84c-41e4-af85-af188848d8bf.gif",
-        "name": "Fleabringer"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Fleabringer",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/16c05ee9-a84c-41e4-af85-af188848d8bf.gif",
-        "name": "Fleabringer"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Grorlam",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/31ce36da-ea81-4d5c-b9ba-9f057a9296e5.gif",
-        "name": "Grorlam"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Hirintror",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/39d153ac-2835-4253-b6b1-c8dce3e021ce.gif",
-        "name": "Hirintror"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Rotworm_Queen",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
-        "name": "Rotworm Queen"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Rotworm_Queen",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
-        "name": "Rotworm Queen"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Rotworm_Queen",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
-        "name": "Rotworm Queen"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Blightfather",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/d4f2e1b9-7545-4256-88a3-b10802062b21.gif",
-        "name": "The Blightfather"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Frog_Prince",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/87b9df43-c3ff-4818-8275-f6b95c003f69.gif",
-        "name": "The Frog Prince"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/The_Welter",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/55063d78-60a8-46d5-9053-97a9256ea145.gif",
-        "name": "The Welter"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/Tyrn",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/9eac848a-924e-4d76-8a88-b7627e853993.gif",
-        "name": "Tyrn"
-    },
-    {
-        "type": "Inbred Beasts",
-        "infoUrl": "https://tibia.fandom.com/wiki/White_Pale",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ba92016c-60a5-45b3-a7f2-81dadff772b3.gif",
-        "name": "White Pale"
-    },
-    {
-        "type": "Cultism Worship",
-        "infoUrl": "https://tibia.fandom.com/wiki/Ferumbras",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ec5c24ef-0bcf-4af7-9135-1fe9829ffd2a.gif",
-        "name": "Ferumbras"
-    },
-    {
-        "type": "Cultism Worship",
-        "infoUrl": "https://tibia.fandom.com/wiki/Ghazbaran",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/c0bfcaf4-61b8-4162-88fd-05fff48eb98f.gif",
-        "name": "Ghazbaran"
-    },
-    {
-        "type": "Cultism Worship",
-        "infoUrl": "https://tibia.fandom.com/wiki/Morgaroth",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e27c20b5-52a6-4c44-9da0-e3c3e20c4d98.gif",
-        "name": "Morgaroth"
-    },
-    {
-        "type": "Cultism Worship",
-        "infoUrl": "https://tibia.fandom.com/wiki/Orshabaal",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e98f937d-1f92-4c71-a4c2-0af6cb4b2deb.gif",
-        "name": "Orshabaal"
-    },
-    {
-        "type": "Prison Rulers",
-        "infoUrl": "https://tibia.fandom.com/wiki/Omrafir",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e7a67a03-4706-4da1-b359-02906fc44242.gif",
-        "name": "Omrafir"
-    },
-    {
-        "type": "Prison Rulers",
-        "infoUrl": "https://tibia.fandom.com/wiki/Gaz%27haragoth",
-        "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/640544df-0740-42bf-b2e2-2952fb9d0cc0.gif",
-        "name": "Gaz'Haragoth"
+      "starting_day": 3,
+      "type": "Cultism Worship",
+      "end_day": 7,
+      "name": "Morgaroth",
+      "city": "Liberty Bay",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e27c20b5-52a6-4c44-9da0-e3c3e20c4d98.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Morgaroth"
+    },
+    {
+      "name": "Ghazbaran",
+      "end_day": 7,
+      "city": "Svargrond",
+      "type": "Cultism Worship",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Ghazbaran",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/c0bfcaf4-61b8-4162-88fd-05fff48eb98f.gif",
+      "starting_day": 3
+    },
+    {
+      "starting_day": 3,
+      "name": "Ferumbras",
+      "end_day": 7,
+      "city": "Liberty Bay",
+      "type": "Cultism Worship",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ec5c24ef-0bcf-4af7-9135-1fe9829ffd2a.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Ferumbras"
+    },
+    {
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e98f937d-1f92-4c71-a4c2-0af6cb4b2deb.gif",
+      "name": "Orshabaal",
+      "city": "Edron",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Orshabaal",
+      "end_day": 7,
+      "type": "Cultism Worship"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/227e07cf-d39c-4e0b-97bb-c80cdd4bcd0d.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Smuggler_Baron_Silvertoe",
+      "end_day": 7,
+      "starting_day": 3,
+      "type": "Humans Heroes",
+      "city": "Port Hope",
+      "name": "Smuggler Baron Silvertoe"
+    },
+    {
+      "name": "Fernfang",
+      "end_day": 7,
+      "city": "Venore",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Fernfang",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/524ff4a0-cb9d-4601-8e0f-c1a70653d52c.gif",
+      "type": "Humans Heroes",
+      "starting_day": 3
+    },
+    {
+      "name": "Captain Jones",
+      "type": "Humans Heroes",
+      "city": "Darashia",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Captain_Jones",
+      "end_day": 3,
+      "starting_day": 1,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/f1cd1723-b2d1-4153-9d1f-ca37ed2128e8.gif"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Grandfather_Tridian",
+      "type": "Humans Heroes",
+      "city": "Liberty Bay",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/a23ad201-41aa-4c9d-a9f2-166fbe8decce.gif",
+      "starting_day": 3,
+      "name": "Grandfather Tridian",
+      "end_day": 7
+    },
+    {
+      "starting_day": 3,
+      "name": "Zushuka",
+      "end_day": 7,
+      "city": "Svargrond",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/8b20c478-023b-45b4-87c0-3f6d4837fd94.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Zushuka",
+      "type": "Humans Heroes"
+    },
+    {
+      "starting_day": 3,
+      "type": "Humans Heroes",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Tzumrah_the_Dazzler",
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4768dd14-c0fa-457b-894c-af61174c0afc.gif",
+      "name": "Tzumrah The Dazzler",
+      "city": "Ankrahmun"
+    },
+    {
+      "end_day": 7,
+      "starting_day": 3,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Zarabustor",
+      "type": "Humans Heroes",
+      "name": "Zarabustor",
+      "city": "Ab'dendriel",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/c0e515a4-3d35-45d0-b9c6-9af72b6d9188.gif"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Yaga_the_Crone",
+      "type": "Humans Heroes",
+      "name": "Yaga The Crone",
+      "city": "Venore",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/13235148-b2c2-4ffd-87c5-8445eb862fed.gif",
+      "starting_day": 3,
+      "end_day": 7
+    },
+    {
+      "starting_day": 3,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Rukor_Zad",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e4aaed64-f6e6-48ba-af0d-fffaac16314c.gif",
+      "end_day": 7,
+      "type": "Humans Heroes",
+      "name": "Rukor Zad",
+      "city": "Venore"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Xenia",
+      "name": "Xenia",
+      "city": "Venore",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/5b4265f0-dc15-4b40-ba7c-f1b615f64e8d.gif",
+      "starting_day": 3,
+      "end_day": 7,
+      "type": "Humans Heroes"
+    },
+    {
+      "type": "Humans Heroes",
+      "starting_day": 3,
+      "name": "Man In The Cave",
+      "city": "Svargrond",
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e8cc767b-2cf1-4c04-aa06-7005093b77ce.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Man_in_the_Cave"
+    },
+    {
+      "name": "Barbaria",
+      "type": "Humans Heroes",
+      "city": "Svargrond",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/dfa6913d-c979-4e83-a27f-f2f7a864ddc9.gif",
+      "starting_day": 3,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Barbaria",
+      "end_day": 7
+    },
+    {
+      "type": "Humans Heroes",
+      "starting_day": 3,
+      "name": "Furyosa",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/53596fd9-58db-4159-a8a8-f67f43506886.gif",
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Furyosa"
+    },
+    {
+      "name": "Willi Wasp",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Willi_Wasp",
+      "type": "Inbred Beasts",
+      "end_day": 7,
+      "starting_day": 3,
+      "city": "Ab'dendriel",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e8480db3-c795-479a-8733-fe97041d1db3.gif"
+    },
+    {
+      "type": "Inbred Beasts",
+      "starting_day": 3,
+      "name": "The Big Bad One",
+      "city": "Edron",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Big_Bad_One",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/f4348c8e-caf1-4056-b81a-cd50c199db68.gif",
+      "end_day": 7
+    },
+    {
+      "type": "Inbred Beasts",
+      "name": "Hatebreeder",
+      "city": "Zao",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Hatebreeder",
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/064c69d5-2dab-416e-9a27-a04fb75f12a4.gif",
+      "end_day": 7
+    },
+    {
+      "starting_day": 3,
+      "type": "Inbred Beasts",
+      "name": "Shlorg",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/030ca5ac-0bc1-4d40-bb8d-122b447cf0f8.gif",
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Weakened_Shlorg"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/31ce36da-ea81-4d5c-b9ba-9f057a9296e5.gif",
+      "name": "Grorlam",
+      "end_day": 7,
+      "city": "Thais",
+      "type": "Inbred Beasts",
+      "starting_day": 3,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Grorlam"
+    },
+    {
+      "name": "Fleabringer",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/16c05ee9-a84c-41e4-af85-af188848d8bf.gif",
+      "end_day": 7,
+      "type": "Inbred Beasts",
+      "city": "Zao",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Fleabringer",
+      "starting_day": 3
+    },
+    {
+      "starting_day": 3,
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/31ce36da-ea81-4d5c-b9ba-9f057a9296e5.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Grorlam",
+      "type": "Inbred Beasts",
+      "name": "Grorlam",
+      "city": "Thais"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/39d153ac-2835-4253-b6b1-c8dce3e021ce.gif",
+      "name": "Hirintror",
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Hirintror",
+      "starting_day": 3,
+      "city": "Svargrond",
+      "type": "Inbred Beasts"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/16c05ee9-a84c-41e4-af85-af188848d8bf.gif",
+      "starting_day": 3,
+      "type": "Inbred Beasts",
+      "end_day": 7,
+      "name": "Fleabringer",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Fleabringer"
+    },
+    {
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
+      "name": "Rotworm Queen",
+      "city": "Ab'dendriel",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Rotworm_Queen",
+      "starting_day": 3,
+      "type": "Inbred Beasts"
+    },
+    {
+      "type": "Inbred Beasts",
+      "starting_day": 3,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Blightfather",
+      "end_day": 7,
+      "name": "The Blightfather",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/d4f2e1b9-7545-4256-88a3-b10802062b21.gif"
+    },
+    {
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/16c05ee9-a84c-41e4-af85-af188848d8bf.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Fleabringer",
+      "end_day": 7,
+      "type": "Inbred Beasts",
+      "name": "Fleabringer"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Grorlam",
+      "name": "Grorlam",
+      "end_day": 7,
+      "city": "Thais",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/31ce36da-ea81-4d5c-b9ba-9f057a9296e5.gif",
+      "starting_day": 3,
+      "type": "Inbred Beasts"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Tyrn",
+      "starting_day": 3,
+      "name": "Tyrn",
+      "city": "Darashia",
+      "end_day": 7,
+      "type": "Inbred Beasts",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/9eac848a-924e-4d76-8a88-b7627e853993.gif"
+    },
+    {
+      "type": "Inbred Beasts",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
+      "starting_day": 3,
+      "name": "Rotworm Queen",
+      "city": "Liberty Bay",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Rotworm_Queen",
+      "end_day": 7
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ba92016c-60a5-45b3-a7f2-81dadff772b3.gif",
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/White_Pale",
+      "starting_day": 3,
+      "type": "Inbred Beasts",
+      "city": "Darashia",
+      "name": "White Pale"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
+      "type": "Inbred Beasts",
+      "starting_day": 3,
+      "end_day": 7,
+      "name": "Rotworm Queen",
+      "city": "Darashia",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Rotworm_Queen"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4f0090fa-a692-4a56-8799-47dbf09bbabf.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Rotworm_Queen",
+      "name": "Rotworm Queen",
+      "starting_day": 3,
+      "city": "Edron",
+      "type": "Inbred Beasts",
+      "end_day": 7
+    },
+    {
+      "type": "Inbred Beasts",
+      "end_day": 7,
+      "starting_day": 3,
+      "name": "Tyrn",
+      "city": "Liberty Bay",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/9eac848a-924e-4d76-8a88-b7627e853993.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Tyrn"
+    },
+    {
+      "name": "Zomba",
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/fc0890cf-14ff-497d-b6a4-c495b5dec01d.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Zomba",
+      "type": "Inbred Beasts",
+      "city": "Darashia",
+      "end_day": 7
+    },
+    {
+      "starting_day": 3,
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/55063d78-60a8-46d5-9053-97a9256ea145.gif",
+      "type": "Inbred Beasts",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Welter",
+      "name": "The Welter",
+      "city": "Port Hope"
+    },
+    {
+      "starting_day": 3,
+      "type": "Inbred Beasts",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Dreadmaw",
+      "name": "Dreadmaw",
+      "city": "Zao",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/7e3d9e1a-bc66-4a80-8bbe-2e2cd2e8ae21.gif",
+      "end_day": 7
+    },
+    {
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/868141c7-6f49-4f82-aaa5-86dc665445b2.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Hairman_the_Huge",
+      "name": "Hairman The Huge",
+      "city": "Port Hope",
+      "type": "Inbred Beasts",
+      "end_day": 7
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ba92016c-60a5-45b3-a7f2-81dadff772b3.gif",
+      "name": "White Pale",
+      "starting_day": 3,
+      "type": "Inbred Beasts",
+      "end_day": 7,
+      "city": "Liberty Bay",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/White_Pale"
+    },
+    {
+      "end_day": 7,
+      "type": "Inbred Beasts",
+      "starting_day": 3,
+      "name": "The Frog Prince",
+      "city": "Thais",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Frog_Prince",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/87b9df43-c3ff-4818-8275-f6b95c003f69.gif"
+    },
+    {
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Hirintror",
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/39d153ac-2835-4253-b6b1-c8dce3e021ce.gif",
+      "name": "Hirintror",
+      "city": "Svargrond",
+      "type": "Inbred Beasts"
+    },
+    {
+      "end_day": 7,
+      "name": "Draptor (WOTE)",
+      "type": "Loyal Partners",
+      "city": "Zao",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Draptor",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/947dcf92-4e89-46e6-a8b4-2a3fb7af0562.gif",
+      "starting_day": 3
+    },
+    {
+      "end_day": 7,
+      "name": "Undead Cavebear",
+      "type": "Loyal Partners",
+      "city": "Liberty Bay",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Undead_Cavebear",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/00134742-0ba7-4887-94b7-b8a5b0aa5e07.gif",
+      "starting_day": 3
+    },
+    {
+      "name": "Midnight Panther",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Midnight_Panther",
+      "starting_day": 3,
+      "type": "Loyal Partners",
+      "city": "Port Hope",
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/2915de96-c118-4ed2-9d77-17e5ffdb8e67.gif"
+    },
+    {
+      "type": "Loyal Partners",
+      "starting_day": 3,
+      "name": "Grand Mother Foulscale",
+      "end_day": 7,
+      "city": "Zao",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/24e8f143-3237-450d-8373-48c54cfc89c9.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Zao_Raids#Dragons_raid_on_Muggy_Plains"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/6ec710d9-1b07-4c2f-aacc-9827b2cd1f8e.gif",
+      "end_day": 7,
+      "city": "Venore",
+      "name": "Dracola",
+      "type": "Pits of Inferno Leaders",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Dracola",
+      "starting_day": 3
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Imperor",
+      "type": "Pits of Inferno Leaders",
+      "name": "The Imperor",
+      "city": "Venore",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e19e976c-6912-41f5-bf4c-3a5a1ca17e7a.gif",
+      "end_day": 7,
+      "starting_day": 3
+    },
+    {
+      "type": "Pits of Inferno Leaders",
+      "name": "The Plasmother",
+      "starting_day": 3,
+      "city": "Venore",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/f86d7462-7cc7-4199-82b5-4f6761988428.gif",
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Plasmother"
+    },
+    {
+      "name": "The Handmaiden",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/43ba5f8f-d3ae-4779-a0f4-c150f83295a0.gif",
+      "type": "Pits of Inferno Leaders",
+      "end_day": 7,
+      "starting_day": 3,
+      "city": "Venore",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Handmaiden"
+    },
+    {
+      "starting_day": 3,
+      "name": "Mr. Punish",
+      "city": "Venore",
+      "type": "Pits of Inferno Leaders",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/40755d2f-c0d5-43db-a329-3ddfb24ef0c3.gif",
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Mr._Punish"
+    },
+    {
+      "name": "Countess Sorrow",
+      "type": "Pits of Inferno Leaders",
+      "city": "Venore",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/c4ca15bd-fb43-4cf5-8f96-b9b1d08d7e3c.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Countess_Sorrow",
+      "end_day": 7,
+      "starting_day": 3
+    },
+    {
+      "starting_day": 3,
+      "name": "Massacre",
+      "end_day": 7,
+      "city": "Venore",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Massacre",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/bd8afa3c-dfad-476a-b3de-231c76f2fd5a.gif",
+      "type": "Pits of Inferno Leaders"
+    },
+    {
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/640544df-0740-42bf-b2e2-2952fb9d0cc0.gif",
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Gaz%27haragoth",
+      "name": "Gaz'Haragoth",
+      "type": "Prison Rulers"
+    },
+    {
+      "name": "Omrafir",
+      "end_day": 7,
+      "city": "Edron",
+      "type": "Prison Rulers",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Omrafir",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/e7a67a03-4706-4da1-b359-02906fc44242.gif",
+      "starting_day": 3
+    },
+    {
+      "starting_day": 3,
+      "end_day": 7,
+      "type": "Rookgaard",
+      "name": "Apprentice Sheng",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b2e02105-94ce-4f31-8fa9-defaba747869.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Apprentice_Sheng"
+    },
+    {
+      "starting_day": 3,
+      "name": "Teleskor",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Teleskor",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/301bb375-da77-44a2-94c6-37afa16de1d0.gif",
+      "end_day": 7,
+      "type": "Rookgaard"
+    },
+    {
+      "type": "Rookgaard",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/db26d1b2-0b29-4f9d-af8e-a615258bc490.gif",
+      "end_day": 7,
+      "name": "Munster",
+      "starting_day": 3,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Munster"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Rottie_the_Rotworm",
+      "name": "Rottie The Rotworm",
+      "type": "Rookgaard",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b7999a89-cdfe-4970-8099-8df7e2463ccf.gif",
+      "starting_day": 3,
+      "end_day": 7
+    },
+    {
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/7032dee9-3c3d-4a5c-9e8e-c2848428b6d6.gif",
+      "name": "Gravelord Oshuran",
+      "city": "Darashia",
+      "type": "Tribe Chiefs",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Gravelord_Oshuran",
+      "starting_day": 3
+    },
+    {
+      "starting_day": 3,
+      "end_day": 7,
+      "name": "High Templar Cobrass",
+      "city": "Port Hope",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/High_Templar_Cobrass",
+      "type": "Tribe Chiefs",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/ed98859a-c5b2-4db3-b677-08977c6ab496.gif"
+    },
+    {
+      "name": "General Murius",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/General_Murius",
+      "type": "Tribe Chiefs",
+      "city": "Thais",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/11882922-a1f7-4b0d-bd29-58ae42f315c4.gif",
+      "starting_day": 3,
+      "end_day": 7
+    },
+    {
+      "end_day": 7,
+      "type": "Tribe Chiefs",
+      "starting_day": 3,
+      "name": "The Evil Eye",
+      "city": "Ab'dendriel",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Evil_Eye",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/7170c24d-5636-4488-b866-4d51232685a7.gif"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Warlord_Ruzad",
+      "type": "Tribe Chiefs",
+      "end_day": 7,
+      "name": "Warlord Ruzad",
+      "city": "Venore",
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/6fa9426c-ade6-4885-b8de-a476d4fae12c.gif"
+    },
+    {
+      "starting_day": 3,
+      "end_day": 7,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Voice_Of_Ruin",
+      "name": "The Voice Of Ruin",
+      "city": "Zao",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/879e8c09-41af-435a-bda4-b8b25ce08075.gif",
+      "type": "Tribe Chiefs"
+    },
+    {
+      "name": "Big Boss Trolliver",
+      "city": "Edron",
+      "starting_day": 3,
+      "type": "Tribe Chiefs",
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4ad306e4-cc97-4de8-87fc-4fa231446e47.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Big_Boss_Trolliver"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/4718f002-2977-4cb7-ad5e-cd21515fd5bf.gif",
+      "type": "Tribe Chiefs",
+      "end_day": 7,
+      "starting_day": 3,
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Zulazza_the_Corruptor",
+      "city": "Zao",
+      "name": "Zulazza The Corruptor"
+    },
+    {
+      "end_day": 7,
+      "starting_day": 3,
+      "name": "Dharalion",
+      "city": "Venore",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/5176fa58-5dee-490d-a86b-56f7de5f7025.gif",
+      "type": "Tribe Chiefs",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Dharalion"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/29276205-a124-44f5-b35b-671efb9541ab.gif",
+      "name": "The Old Whopper",
+      "end_day": 7,
+      "city": "Edron",
+      "starting_day": 3,
+      "type": "Tribe Chiefs",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Old_Whopper"
+    },
+    {
+      "starting_day": 3,
+      "end_day": 7,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/0d24b350-543b-4033-a02f-31d9ea73d6b9.gif",
+      "name": "Cublarc The Plunderer",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Cublarc_the_Plunderer",
+      "type": "Tribe Chiefs"
+    },
+    {
+      "starting_day": 3,
+      "type": "Tribe Chiefs",
+      "name": "Flamecaller Zazrak",
+      "city": "Zao",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/a2f0a291-1649-46a8-b991-55d2e59a9076.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Flamecaller_Zazrak",
+      "end_day": 7
+    },
+    {
+      "name": "Foreman Kneebiter",
+      "end_day": 7,
+      "starting_day": 3,
+      "city": "Kazordoon",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/268418b2-ad3d-433c-8535-0931ec255ed2.gif",
+      "type": "Tribe Chiefs",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Foreman_Kneebiter"
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Battlemaster_Zunzu",
+      "starting_day": 3,
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/736340a5-dd21-4e9d-b37b-33325907ece3.gif",
+      "end_day": 7,
+      "type": "Tribe Chiefs",
+      "city": "Zao",
+      "name": "Battlemaster Zunzu"
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/700b3565-fa16-4db0-af88-8415a24d7d38.gif",
+      "type": "Tribe Chiefs",
+      "starting_day": 3,
+      "end_day": 7,
+      "city": "Svargrond",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Ocyakao",
+      "name": "Ocyakao"
+    },
+    {
+      "name": "The Pale Count",
+      "starting_day": 3,
+      "type": "Vampire Lords",
+      "city": "Darashia",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/The_Pale_Count",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/9d0b5e5f-3623-4ac5-90dd-82fe2c88808e.gif",
+      "end_day": 7
+    },
+    {
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/90d5651b-8f34-4dda-bb46-9f69d27889a7.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Zevelon_Duskbringer",
+      "type": "Vampire Lords",
+      "starting_day": 3,
+      "end_day": 7,
+      "city": "Ab'dendriel",
+      "name": "Zevelon Duskbringer"
+    },
+    {
+      "end_day": 7,
+      "type": "Vampire Lords",
+      "latlong": "32008,32795,10:4",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Diblis_the_Fair",
+      "city": "Liberty Bay",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/a26be308-3010-47da-ae6f-fa5e30072024.gif",
+      "name": "Diblis The Fair",
+      "starting_day": 3
+    },
+    {
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Arachir_the_Ancient_One",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/5d787796-0c6f-4178-80a3-b6b9889f9160.gif",
+      "name": "Arachir The Ancient One",
+      "type": "Vampire Lords",
+      "starting_day": 3,
+      "city": "Darashia",
+      "end_day": 7
+    },
+    {
+      "name": "Sir Valorcrest",
+      "city": "Edron",
+      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/3406c41b-01a3-4386-8e42-1d34e1084cf9.gif",
+      "infoUrl": "https://www.tibiawiki.com.br/wiki/Sir_Valorcrest",
+      "end_day": 7,
+      "type": "Vampire Lords",
+      "starting_day": 3
     }
-]
+  ]

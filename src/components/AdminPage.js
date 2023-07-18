@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import getBossesFromFirestore, {
   saveKillStatisticsToFirestore,
   fetchBossesLastDayKilled,
   getDaysSinceLastKill,
@@ -22,6 +22,10 @@ const AdminPage = () => {
   const handleChance = () => {
     calculateBossChance();
   }
+  
+  const handleBossesJson = async () => {
+    const bosses = await getBossesFromFirestore()
+  }
 
   return (
     <div>
@@ -35,6 +39,9 @@ const AdminPage = () => {
       </button>
       <button onClick={handleChance}>
         Get chance
+      </button>
+      <button onClick={handleBossesJson}>
+        Bosses in JSON from firebase
       </button>
     </div>
   );

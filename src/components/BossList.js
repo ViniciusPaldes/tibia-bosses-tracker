@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
   gridContainer: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: theme.spacing(2),
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: theme.spacing(1),
     justifyItems: 'center'
   },
   tableContainer: {
@@ -167,7 +167,7 @@ function BossesList() {
     setConfirmationOpen(false);
   };
 
-  // Organize bosses by type
+  // Organize bosses by type and order by chance
   const bossesByType = bosses.reduce((acc, boss) => {
     const bossType = boss.type;
     if (acc[bossType]) {
@@ -175,8 +175,14 @@ function BossesList() {
     } else {
       acc[bossType] = [boss];
     }
+    // Sort bosses within the same type by chance (descending order)
+    acc[bossType].sort((a, b) => {
+      return b.chance - a.chance;
+    });
     return acc;
   }, {});
+
+
 
   return (
     <div className={classes.main}>
@@ -197,11 +203,11 @@ function BossesList() {
       ))}
       <Dialog open={confirmDialogOpen} onClose={handleConfirmDialogClose}>
         <DialogTitle className={classes.dialogTitle}>
-          Confirm Boss Status
+          Confirmar status do Boss
         </DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <Typography variant="body1">
-            Did you defeat the boss "{selectedBoss?.name}"?
+            Você matou o boss: "{selectedBoss?.name}"?
           </Typography>
         </DialogContent>
         <DialogActions className={classes.dialogActions}>
@@ -212,7 +218,7 @@ function BossesList() {
             className={classes.confirmationButton}
             style={{ backgroundColor: '#006400', color: '#fff' }} // Dark green color for "Yes" button
           >
-            Yes
+            Sim
           </Button>
           <Button
             onClick={() => handleSave(false)}
@@ -221,7 +227,7 @@ function BossesList() {
             className={classes.confirmationButton}
             style={{ backgroundColor: '#dc143c', color: '#fff' }} // Dark red color for "No" button
           >
-            No
+            Não
           </Button>
         </DialogActions>
         <DialogActions className={classes.dialogActions} style={{ marginTop: '-2rem' }}>
@@ -232,7 +238,7 @@ function BossesList() {
             className={classes.confirmationButton}
             style={{ color: '#000' }} // Black color for "Cancel" button
           >
-            Cancel Check
+            Cancelar check
           </Button>
         </DialogActions>
       </Dialog>
@@ -241,13 +247,13 @@ function BossesList() {
         open={lootDialogOpen}
         onClose={handleLootDialogClose}
       >
-        <DialogTitle className={classes.dialogTitle}>Enter Loot</DialogTitle>
+        <DialogTitle className={classes.dialogTitle}>Informe o loot</DialogTitle>
         <DialogContent className={classes.dialogContent}>
-          <Typography variant="body1" >Enter the loot obtained:</Typography>
+          <Typography variant="body1" >Copie o loot do cliente do tibia:</Typography>
           <TextareaAutosize
             minRows={3}
             className={classes.lootTextarea}
-            placeholder="Enter loot..."
+            placeholder="Exemplo: 16:55:26 Loot of Zomba: 3 gold coins."
             value={lootText}
             onChange={(e) => setLootText(e.target.value)}
           />
@@ -257,10 +263,10 @@ function BossesList() {
             onClick={() => handleSave(true)} color="primary"
             variant="contained"
           >
-            Save
+            Salvar
           </Button>
           <Button onClick={handleLootDialogClose} color="primary">
-            Cancel
+            Cancelar
           </Button>
         </DialogActions>
       </Dialog>
