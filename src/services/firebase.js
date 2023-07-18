@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import bosses from './bosses.json';
+import axios from 'axios';
 import { useState, useEffect } from "react";
 const firebaseConfig = {
   apiKey: "AIzaSyCFsrRbVJgtrlZPZE3iJh5uKE8oHW657G8",
@@ -112,11 +113,17 @@ export const useFetchBosses = () => {
           checks
         );
 
-        const updatedBossesWithChance = await Promise.all(updatedBosses.map(async (boss) => {
-          const calculatedBoss = await calculateBossChance(boss);
-          return { ...boss, chance: calculatedBoss?.chance || "No" };
-        }));
-        
+        const response = await axios.get('https://api.simacheck.com/server/lore/Venebra');
+        const apiBosses = response.data || {}; // Set an empty object as default if the API response is undefined
+
+        const updatedBossesWithChance = updatedBosses.map((boss) => {
+          const bossData = Object.values(apiBosses).flat().find((item) => item.boss === boss.name);
+          
+          const currentProb = bossData ? bossData.current_prob : "No";
+          return { ...boss, chance: currentProb };
+        });
+
+        console.log("updatedBossesWithChance", updatedBossesWithChance)
         setBosses(updatedBossesWithChance);
 
         return () => {
@@ -132,7 +139,6 @@ export const useFetchBosses = () => {
 
   return bosses;
 };
-
 
 export const saveKillStatisticsToFirestore = async () => {
   try {
@@ -155,51 +161,33 @@ export const saveKillStatisticsToFirestore = async () => {
 
 export const fetchBossesLastDayKilled = async () => {
   try {
-    const firestore = firebase.firestore();
-
     // Fetch all boss documents from the 'bosses' collection
+    const firestore = firebase.firestore();
     const bossesQuerySnapshot = await firestore.collection('bosses').get();
     const bossesData = bossesQuerySnapshot.docs.map((doc) => doc.data());
 
-    // Fetch the latest killStatistics document
-    const killStatisticsQuerySnapshot = await firestore
-      .collection('killStatistics')
-      .orderBy('currentDate', 'desc')
-      .limit(1)
-      .get();
+    // Fetch bosses killed yesterday from the API
+    const response = await axios.get('https://api.simacheck.com/server/Venebra/last_views');
+    const bossesKilledYesterday = response.data;
 
-    if (killStatisticsQuerySnapshot.empty) {
-      console.log('No kill statistics found.');
-      return [];
-    }
-    const bossKills = [];
+    // Merge boss kills data with bosses collection
+    const bossKills = bossesKilledYesterday.map((bossKilled) => {
+      const boss = bossesData.find((boss) => boss.name === bossKilled.boss);
 
-    killStatisticsQuerySnapshot.forEach((doc) => {
-      const killStatistic = doc.data().data.killstatistics;
-
-      if (killStatistic && killStatistic.entries) {
-        killStatistic.entries.forEach((entry) => {
-          const bossName = entry.race.toLowerCase().trim();
-
-          // Find the boss in the 'bosses' data with matching name
-          const boss = bossesData.find((boss) => boss.name.toLowerCase().trim() === bossName);
-
-          if (boss) {
-            bossKills.push({
-              boss: boss,
-              lastDayKilled: entry.last_day_killed,
-            });
-          }
-        });
+      if (boss) {
+        return {
+          boss: boss,
+          lastDayKilled: 1,
+        };
       }
     });
-    return bossKills;
+
+    return bossKills.filter(Boolean);
   } catch (error) {
     console.error('Error fetching bosses last day killed:', error);
     return [];
   }
 };
-
 export const getDaysSinceLastKill = async () => {
   try {
     const firestore = firebase.firestore();
@@ -285,3 +273,17 @@ export const calculateBossChance = async (bossObject) => {
   }
 };
 
+export const getBossesFromFirestore = async () => {
+  const firestore = firebase.firestore();
+
+  try {
+    const bossesCollection = await firestore.collection('bosses').orderBy('type').get();
+    const bosses = bossesCollection.docs.map((doc) => doc.data());
+    return JSON.stringify(bosses, null, 2);
+  } catch (error) {
+    console.log('Error retrieving bosses:', error);
+    return null;
+  }
+};
+
+export default getBossesFromFirestore;
