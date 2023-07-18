@@ -177,6 +177,8 @@ export const fetchBossesLastDayKilled = async () => {
           boss: boss,
           lastDayKilled: 1,
         };
+      } else {
+        return {};
       }
     });
 
