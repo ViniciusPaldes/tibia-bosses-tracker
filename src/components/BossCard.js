@@ -14,7 +14,7 @@ import { getMostRecentTimestamp } from '../services/date';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 300,
+        width: 250,
         marginBottom: theme.spacing(2),
     },
     bossName: {
@@ -71,7 +71,7 @@ const BossCard = ({ boss, handleCheck }) => {
     const getChanceImage = () => {
         const chance = boss?.chance;
       
-        if (chance > 0.10) {
+        if (chance > 0.05) {
           return highChanceImage;
         } else if (chance > 0) {
           return mediumChanceImage;
@@ -99,7 +99,7 @@ const BossCard = ({ boss, handleCheck }) => {
                     </Typography>
                     <div className={classes.lastCheck}>
                         <Typography variant="body2" className={classes.lastCheckLabel}>
-                            Last Check:
+                            Último Check:
                         </Typography>
                         <Typography variant="body2" className={classes.lastCheckTimestamp}>
                             {getMostRecentTimestamp(boss)}
@@ -111,7 +111,7 @@ const BossCard = ({ boss, handleCheck }) => {
                         color="primary"
                         onClick={() => handleCheck(boss)}
                     >
-                        Check
+                        Checar
                     </Button>
                 </div>
             </CardActionArea>

@@ -42,7 +42,6 @@ export const saveBossData = async (filteredBosses) => {
     });
 
     await batch.commit();
-    console.log('Boss data saved successfully!');
   } catch (error) {
     console.error('Error saving boss data:', error);
   }
@@ -117,13 +116,13 @@ export const useFetchBosses = () => {
         const apiBosses = response.data || {}; // Set an empty object as default if the API response is undefined
 
         const updatedBossesWithChance = updatedBosses.map((boss) => {
-          const bossData = Object.values(apiBosses).flat().find((item) => item.boss === boss.name);
+          const bossData = Object.values(apiBosses).flat().find((item) => item.display_name === boss.name);
           
           const currentProb = bossData ? bossData.current_prob : "No";
-          return { ...boss, chance: currentProb };
+          const color = bossData ? bossData.colour_frame : "0";
+          return { ...boss, chance: currentProb, color };
         });
 
-        console.log("updatedBossesWithChance", updatedBossesWithChance)
         setBosses(updatedBossesWithChance);
 
         return () => {
@@ -153,7 +152,6 @@ export const saveKillStatisticsToFirestore = async () => {
       currentDate,
     });
 
-    console.log('Kill statistics saved to Firestore.');
   } catch (error) {
     console.error('Error saving kill statistics to Firestore:', error);
   }
@@ -265,7 +263,6 @@ export const calculateBossChance = async (bossObject) => {
       return filteredBoss.length > 0 ? filteredBoss[0] : null;
     }
 
-    console.log("calculateBossChance", calculatedBosses.chance)
     return calculatedBosses;
   } catch (error) {
     console.error('Error calculating boss chance:', error);
@@ -281,7 +278,6 @@ export const getBossesFromFirestore = async () => {
     const bosses = bossesCollection.docs.map((doc) => doc.data());
     return JSON.stringify(bosses, null, 2);
   } catch (error) {
-    console.log('Error retrieving bosses:', error);
     return null;
   }
 };

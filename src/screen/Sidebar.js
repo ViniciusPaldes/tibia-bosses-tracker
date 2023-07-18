@@ -42,8 +42,8 @@ const Sidebar = () => {
   }, []);
 
   // Sort the checks by the latest timestamp
-  const sortedChecks = allChecks.sort((a, b) => b.timestamp - a.timestamp);
-
+  const sortedChecks = allChecks.sort((a, b) => b.timestamp - a.timestamp).slice(0, 50);
+  
   return (
     <div className={classes.root}>
       <h2>Últimos bosses checados</h2>
@@ -62,7 +62,7 @@ const Sidebar = () => {
                   {boss.name}
                 </Typography>
                 <Typography variant="body2" className={classes.checkedAt}>
-                  Checked At: {check.timestamp.toDate().toLocaleString('pt-BR')}
+                  Checado: {check.timestamp?.toDate().toLocaleString('pt-BR')}
                 </Typography>
               </div>
             </CardContent>

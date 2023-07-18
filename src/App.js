@@ -7,6 +7,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './screen/Home';
 import Sidebar from './screen/Sidebar';
+import DependencyList from './components/DependencyList';
 
 const theme = createMuiTheme({
   typography: {
@@ -20,13 +21,14 @@ function App() {
       <CssBaseline />
       <Router>
         <MainAppBar />
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', padding: '16px'  }}>
           <Sidebar />
           <div style={{ flexGrow: 1, padding: '16px' }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/boss/:id" element={<BossDetail />} />
+              {/* <Route path="/boss/:id" element={<BossDetail />} />
               <Route path="/admin" element={<AdminPage />} />
+              <Route path="/work" element={<DependencyList />} /> */}
             </Routes>
           </div>
         </div>

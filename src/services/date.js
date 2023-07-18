@@ -13,7 +13,7 @@ export const getMostRecentTimestamp = (boss) => {
         }
       });
       const mostRecentCheck = sortedChecks[0];
-      const date = mostRecentCheck.timestamp.toDate();
+      const date = mostRecentCheck.timestamp?.toDate();
       return date.toLocaleString('pt-BR');
     } else {
       return '-';
