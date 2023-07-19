@@ -276,7 +276,7 @@ export const getBossesFromFirestore = async () => {
   const firestore = firebase.firestore();
 
   try {
-    const bossesCollection = await firestore.collection('bosses').orderBy('type').get();
+    const bossesCollection = await firestore.collection('bosses').orderBy('city').get();
     const bosses = bossesCollection.docs.map((doc) => doc.data());
     return JSON.stringify(bosses, null, 2);
   } catch (error) {
