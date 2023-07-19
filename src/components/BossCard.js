@@ -70,24 +70,48 @@ const BossCard = ({ boss, handleCheck, key }) => {
     // Function to get the chance image based on the chance color
     const getChanceImage = () => {
         const chance = boss?.chance;
-      
-        if (chance > 0.05) {
-          return highChanceImage;
-        } else if (chance > 0) {
-          return mediumChanceImage;
-        } else {
-          return lowChanceImage;
-        }
-      };
 
-      const getBossImage = () => {
+        if (chance > 0.05) {
+            return highChanceImage;
+        } else if (chance > 0) {
+            return mediumChanceImage;
+        } else {
+            return lowChanceImage;
+        }
+    };
+
+    const getBossImage = () => {
         if (boss.chance === 0) {
             return boss.dead_image;
         } else {
             return boss.image;
         }
-      }
-      
+    }
+
+    const isKilledToday = () => {
+        // Check if "checks" property exists and it is an array
+        if (boss && boss.checks && Array.isArray(boss.checks)) {
+            // Get the current date
+            const currentDate = new Date();
+
+            
+            // Check if any of the checks match the current date and have "killed" set to true
+            return boss.checks.some((check) => {
+                if (check.killed) {
+                    // Convert the timestamp to a Date object
+                    const checkDate = new Date(check.timestamp.seconds * 1000 + check.timestamp.nanoseconds / 1000000);
+
+                    // Check if the check date matches the current date (ignoring the time)
+                    return checkDate.toDateString() === currentDate.toDateString();
+                }
+                return false;
+            });
+        }
+
+        // Return false if checks are not defined or not an array
+        return false;
+    };
+
 
     return (
         <Card className={classes.root} key={key}>
@@ -117,10 +141,10 @@ const BossCard = ({ boss, handleCheck, key }) => {
                         className={classes.checkButton}
                         variant="contained"
                         color="primary"
-                        disabled={!boss.checkable}
+                        disabled={!boss.checkable || isKilledToday()}
                         onClick={() => handleCheck(boss)}
                     >
-                        Checar
+                        {isKilledToday() ? "Morto hoje" : boss.checkable ? "Checar" : "Invasão será anunciada"}
                     </Button>
                 </div>
             </CardActionArea>
