@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +20,7 @@ const MainAppBar = ({ handleClick, sidebarOpen }) => {
     <AppBar position="static" className={classes.appBar}>
       <Toolbar>
         <IconButton edge="start" color="inherit" onClick={handleClick}>
-          {sidebarOpen ? <ArrowBackIcon /> : <MenuIcon />}
+          {sidebarOpen ? <MenuOpenIcon /> : <MenuIcon />}
         </IconButton>
         <Typography variant="h6" className={classes.title}>
           Tibia Bosses Tracker
