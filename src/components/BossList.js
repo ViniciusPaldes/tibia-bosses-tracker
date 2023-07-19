@@ -166,17 +166,27 @@ function BossesList() {
   };
 
   // Organize bosses by type and order by chance
-  const bossesByType = bosses.reduce((acc, boss) => {
-    const bossType = boss.type;
-    if (acc[bossType]) {
-      acc[bossType].push(boss);
+  const bossesByCity = bosses.reduce((acc, boss) => {
+    const bossCity = boss.city;
+    if (acc[bossCity]) {
+      acc[bossCity].push(boss);
     } else {
-      acc[bossType] = [boss];
+      acc[bossCity] = [boss];
     }
     // Sort bosses within the same type by chance (descending order)
-    acc[bossType].sort((a, b) => {
-      return b.chance - a.chance;
+    acc[bossCity].sort((a, b) => {
+      if (b.checkable && !a.checkable) {
+        // If 'b' is checkable and 'a' is not, 'b' comes first
+        return 1;
+      } else if (!b.checkable && a.checkable) {
+        // If 'a' is checkable and 'b' is not, 'a' comes first
+        return -1;
+      } else {
+        // If both have the same checkable value, sort by chance (descending order)
+        return b.chance - a.chance;
+      }
     });
+    
     return acc;
   }, {});
 
@@ -184,16 +194,17 @@ function BossesList() {
 
   return (
     <div className={classes.main}>
-      {Object.entries(bossesByType).map(([bossType, bossList]) => (
-        <div className={classes.tableContainer} key={bossType}>
+      {Object.entries(bossesByCity).map(([bossCity, bossList]) => (
+        <div className={classes.tableContainer} key={bossCity}>
           <Typography variant="h5" component="h2" color="primary" className={classes.tableTitle}>
-            {bossType}
+            {bossCity}
           </Typography>
           <div className={classes.gridContainer}>
             {bossList.map((boss) => (
               <BossCard
                 boss={boss}
                 handleCheck={handleCheck}
+                key={boss.id}
               />
             ))}
           </div>

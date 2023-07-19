@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BossCard = ({ boss, handleCheck }) => {
+const BossCard = ({ boss, handleCheck, key }) => {
     const classes = useStyles();
 
     // Function to get the chance image based on the chance color
@@ -79,10 +79,18 @@ const BossCard = ({ boss, handleCheck }) => {
           return lowChanceImage;
         }
       };
+
+      const getBossImage = () => {
+        if (boss.chance === 0) {
+            return boss.dead_image;
+        } else {
+            return boss.image;
+        }
+      }
       
 
     return (
-        <Card className={classes.root} key={boss.id}>
+        <Card className={classes.root} key={key}>
             <CardActionArea>
                 <div className={classes.imageContainer}>
                     {/* Add the chance image */}
@@ -90,7 +98,7 @@ const BossCard = ({ boss, handleCheck }) => {
                         <img src={getChanceImage()} className={classes.chanceImage} alt="Chance" />
                     </div>
                     <div className={classes.bossImageContainer}>
-                        <img src={boss.image} alt={boss.name} className={classes.image} />
+                        <img src={getBossImage()} alt={boss.name} className={classes.image} />
                     </div>
                 </div>
                 <div className={classes.cardContent}>
@@ -109,6 +117,7 @@ const BossCard = ({ boss, handleCheck }) => {
                         className={classes.checkButton}
                         variant="contained"
                         color="primary"
+                        disabled={!boss.checkable}
                         onClick={() => handleCheck(boss)}
                     >
                         Checar

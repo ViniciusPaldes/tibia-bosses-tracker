@@ -498,38 +498,6 @@
       "starting_day": 3
     },
     {
-      "starting_day": 3,
-      "end_day": 7,
-      "type": "Rookgaard",
-      "name": "Apprentice Sheng",
-      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b2e02105-94ce-4f31-8fa9-defaba747869.gif",
-      "infoUrl": "https://www.tibiawiki.com.br/wiki/Apprentice_Sheng"
-    },
-    {
-      "starting_day": 3,
-      "name": "Teleskor",
-      "infoUrl": "https://www.tibiawiki.com.br/wiki/Teleskor",
-      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/301bb375-da77-44a2-94c6-37afa16de1d0.gif",
-      "end_day": 7,
-      "type": "Rookgaard"
-    },
-    {
-      "type": "Rookgaard",
-      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/db26d1b2-0b29-4f9d-af8e-a615258bc490.gif",
-      "end_day": 7,
-      "name": "Munster",
-      "starting_day": 3,
-      "infoUrl": "https://www.tibiawiki.com.br/wiki/Munster"
-    },
-    {
-      "infoUrl": "https://www.tibiawiki.com.br/wiki/Rottie_the_Rotworm",
-      "name": "Rottie The Rotworm",
-      "type": "Rookgaard",
-      "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/b7999a89-cdfe-4970-8099-8df7e2463ccf.gif",
-      "starting_day": 3,
-      "end_day": 7
-    },
-    {
       "end_day": 7,
       "image": "https://s3.sa-east-1.amazonaws.com/simacheck.staticimages.prod/7032dee9-3c3d-4a5c-9e8e-c2848428b6d6.gif",
       "name": "Gravelord Oshuran",

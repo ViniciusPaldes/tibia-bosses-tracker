@@ -4,8 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 
-import noChangeImage from '../assets/no_chance.png';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 250,
@@ -45,10 +43,6 @@ const KilledBossItem = ({ boss }) => {
     <Card className={classes.root} key={boss.id}>
       <CardActionArea>
         <div className={classes.imageContainer}>
-          {/* Add the chance image */}
-          <div className={classes.chanceImageContainer}>
-            <img src={noChangeImage} className={classes.chanceImage} alt="Chance" />
-          </div>
           <div className={classes.bossImageContainer}>
             <img src={boss.image} alt={boss.name} className={classes.image} />
           </div>
