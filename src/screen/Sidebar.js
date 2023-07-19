@@ -8,6 +8,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor: '#3f51b5',
+    padding: '16px',
+  },
+  title: { 
+    color: "white",
   },
   card: {
     marginBottom: '16px',
@@ -32,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sidebar = () => {
+const Sidebar = ({visible}) => {
   const classes = useStyles();
   const bosses = useFetchBosses();
 
@@ -44,9 +49,10 @@ const Sidebar = () => {
   // Sort the checks by the latest timestamp
   const sortedChecks = allChecks.sort((a, b) => b.timestamp - a.timestamp).slice(0, 50);
   
+  if (!visible) return
   return (
     <div className={classes.root}>
-      <h2>Últimos bosses checados</h2>
+      <h2 className={classes.title}>Últimos bosses checados</h2>
       {sortedChecks.map((check) => {
         const boss = bosses.find((b) => b.id === check.bossId);
         if (!boss) return null;
@@ -59,7 +65,7 @@ const Sidebar = () => {
               </ListItemAvatar>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h6" className={classes.bossName}>
-                  {boss.name}
+                  {boss.name.length > 15 ? `${boss.name.slice(0, 15)}...` : boss.name}
                 </Typography>
                 <Typography variant="body2" className={classes.checkedAt}>
                   Checado: {check.timestamp?.toDate().toLocaleString('pt-BR')}

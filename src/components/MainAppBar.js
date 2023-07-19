@@ -1,11 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-
+import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    marginBottom: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -13,16 +14,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-const MainAppBar = () => {
+const MainAppBar = ({ handleClick, sidebarOpen }) => {
   const classes = useStyles();
 
   return (
     <AppBar position="static" className={classes.appBar}>
       <Toolbar>
-      <Typography variant="h6" className={classes.title}>
-            Tibia Bosses Tracker
-          </Typography>
+        <IconButton edge="start" color="inherit" onClick={handleClick}>
+          {sidebarOpen ? <ArrowBackIcon /> : <MenuIcon />}
+        </IconButton>
+        <Typography variant="h6" className={classes.title}>
+          Tibia Bosses Tracker
+        </Typography>
       </Toolbar>
     </AppBar>
   );
