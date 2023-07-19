@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainAppBar from './components/MainAppBar';
 // import BossDetail from './components/BossDetail';
@@ -16,13 +16,20 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  
+  const [sidebarOpen, setSidebarOpen] = useState(null);
+
+  const switchSidebarVisibility = () => {
+    setSidebarOpen(!sidebarOpen)
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <MainAppBar />
-        <div style={{ display: 'flex', padding: '16px'  }}>
-          <Sidebar />
+        <MainAppBar handleClick={switchSidebarVisibility} sidebarOpen={sidebarOpen} />
+        <div style={{ display: 'flex'}}>
+          <Sidebar visible={sidebarOpen}/>
           <div style={{ flexGrow: 1, padding: '16px' }}>
             <Routes>
               <Route path="/" element={<Home />} />

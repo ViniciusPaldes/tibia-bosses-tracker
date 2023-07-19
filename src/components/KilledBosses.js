@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -14,12 +15,13 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
   },
   title: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    fontWeight: 'bold',
+    color: '#3f51b5',
   },
   listContainer: {
     display: 'flex',
     overflowX: 'auto',
-    margin: theme.spacing(2),
   },
   navigationButtons: {
     display: 'flex',
@@ -67,7 +69,9 @@ const KilledBosses = () => {
 
   return (
     <div className={classes.container}>
-      <h2 className={classes.title}>Bosses mortos ontem</h2>
+      <Typography variant="h5" component="h2" className={classes.title}>
+        Bosses mortos ontem
+      </Typography>
       <div className={classes.navigationButtons}>
         {startIndex > 0 && (
           <Button

@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { saveCheckToFirestore, useFetchBosses } from '../services/firebase';
-import { Snackbar, TextareaAutosize } from '@material-ui/core';
+import { Card, Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import BossCard from './BossCard';
 
@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
   },
   tableContainer: {
     marginBottom: theme.spacing(4),
+    borderTopWidth: '2px',
+    borderTopStyle: 'solid',
+    borderTopColor: '#dedede',
+    paddingTop: theme.spacing(3),
   },
   tableTitle: {
     marginBottom: theme.spacing(2),
@@ -190,11 +194,22 @@ function BossesList() {
     return acc;
   }, {});
 
+  // Sort bossCity keys based on the count of items in each array (descending order)
+const sortedBossesByCityKeys = Object.keys(bossesByCity).sort(
+  (cityA, cityB) => bossesByCity[cityB].length - bossesByCity[cityA].length
+);
+
+// Create a new object with sorted bossCity entries
+const sortedBossesByCity = {};
+sortedBossesByCityKeys.forEach((bossCity) => {
+  sortedBossesByCity[bossCity] = bossesByCity[bossCity];
+});
+
 
 
   return (
     <div className={classes.main}>
-      {Object.entries(bossesByCity).map(([bossCity, bossList]) => (
+      {Object.entries(sortedBossesByCity).map(([bossCity, bossList]) => (
         <div className={classes.tableContainer} key={bossCity}>
           <Typography variant="h5" component="h2" color="primary" className={classes.tableTitle}>
             {bossCity}
