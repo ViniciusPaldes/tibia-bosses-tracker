@@ -59,7 +59,7 @@ const SidebarItem = ({ check, boss }) => {
                 </ListItemAvatar>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography variant="h6" className={`${classes.bossName} ${isKilled ? classes.killedText : ""}`}>
-                        {boss.name.length > 15 ? `${boss.name.slice(0, 15)}...` : boss.name}
+                        {boss.name.length > 13 ? `${boss.name.slice(0, 13)}...` : boss.name}
                     </Typography>
                     <div>
                     <Typography variant="body" className={`${classes.checkedAt} ${isKilled ? classes.killedText : ""}`}>

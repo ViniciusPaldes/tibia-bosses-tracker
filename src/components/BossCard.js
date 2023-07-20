@@ -95,7 +95,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
             return boss.checks.some((check) => {
                 if (check.killed) {
                     // Convert the timestamp to a Date object
-                    const checkDate = new Date(check.timestamp.seconds * 1000 + check.timestamp.nanoseconds / 1000000);
+                    const checkDate = new Date(check.timestamp?.seconds * 1000 + check.timestamp?.nanoseconds / 1000000);
 
                     // Check if the check date matches the current date (ignoring the time)
                     return isToday(checkDate) || isYesterday(checkDate);
