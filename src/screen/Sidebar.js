@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFetchBosses } from '../services/firebase';
-import { Card, CardContent, Typography, ListItemAvatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import SidebarItem from '../components/SidebarItem';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,27 +13,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: { 
     color: "white",
-  },
-  card: {
-    marginBottom: '16px',
-  },
-  content: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: '40px',
-    height: '40px',
-    marginRight: '16px',
-  },
-  bossName: {
-    marginBottom: '8px',
-    fontSize: '16px',
-    fontWeight: 'bold',
-  },
-  checkedAt: {
-    fontSize: '12px',
-    color: '#888888',
   },
 }));
 
@@ -58,21 +37,7 @@ const Sidebar = ({visible}) => {
         if (!boss) return null;
 
         return (
-          <Card key={check.id} variant="outlined" className={classes.card}>
-            <CardContent className={classes.content}>
-              <ListItemAvatar>
-                <img src={boss.image} alt={boss.name} className={classes.avatar} />
-              </ListItemAvatar>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography variant="h6" className={classes.bossName}>
-                  {boss.name.length > 15 ? `${boss.name.slice(0, 15)}...` : boss.name}
-                </Typography>
-                <Typography variant="body2" className={classes.checkedAt}>
-                  Checado: {check.timestamp?.toDate().toLocaleString('pt-BR')}
-                </Typography>
-              </div>
-            </CardContent>
-          </Card>
+          <SidebarItem key={check.id} boss={boss} check={check}/>
         );
       })}
     </div>

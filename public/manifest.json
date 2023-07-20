@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Check Bosses",
+  "name": "Track and find your rare bosses",
   "icons": [
     {
       "src": "favicon.ico",
