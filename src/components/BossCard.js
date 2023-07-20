@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import highChanceImage from '../assets/high_chance.png';
 import mediumChanceImage from '../assets/medium_chance.png';
 import lowChanceImage from '../assets/no_chance.png';
-import { getMostRecentTimestamp } from '../services/date';
+import { getMostRecentTimestamp, isToday, isYesterday } from '../services/date';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -88,13 +88,9 @@ const BossCard = ({ boss, handleCheck, key }) => {
         }
     }
 
-    const isKilledToday = () => {
+    const isKilled = () => {
         // Check if "checks" property exists and it is an array
         if (boss && boss.checks && Array.isArray(boss.checks)) {
-            // Get the current date
-            const currentDate = new Date();
-
-            
             // Check if any of the checks match the current date and have "killed" set to true
             return boss.checks.some((check) => {
                 if (check.killed) {
@@ -102,7 +98,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
                     const checkDate = new Date(check.timestamp.seconds * 1000 + check.timestamp.nanoseconds / 1000000);
 
                     // Check if the check date matches the current date (ignoring the time)
-                    return checkDate.toDateString() === currentDate.toDateString();
+                    return isToday(checkDate) || isYesterday(checkDate);
                 }
                 return false;
             });
@@ -141,10 +137,10 @@ const BossCard = ({ boss, handleCheck, key }) => {
                         className={classes.checkButton}
                         variant="contained"
                         color="primary"
-                        disabled={!boss.checkable || isKilledToday()}
+                        disabled={!boss.checkable || isKilled()}
                         onClick={() => handleCheck(boss)}
                     >
-                        {isKilledToday() ? "Morto hoje" : boss.checkable ? "Checar" : "Invasão será anunciada"}
+                        {isKilled() ? "Morto" : boss.checkable ? "Checar" : "Invasão será anunciada"}
                     </Button>
                 </div>
             </CardActionArea>
