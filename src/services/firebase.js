@@ -3,6 +3,8 @@ import 'firebase/compat/firestore';
 import bosses from './bosses.json';
 import axios from 'axios';
 import { useState, useEffect } from "react";
+import { useDebouncedCallback } from 'use-debounce';
+
 const firebaseConfig = {
   apiKey: "AIzaSyCFsrRbVJgtrlZPZE3iJh5uKE8oHW657G8",
   authDomain: "tibia-boss-tracker-6caba.firebaseapp.com",
@@ -107,51 +109,53 @@ const convertChanceToNumber = (chance) => {
 export const useFetchBosses = () => {
   const [bosses, setBosses] = useState([]);
 
-  useEffect(() => {
-    const fetchBosses = async () => {
-      try {
-        const bossesCollection = await firebase.firestore().collection('bosses').get();
+  const fetchBosses = async () => {
+    try {
+      console.log("Calling bossesCollection")
+      const bossesCollection = await firebase.firestore().collection('bosses').get();
 
-        const unsubscribeChecks = firebase.firestore().collection('checks')
-          .onSnapshot((snapshot) => {
-            const checks = snapshot.docs.map((doc) => doc.data());
-            setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
-          });
-
-        const checksSnapshot = await firebase.firestore().collection('checks').get();
-        const checks = checksSnapshot.docs.map((doc) => doc.data());
-
-        const updatedBosses = addChecksIntoBosses(
-          bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })),
-          checks
-        );
-
-        const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/tibia-statistics');
-        const apiBosses = response.data || {};
-
-        const updatedBossesWithChance = updatedBosses.map((boss) => {
-          const bossData = Object.values(apiBosses).flat().find((item) => item.name === boss.name);
-          
-          const currentProb = bossData ? convertChanceToNumber(bossData.chance) : 0;
-          return { ...boss, chance: currentProb };
+      const unsubscribeChecks = firebase.firestore().collection('checks')
+        .onSnapshot((snapshot) => {
+          const checks = snapshot.docs.map((doc) => doc.data());
+          setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
         });
 
-        console.log("updatedBossesWithChance", updatedBossesWithChance)
-        setBosses(updatedBossesWithChance);
+      const checksSnapshot = await firebase.firestore().collection('checks').get();
+      const checks = checksSnapshot.docs.map((doc) => doc.data());
 
-        return () => {
-          unsubscribeChecks();
-        };
-      } catch (error) {
-        console.error('Error fetching bosses from Firestore:', error);
-      }
-    };
+      const updatedBosses = addChecksIntoBosses(
+        bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })),
+        checks
+      );
 
-    fetchBosses();
-  }, []);
+      const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/tibia-statistics');
+      const apiBosses = response.data || {};
+
+      const updatedBossesWithChance = updatedBosses.map((boss) => {
+        const bossData = Object.values(apiBosses).flat().find((item) => item.name === boss.name);
+        
+        const currentProb = bossData ? convertChanceToNumber(bossData.chance) : 0;
+        return { ...boss, chance: currentProb };
+      });
+      setBosses(updatedBossesWithChance);
+
+      return () => {
+        unsubscribeChecks();
+      };
+    } catch (error) {
+      console.error('Error fetching bosses:', error);
+    }
+  };
+
+  const debouncedFetchBosses = useDebouncedCallback(fetchBosses, 1000); // Adjust the debounce delay as needed
+
+  useEffect(() => {
+    debouncedFetchBosses();
+  }, [debouncedFetchBosses]);
 
   return bosses;
 };
+
 
 export const useFetchBossesSimaCheck = () => {
   const [bosses, setBosses] = useState([]);
