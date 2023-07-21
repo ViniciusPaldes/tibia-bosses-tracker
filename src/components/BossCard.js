@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
         alignContent: 'center',
     },
     lastCheckLabel: {
@@ -127,7 +128,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
                     </Typography>
                     <div className={classes.lastCheck}>
                         <Typography variant="body2" className={classes.lastCheckLabel}>
-                            Último Check:
+                            Check
                         </Typography>
                         <Typography variant="body2" className={classes.lastCheckTimestamp}>
                             {getMostRecentTimestamp(boss)}

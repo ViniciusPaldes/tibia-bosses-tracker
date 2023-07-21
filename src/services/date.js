@@ -19,6 +19,8 @@ export const getMostRecentTimestamp = (boss) => {
   }
 };
 
+
+
 export const formatTimeDifference = (timestamp) => {
   const currentTime = new Date();
   const minutes = Math.floor((currentTime - timestamp?.toDate()) / (1000 * 60));
@@ -35,6 +37,7 @@ export const formatTimeDifference = (timestamp) => {
       return `${days} dia${days !== 1 ? 's' : ''} e ${remainingMinutes} minuto${remainingMinutes !== 1 ? 's' : ''} atrás`;
   }
 };
+
 
 // Helper function to check if a given date is today
 export const isToday = (date) => {
