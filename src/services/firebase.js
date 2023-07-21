@@ -90,7 +90,70 @@ export const addChecksIntoBosses = (bossesData, checks) => {
 };
 
 
+// Helper function to convert chance strings to numeric values
+const convertChanceToNumber = (chance) => {
+  switch (chance.toLowerCase()) {
+    case 'high chance':
+      return 1;
+    case 'medium chance':
+      return 0.5;
+    case 'low chance':
+      return 0.1;
+    default:
+      return 0;
+  }
+};
+
 export const useFetchBosses = () => {
+  const [bosses, setBosses] = useState([]);
+
+  useEffect(() => {
+    const fetchBosses = async () => {
+      try {
+        const bossesCollection = await firebase.firestore().collection('bosses').get();
+
+        const unsubscribeChecks = firebase.firestore().collection('checks')
+          .onSnapshot((snapshot) => {
+            const checks = snapshot.docs.map((doc) => doc.data());
+            setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
+          });
+
+        const checksSnapshot = await firebase.firestore().collection('checks').get();
+        const checks = checksSnapshot.docs.map((doc) => doc.data());
+
+        const updatedBosses = addChecksIntoBosses(
+          bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })),
+          checks
+        );
+
+        const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/tibia-statistics');
+        const apiBosses = response.data || {};
+
+        const updatedBossesWithChance = updatedBosses.map((boss) => {
+          const bossData = Object.values(apiBosses).flat().find((item) => item.name === boss.name);
+          
+          const currentProb = bossData ? convertChanceToNumber(bossData.chance) : 0;
+          return { ...boss, chance: currentProb };
+        });
+
+        console.log("updatedBossesWithChance", updatedBossesWithChance)
+        setBosses(updatedBossesWithChance);
+
+        return () => {
+          unsubscribeChecks();
+        };
+      } catch (error) {
+        console.error('Error fetching bosses from Firestore:', error);
+      }
+    };
+
+    fetchBosses();
+  }, []);
+
+  return bosses;
+};
+
+export const useFetchBossesSimaCheck = () => {
   const [bosses, setBosses] = useState([]);
 
   useEffect(() => {
@@ -158,6 +221,38 @@ export const saveKillStatisticsToFirestore = async () => {
 };
 
 export const fetchBossesLastDayKilled = async () => {
+  try {
+    // Fetch all boss documents from the 'bosses' collection
+    const firestore = firebase.firestore();
+    const bossesQuerySnapshot = await firestore.collection('bosses').get();
+    const bossesData = bossesQuerySnapshot.docs.map((doc) => doc.data());
+
+    // Fetch bosses killed yesterday from the API
+    const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/tibia-statistics-yesterday');
+    const bossesKilledYesterday = response.data;
+
+    // Merge boss kills data with bosses collection
+    const bossKills = bossesKilledYesterday.map((bossKilled) => {
+      const boss = bossesData.find((boss) => boss.name === bossKilled.name);
+
+      if (boss) {
+        return {
+          boss: boss,
+          lastDayKilled: 1,
+        };
+      } else {
+        return {};
+      }
+    });
+
+    return bossKills.filter(Boolean);
+  } catch (error) {
+    console.error('Error fetching bosses last day killed:', error);
+    return [];
+  }
+};
+
+export const fetchBossesLastDayKilledSimaCheck = async () => {
   try {
     // Fetch all boss documents from the 'bosses' collection
     const firestore = firebase.firestore();

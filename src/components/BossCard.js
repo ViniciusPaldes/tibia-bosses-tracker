@@ -9,8 +9,10 @@ import Button from '@material-ui/core/Button';
 
 import highChanceImage from '../assets/high_chance.png';
 import mediumChanceImage from '../assets/medium_chance.png';
-import lowChanceImage from '../assets/no_chance.png';
-import { getMostRecentTimestamp, isToday, isYesterday } from '../services/date';
+import lowChanceImage from '../assets/low_chance.png';
+import noChanceImage from '../assets/no_chance.png';
+
+import { getMostRecentTimestamp, isToday } from '../services/date';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -72,12 +74,14 @@ const BossCard = ({ boss, handleCheck, key }) => {
     const getChanceImage = () => {
         const chance = boss?.chance;
 
-        if (chance > 0.05) {
+        if (chance === 1) {
             return highChanceImage;
-        } else if (chance > 0) {
+        } else if (chance >= 0.5) {
             return mediumChanceImage;
-        } else {
+        } else if (chance > 0) {
             return lowChanceImage;
+        } else {
+            return noChanceImage;
         }
     };
 
@@ -99,7 +103,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
                     const checkDate = new Date(check.timestamp?.seconds * 1000 + check.timestamp?.nanoseconds / 1000000);
 
                     // Check if the check date matches the current date (ignoring the time)
-                    return isToday(checkDate) || isYesterday(checkDate);
+                    return isToday(checkDate);
                 }
                 return false;
             });
