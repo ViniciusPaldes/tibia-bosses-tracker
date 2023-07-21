@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
   listContainer: {
     display: 'flex',
     overflowX: 'auto',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   navigationButtons: {
     display: 'flex',
@@ -44,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 const KilledBosses = () => {
   const classes = useStyles();
   const [bosses, setBosses] = useState([]);
-  const [startIndex, setStartIndex] = useState(0);
 
   useEffect(() => {
     const fetchKilledBosses = async () => {
@@ -55,17 +56,7 @@ const KilledBosses = () => {
     fetchKilledBosses();
   }, []);
 
-  const handleNext = () => {
-    if (startIndex + 4 < (bosses && bosses.length)) {
-      setStartIndex(startIndex + 5);
-    }
-  };
-
-  const handlePrev = () => {
-    if (startIndex - 4 >= 0) {
-      setStartIndex(startIndex - 5);
-    }
-  };
+  
 
   return (
     <div className={classes.container}>
@@ -73,30 +64,12 @@ const KilledBosses = () => {
         Bosses mortos ontem
       </Typography>
       <div className={classes.navigationButtons}>
-        {startIndex > 0 && (
-          <Button
-            className={classes.backButton}
-            variant="contained"
-            color="primary"
-            onClick={handlePrev}
-            startIcon={<NavigateBeforeIcon />}
-          />
-        )}
         <div className={classes.listContainer}>
           {(bosses && bosses.length > 0) &&
-            bosses.slice(startIndex, startIndex + 5).map((boss) => (
+            bosses.map((boss) => (
               <KilledBossItem key={boss.id} boss={boss.boss} />
             ))}
         </div>
-        {startIndex + 5 < (bosses && bosses.length) && (
-          <Button
-            className={classes.forwardButton}
-            variant="contained"
-            color="primary"
-            onClick={handleNext}
-            endIcon={<NavigateNextIcon />}
-          />
-        )}
       </div>
     </div>
   );
