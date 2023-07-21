@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 170,
+    width: '170px',
     margin: theme.spacing(2),
   },
   bossName: {
