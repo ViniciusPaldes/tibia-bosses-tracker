@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SidebarItem = ({ check, boss }) => {
+const TimelineItem = ({ check, boss }) => {
     const classes = useStyles();
     const isKilled = check.killed === true;
 
@@ -75,4 +75,4 @@ const SidebarItem = ({ check, boss }) => {
     )
 }
 
-export default SidebarItem;
+export default TimelineItem;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainAppBar from './components/MainAppBar';
 // import BossDetail from './components/BossDetail';
@@ -6,7 +6,9 @@ import MainAppBar from './components/MainAppBar';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './screen/Home';
-import Sidebar from './screen/Sidebar';
+import Timeline from './screen/Timeline';
+// import Filters from './screen/Filters';
+import { FilterProvider } from './context/FilterContext';
 // import DependencyList from './components/DependencyList';
 
 const theme = createMuiTheme({
@@ -16,29 +18,37 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  
-  const [sidebarOpen, setSidebarOpen] = useState(null);
 
-  const switchSidebarVisibility = () => {
-    setSidebarOpen(!sidebarOpen)
+  const [timelineOpen, setTimelineOpen] = useState(null);
+  const [filtersOpen, setFiltersOpen] = useState(null);
+
+  const switchTimelineVisibility = () => {
+    setTimelineOpen(!timelineOpen)
+  }
+
+  const switchFiltersVisibility = () => {
+    setFiltersOpen(!filtersOpen)
   }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <MainAppBar handleClick={switchSidebarVisibility} sidebarOpen={sidebarOpen} />
-        <div style={{ display: 'flex'}}>
-          <Sidebar visible={sidebarOpen}/>
-          <div style={{ flexGrow: 1, padding: '16px' }}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              {/* <Route path="/boss/:id" element={<BossDetail />} />
+        <FilterProvider>
+          <MainAppBar handleTimeline={switchTimelineVisibility} timelineOpen={timelineOpen} handleFilter={switchFiltersVisibility} filtersOpen={filtersOpen} />
+          <div style={{ display: 'flex' }}>
+            {/* <Filters visible={filtersOpen} /> */}
+            <div style={{ flexGrow: 1, padding: '16px' }}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                {/* <Route path="/boss/:id" element={<BossDetail />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/work" element={<DependencyList />} /> */}
-            </Routes>
+              </Routes>
+            </div>
+            <Timeline visible={timelineOpen} />
           </div>
-        </div>
+        </FilterProvider>
       </Router>
     </ThemeProvider>
   );

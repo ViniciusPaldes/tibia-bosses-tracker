@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFetchBosses } from '../services/firebase';
 import { makeStyles } from '@material-ui/core/styles';
-import SidebarItem from '../components/SidebarItem';
+import TimelineItem from '../components/TimelineItem';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sidebar = ({visible}) => {
+const Timeline = ({visible}) => {
   const classes = useStyles();
   const bosses = useFetchBosses();
 
@@ -37,11 +37,11 @@ const Sidebar = ({visible}) => {
         if (!boss) return null;
 
         return (
-          <SidebarItem key={check.id} boss={boss} check={check}/>
+          <TimelineItem key={check.id} boss={boss} check={check}/>
         );
       })}
     </div>
   );
 };
 
-export default Sidebar;
+export default Timeline;

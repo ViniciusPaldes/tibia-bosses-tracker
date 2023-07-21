@@ -10,6 +10,10 @@ import { saveCheckToFirestore, useFetchBosses } from '../services/firebase';
 import { Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import BossCard from './BossCard';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -37,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
   gridContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: theme.spacing(1),
     justifyItems: 'center'
   },
   tableContainer: {
@@ -48,9 +51,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3),
   },
   tableTitle: {
-    marginBottom: theme.spacing(2),
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   imageContainer: {
     display: 'flex',
@@ -105,6 +107,40 @@ const useStyles = makeStyles((theme) => ({
   },
   chanceLow: {
     color: 'red',
+  },
+  whiteBackground: {
+    backgroundColor: 'white',
+  },
+
+  greyBackground: {
+    backgroundColor: '#f6f6f6',
+  },
+
+  accordionSummaryRoot: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  chanceInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    color: '#888',
+    fontSize: '14px',
+    marginLeft: '10px',
+    '& span': {
+      fontWeight: 'bold',
+      marginLeft: '5px',
+    },
+    '& .alta': {
+      color: '#58bc6c',
+    },
+    '& .media': {
+      color: '#f1d756',
+    },
+    '& .semChance': {
+      color: '#e8463c',
+    },
   },
 }));
 
@@ -190,41 +226,77 @@ function BossesList() {
         return b.chance - a.chance;
       }
     });
-    
+
     return acc;
   }, {});
 
   // Sort bossCity keys based on the count of items in each array (descending order)
-const sortedBossesByCityKeys = Object.keys(bossesByCity).sort(
-  (cityA, cityB) => bossesByCity[cityB].length - bossesByCity[cityA].length
-);
+  const sortedBossesByCityKeys = Object.keys(bossesByCity).sort(
+    (cityA, cityB) => bossesByCity[cityB].length - bossesByCity[cityA].length
+  );
 
-// Create a new object with sorted bossCity entries
-const sortedBossesByCity = {};
-sortedBossesByCityKeys.forEach((bossCity) => {
-  sortedBossesByCity[bossCity] = bossesByCity[bossCity];
-});
+  // Create a new object with sorted bossCity entries
+  const sortedBossesByCity = {};
+  sortedBossesByCityKeys.forEach((bossCity) => {
+    sortedBossesByCity[bossCity] = bossesByCity[bossCity];
+  });
 
 
 
   return (
     <div className={classes.main}>
-      {Object.entries(sortedBossesByCity).map(([bossCity, bossList]) => (
-        <div className={classes.tableContainer} key={bossCity}>
-          <Typography variant="h5" component="h2" color="primary" className={classes.tableTitle}>
-            {bossCity}
-          </Typography>
-          <div className={classes.gridContainer}>
-            {bossList.map((boss) => (
-              <BossCard
-                boss={boss}
-                handleCheck={handleCheck}
-                key={boss.id}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
+      {Object.entries(sortedBossesByCity).map(([bossCity, bossList], index) => {
+        // Count occurrences for each chance level
+        let altaCount = 0;
+        let mediaCount = 0;
+        let semChanceCount = 0;
+
+        bossList.forEach((boss) => {
+          const chance = boss.chance;
+          if (chance > 0.05) {
+            altaCount++;
+          } else if (chance > 0) {
+            mediaCount++;
+          } else {
+            semChanceCount++;
+          }
+        });
+
+        return (
+          <Accordion key={bossCity} defaultExpanded>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel-${bossCity}-content`}
+              id={`panel-${bossCity}-header`}
+              className={index % 2 === 0 ? classes.whiteBackground : classes.greyBackground}
+            >
+              <div className={classes.accordionSummaryRoot}>
+                <Typography variant="h5" component="h2" color="primary" className={classes.tableTitle}>
+                  {bossCity}
+                </Typography>
+                <div className={classes.chanceInfo}>
+                  {altaCount > 0 && <span className="alta">{`${altaCount} em alta`}</span>}
+                  {mediaCount > 0 && (altaCount > 0 ? `, ` : null)}
+                  {mediaCount > 0 && <span className="media">{`${mediaCount} médio`}</span>}
+                  {semChanceCount > 0 && ((altaCount > 0 || mediaCount > 0) ? `, ` : null)}
+                  {semChanceCount > 0 && <span className="semChance">{`${semChanceCount} sem chance`}</span>}
+                </div>
+
+              </div>
+            </AccordionSummary>
+            <AccordionDetails className={classes.gridContainer}>
+              {bossList.map((boss) => (
+                <BossCard
+                  boss={boss}
+                  handleCheck={handleCheck}
+                  key={boss.id}
+                />
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        );
+      })}
+
       <Dialog open={confirmDialogOpen} onClose={handleConfirmDialogClose}>
         <DialogTitle className={classes.dialogTitle}>
           Confirmar status do Boss
