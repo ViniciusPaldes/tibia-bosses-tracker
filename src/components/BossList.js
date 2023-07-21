@@ -138,6 +138,9 @@ const useStyles = makeStyles((theme) => ({
     '& .media': {
       color: '#f1d756',
     },
+    '& .baixa': {
+      color: '#E4A734',
+    },
     '& .semChance': {
       color: '#e8463c',
     },
@@ -249,18 +252,22 @@ function BossesList() {
         // Count occurrences for each chance level
         let altaCount = 0;
         let mediaCount = 0;
+        let baixaCount = 0;
         let semChanceCount = 0;
 
         bossList.forEach((boss) => {
           const chance = boss.chance;
-          if (chance > 0.05) {
+
+          if (chance === 1) {
             altaCount++;
-          } else if (chance > 0) {
+          } else if (chance >= 0.5) {
             mediaCount++;
+          } else if (chance > 0) {
+            baixaCount++;
           } else {
             semChanceCount++;
           }
-        });
+        })
 
         return (
           <Accordion key={bossCity} defaultExpanded>
@@ -277,8 +284,10 @@ function BossesList() {
                 <div className={classes.chanceInfo}>
                   {altaCount > 0 && <span className="alta">{`${altaCount} em alta`}</span>}
                   {mediaCount > 0 && (altaCount > 0 ? `, ` : null)}
-                  {mediaCount > 0 && <span className="media">{`${mediaCount} médio`}</span>}
-                  {semChanceCount > 0 && ((altaCount > 0 || mediaCount > 0) ? `, ` : null)}
+                  {mediaCount > 0 && <span className="media">{`${mediaCount} média`}</span>}
+                  {baixaCount > 0 && ((altaCount > 0 || mediaCount > 0) ? `, ` : null)}
+                  {baixaCount > 0 && <span className="baixa">{`${baixaCount} baixa`}</span>}
+                  {semChanceCount > 0 && ((altaCount > 0 || mediaCount > 0 || baixaCount > 0) ? `, ` : null)}
                   {semChanceCount > 0 && <span className="semChance">{`${semChanceCount} sem chance`}</span>}
                 </div>
 
@@ -295,7 +304,8 @@ function BossesList() {
             </AccordionDetails>
           </Accordion>
         );
-      })}
+      })
+      }
 
       <Dialog open={confirmDialogOpen} onClose={handleConfirmDialogClose}>
         <DialogTitle className={classes.dialogTitle}>

@@ -56,13 +56,13 @@ const KilledBosses = () => {
   }, []);
 
   const handleNext = () => {
-    if (startIndex + 5 < (bosses && bosses.length)) {
+    if (startIndex + 4 < (bosses && bosses.length)) {
       setStartIndex(startIndex + 5);
     }
   };
 
   const handlePrev = () => {
-    if (startIndex - 5 >= 0) {
+    if (startIndex - 4 >= 0) {
       setStartIndex(startIndex - 5);
     }
   };
