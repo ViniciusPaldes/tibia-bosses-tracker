@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: { 
     color: "white",
+    textAlign:'center',
   },
 }));
 

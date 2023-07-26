@@ -14,6 +14,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useFilterContext } from '../context/FilterContext';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -209,7 +210,48 @@ function BossesList() {
   };
 
   // Organize bosses by type and order by chance
-  const bossesByCity = bosses.reduce((acc, boss) => {
+
+
+  const { selectedFilters } = useFilterContext();
+
+  const filterBosses = () => {
+    // If no filters are selected, return all bosses
+    if (selectedFilters.length === 0) {
+      return bosses;
+    }
+  
+    const selectedCities = selectedFilters
+      .filter((filter) => filter.type === 'city')
+      .map((cityFilter) => cityFilter.name);
+  
+    const selectedChances = selectedFilters
+      .filter((filter) => filter.type === 'chance')
+      .map((chanceFilter) => chanceFilter.value);
+  
+    // Filter bosses based on selected cities and chances
+    const filteredBosses = bosses.filter((boss) => {
+      // Check if the boss's city is included in the selectedCities array
+      
+      let isCityMatch = true
+      if (selectedCities.length > 0) {
+        isCityMatch = selectedCities.includes(boss.city);
+      }
+      // Check if the boss's chance is included in the selectedChances array
+      console.log("selectedChances", selectedChances)
+      let isChanceMatch = true
+      if (selectedChances.length > 0) {
+        isChanceMatch = selectedChances.includes(boss.chance);
+      }
+  
+      // Return true if both city and chance match, otherwise return false
+      return isCityMatch && isChanceMatch;
+    });
+  
+    return filteredBosses;
+  };
+  
+  
+  const bossesByCity = filterBosses().reduce((acc, boss) => {
     const bossCity = boss.city;
     if (acc[bossCity]) {
       acc[bossCity].push(boss);
