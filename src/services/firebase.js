@@ -119,7 +119,12 @@ export const useFetchBosses = () => {
           setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
         });
 
-      const checksSnapshot = await firebase.firestore().collection('checks').get();
+      const checksSnapshot = await firebase.firestore()
+      .collection('checks')
+      .orderBy('timestamp', 'desc')
+      .limit(100)
+      .get();
+    
       const checks = checksSnapshot.docs.map((doc) => doc.data());
 
       const updatedBosses = addChecksIntoBosses(
