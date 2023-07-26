@@ -5,40 +5,62 @@ const FilterContext = createContext();
 
 // Create the context provider component
 const FilterProvider = ({ children }) => {
-  const [cityButtons, setCityButtons] = useState({
-    venore: false,
-    thais: false,
-    libertyBay: false,
-    portHope: false,
-    carlin: false,
-    svargrond: false,
-    varias: false,
-    darashia: false,
-    farmine: false,
-    edron: false,
-    abDendriel: false,
-    roshamuul: false,
-    ankrahmun: false,
-    kazordoon: false,
+  const [cityButtons, setCityButtons] = useState([
+    { name: "Ab'dendriel", selected: false },
+    { name: 'Ankrahmun', selected: false },
+    { name: 'Carlin', selected: false },
+    { name: 'Darashia', selected: false },
+    { name: 'Edron', selected: false },
+    { name: 'Farmine', selected: false },
+    { name: 'Kazordoon', selected: false },
+    { name: 'Liberty Bay', selected: false },
+    { name: 'Port Hope', selected: false },
+    { name: 'Roshamuul', selected: false },
+    { name: 'Svargrond', selected: false },
+    { name: 'Thais', selected: false },
+    { name: 'Várias', selected: false },
+    { name: 'Venore', selected: false },
     // Add more city buttons as needed
-  });
+  ]);
 
-  const [chanceButtons, setChanceButtons] = useState({
-    alta: false,
-    media: false,
-    semChance: false,
-    // Add more chance buttons as needed
-  });
+  const [chanceButtons, setChanceButtons] = useState([
+    { name: 'Alta', selected: false, value: 1 },
+    { name: 'Média', selected: false, value: 0.5 },
+    { name: 'Baixa', selected: false, value: 0.1 },
+    { name: 'Sem chance', selected: false, value: 0 },
+  ]);
 
   // Logic to update the selectedFilters array based on the selected buttons
   // You can adapt this logic based on your specific filtering requirements
   const selectedFilters = [
-    ...Object.keys(cityButtons).filter((city) => cityButtons[city]),
-    ...Object.keys(chanceButtons).filter((chance) => chanceButtons[chance]),
+    ...cityButtons.filter((cityButton) => cityButton.selected).map((cityButton) => ({
+      type: 'city',
+      ...cityButton,
+    })),
+    ...chanceButtons.filter((chanceButton) => chanceButton.selected).map((chanceButton) => ({
+      type: 'chance',
+      ...chanceButton,
+    })),
   ];
 
+  const handleFilterClick = (filter) => {
+    if (filter.type === 'city') {
+      setCityButtons((prevState) =>
+        prevState.map((city) =>
+          city.name === filter.name ? { ...city, selected: !city.selected } : city
+        )
+      );
+    } else if (filter.type === 'chance') {
+      setChanceButtons((prevState) =>
+        prevState.map((chance) =>
+          chance.name === filter.name ? { ...chance, selected: !chance.selected } : chance
+        )
+      );
+    }
+  };
+
   return (
-    <FilterContext.Provider value={{ cityButtons, setCityButtons, chanceButtons, setChanceButtons, selectedFilters }}>
+    <FilterContext.Provider value={{ cityButtons, chanceButtons, selectedFilters, handleFilterClick }}>
       {children}
     </FilterContext.Provider>
   );

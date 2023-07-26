@@ -3,18 +3,37 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainAppBar from './components/MainAppBar';
 // import BossDetail from './components/BossDetail';
 // import AdminPage from './components/AdminPage';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './screen/Home';
 import Timeline from './screen/Timeline';
-// import Filters from './screen/Filters';
+import Filters from './screen/Filters';
 import { FilterProvider } from './context/FilterContext';
-// import DependencyList from './components/DependencyList';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: 'Montserrat, sans-serif',
   },
+  palette: {
+    primary: {
+      main: '#3f51b5',
+    },
+    primaryDark: {
+      main: '#135ba0',
+    },
+    secondary: '#C06605',
+    tertiary: {
+      main: '#C06605',
+    },
+    tertiaryChip: {
+      main: '#C06605',
+    },
+    unselected: {
+      main: '#132584', // Change this to the desired darker color than #00aaff
+    },
+  },
+  // Define a custom color for unselected state
+  
 });
 
 function App() {
@@ -37,7 +56,7 @@ function App() {
         <FilterProvider>
           <MainAppBar handleTimeline={switchTimelineVisibility} timelineOpen={timelineOpen} handleFilter={switchFiltersVisibility} filtersOpen={filtersOpen} />
           <div style={{ display: 'flex' }}>
-            {/* <Filters visible={filtersOpen} /> */}
+            <Filters visible={filtersOpen} />
             <div style={{ flexGrow: 1, padding: '16px' }}>
               <Routes>
                 <Route path="/" element={<Home />} />

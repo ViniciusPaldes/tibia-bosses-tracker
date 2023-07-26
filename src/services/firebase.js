@@ -111,7 +111,6 @@ export const useFetchBosses = () => {
 
   const fetchBosses = async () => {
     try {
-      console.log("Calling bossesCollection")
       const bossesCollection = await firebase.firestore().collection('bosses').get();
 
       const unsubscribeChecks = firebase.firestore().collection('checks')
