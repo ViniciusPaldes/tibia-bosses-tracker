@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { fetchBossesLastDayKilled } from '../services/firebase';
+import React from 'react';
+import { useFetchBosses } from '../services/firebase';
 import KilledBossItem from './KilledBossItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -42,18 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 const KilledBosses = () => {
   const classes = useStyles();
-  const [bosses, setBosses] = useState([]);
-
-  useEffect(() => {
-    const fetchKilledBosses = async () => {
-      const fetchedBosses = await fetchBossesLastDayKilled();
-      const filteredBosses = fetchedBosses.filter((boss) => boss.lastDayKilled >= 1);
-      setBosses(filteredBosses);
-    };
-    fetchKilledBosses();
-  }, []);
-
-  
+  const bosses = useFetchBosses();
+  const bossesWithKilledYesterday = bosses?.filter((boss) => boss.killedYesterday > 0);
 
   return (
     <div className={classes.container}>
@@ -62,9 +52,9 @@ const KilledBosses = () => {
       </Typography>
       <div className={classes.navigationButtons}>
         <div className={classes.listContainer}>
-          {(bosses && bosses.length > 0) &&
-            bosses.map((boss) => (
-              <KilledBossItem key={boss.id} boss={boss.boss} />
+          {(bossesWithKilledYesterday && bossesWithKilledYesterday.length > 0) &&
+            bossesWithKilledYesterday.map((boss) => (
+              <KilledBossItem key={boss.id} boss={boss} />
             ))}
         </div>
       </div>

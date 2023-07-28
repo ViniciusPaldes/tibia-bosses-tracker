@@ -106,7 +106,7 @@ const convertChanceToNumber = (chance) => {
   }
 };
 
-export const useFetchBosses = () => {
+export const useFetchBossesKillStatistics = () => {
   const [bosses, setBosses] = useState([]);
 
   const fetchBosses = async () => {
@@ -120,11 +120,10 @@ export const useFetchBosses = () => {
         });
 
       const checksSnapshot = await firebase.firestore()
-      .collection('checks')
-      .orderBy('timestamp', 'desc')
-      .limit(100)
-      .get();
-    
+        .collection('checks')
+        .orderBy('timestamp', 'desc')
+        .get();
+
       const checks = checksSnapshot.docs.map((doc) => doc.data());
 
       const updatedBosses = addChecksIntoBosses(
@@ -137,7 +136,7 @@ export const useFetchBosses = () => {
 
       const updatedBossesWithChance = updatedBosses.map((boss) => {
         const bossData = Object.values(apiBosses).flat().find((item) => item.name === boss.name);
-        
+
         const currentProb = bossData ? convertChanceToNumber(bossData.chance) : 0;
         return { ...boss, chance: currentProb };
       });
@@ -159,6 +158,75 @@ export const useFetchBosses = () => {
 
   return bosses;
 };
+
+export const useFetchBosses = () => {
+  const [bosses, setBosses] = useState([]);
+
+  const fetchBosses = async () => {
+    try {
+      const bossesCollection = await firebase.firestore().collection('bosses').get();
+
+      const unsubscribeChecks = firebase.firestore().collection('checks')
+        .onSnapshot((snapshot) => {
+          const checks = snapshot.docs.map((doc) => doc.data());
+          setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
+        });
+
+      const checksSnapshot = await firebase.firestore()
+        .collection('checks')
+        .orderBy('timestamp', 'desc')
+        .limit(300)
+        .get();
+
+      const checks = checksSnapshot.docs.map((doc) => doc.data());
+
+      const updatedBosses = addChecksIntoBosses(
+        bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })),
+        checks
+      );
+
+      const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/guild-stats');
+      const apiBosses = response.data || {};
+
+      const updatedBossesWithChance = updatedBosses.map((boss) => {
+        const bossData = Object.values(apiBosses).flat().find((item) => item.name === boss.name);
+
+        const currentProb = bossData ? bossData.chance : 0;
+        let chanceLabel = 'Sem chance';
+        if (bossData && bossData.chance) {
+
+          if (bossData.chance > 0.1) {
+            chanceLabel = 'Alta';
+          } else if (bossData.chance > 0.01) {
+            chanceLabel = 'Média';
+          } else if (bossData.chance > 0) {
+            chanceLabel = 'Baixa';
+          }
+        }
+        const lastSeen = bossData ? bossData.lastSeen : '';
+        const killedYesterday = bossData ? bossData.killedYesterday : 0;
+
+        return { ...boss, chance: currentProb, lastSeen, killedYesterday, chanceLabel };
+      });
+      setBosses(updatedBossesWithChance);
+
+      return () => {
+        unsubscribeChecks();
+      };
+    } catch (error) {
+      console.error('Error fetching bosses:', error);
+    }
+  };
+
+  const debouncedFetchBosses = useDebouncedCallback(fetchBosses, 1000); // Adjust the debounce delay as needed
+
+  useEffect(() => {
+    debouncedFetchBosses();
+  }, [debouncedFetchBosses]);
+
+  return bosses;
+};
+
 
 
 export const useFetchBossesSimaCheck = () => {
@@ -188,7 +256,7 @@ export const useFetchBossesSimaCheck = () => {
 
         const updatedBossesWithChance = updatedBosses.map((boss) => {
           const bossData = Object.values(apiBosses).flat().find((item) => item.display_name === boss.name);
-          
+
           const currentProb = bossData ? bossData.current_prob : "No";
           const color = bossData ? bossData.colour_frame : "0";
           return { ...boss, chance: currentProb, color };
@@ -301,14 +369,14 @@ export const getDaysSinceLastKill = async () => {
       id: doc.id,
       ...doc.data(),
     }));
-    
+
     // Fetch the kill statistics from Firestore
     const killStatisticsQuerySnapshot = await firestore.collection('killStatistics').get();
     const bossKills = [];
 
     killStatisticsQuerySnapshot.forEach((doc) => {
       const killStatistic = doc.data().data.killstatistics;
-      
+
       if (killStatistic && killStatistic.entries) {
         killStatistic.entries.forEach((entry) => {
           const bossName = entry.race.toLowerCase().trim();
@@ -346,7 +414,7 @@ export const calculateBossChance = async (bossObject) => {
       const { starting_day, end_day } = boss;
 
       if (daysSinceLastKill >= starting_day) {
-        if  (daysSinceLastKill > end_day + 2) {
+        if (daysSinceLastKill > end_day + 2) {
           return { ...boss, chance: 'Puff' };
         } else {
           return { ...boss, chance: 'High' };
