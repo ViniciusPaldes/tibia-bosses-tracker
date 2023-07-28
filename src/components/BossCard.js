@@ -132,10 +132,10 @@ const BossCard = ({ boss, handleCheck, key }) => {
                     </Typography>
                     <div className={classes.lastCheck}>
                         <Typography variant="body2" className={classes.lastCheckLabel}>
-                            Check
+                            {boss.checkable ? 'Check' : 'Novamente em'}
                         </Typography>
                         <Typography variant="body2" className={classes.lastCheckTimestamp}>
-                            {getMostRecentTimestamp(boss)}
+                            {boss.checkable ? getMostRecentTimestamp(boss) : `${boss.expectedIn} dias`}
                         </Typography>
                     </div>
                     <Button
