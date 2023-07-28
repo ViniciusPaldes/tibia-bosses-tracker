@@ -189,7 +189,7 @@ export const useFetchBosses = () => {
       const apiBosses = response.data || {};
 
       const updatedBossesWithChance = updatedBosses.map((boss) => {
-        const bossData = Object.values(apiBosses).flat().find((item) => item.name === boss.name);
+        const bossData = Object.values(apiBosses).flat().find((item) => item.name.toLowerCase() === boss.name.toLowerCase());
 
         const currentProb = bossData ? bossData.chance : 0;
         let chanceLabel = 'Sem chance';
