@@ -226,7 +226,7 @@ function BossesList() {
   
     const selectedChances = selectedFilters
       .filter((filter) => filter.type === 'chance')
-      .map((chanceFilter) => chanceFilter.value);
+      .map((chanceFilter) => chanceFilter.name);
   
     // Filter bosses based on selected cities and chances
     const filteredBosses = bosses.filter((boss) => {
@@ -237,12 +237,10 @@ function BossesList() {
         isCityMatch = selectedCities.includes(boss.city);
       }
       // Check if the boss's chance is included in the selectedChances array
-      console.log("selectedChances", selectedChances)
       let isChanceMatch = true
       if (selectedChances.length > 0) {
-        isChanceMatch = selectedChances.includes(boss.chance);
+        isChanceMatch = selectedChances.includes(boss.chanceLabel);
       }
-  
       // Return true if both city and chance match, otherwise return false
       return isCityMatch && isChanceMatch;
     });
@@ -298,16 +296,21 @@ function BossesList() {
         let semChanceCount = 0;
 
         bossList.forEach((boss) => {
-          const chance = boss.chance;
+          const chanceLabel = boss.chanceLabel;
 
-          if (chance === 1) {
-            altaCount++;
-          } else if (chance >= 0.5) {
-            mediaCount++;
-          } else if (chance > 0) {
-            baixaCount++;
-          } else {
-            semChanceCount++;
+          switch( chanceLabel) {
+            case "Alta":
+              altaCount++;
+              break;
+            case "Média":
+              mediaCount++;
+              break;
+            case "Baixa": 
+              baixaCount++;
+              break;
+            default: 
+              semChanceCount++;
+              break;
           }
         })
 

@@ -24,9 +24,9 @@ const FilterProvider = ({ children }) => {
   ]);
 
   const [chanceButtons, setChanceButtons] = useState([
-    { name: 'Alta', selected: false, value: 1 },
-    { name: 'Média', selected: false, value: 0.5 },
-    { name: 'Baixa', selected: false, value: 0.1 },
+    { name: 'Alta', selected: false, value: 0.1 },
+    { name: 'Média', selected: false, value: 0.011 },
+    { name: 'Baixa', selected: false, value: 0.01 },
     { name: 'Sem chance', selected: false, value: 0 },
   ]);
 

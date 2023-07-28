@@ -72,16 +72,16 @@ const BossCard = ({ boss, handleCheck, key }) => {
 
     // Function to get the chance image based on the chance color
     const getChanceImage = () => {
-        const chance = boss?.chance;
-
-        if (chance === 1) {
-            return highChanceImage;
-        } else if (chance >= 0.5) {
-            return mediumChanceImage;
-        } else if (chance > 0) {
-            return lowChanceImage;
-        } else {
-            return noChanceImage;
+        const chanceLabel = boss?.chanceLabel;
+        switch (chanceLabel) {
+            case "Alta":
+                return highChanceImage;
+            case "Média":
+                return mediumChanceImage;
+            case "Baixa": 
+                return lowChanceImage;
+            default:
+                return noChanceImage;
         }
     };
 
