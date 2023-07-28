@@ -205,8 +205,10 @@ export const useFetchBosses = () => {
         }
         const lastSeen = bossData ? bossData.lastSeen : '';
         const killedYesterday = bossData ? bossData.killedYesterday : 0;
+        const expectedIn = bossData ? bossData.expectedIn : '0';
 
-        return { ...boss, chance: currentProb, lastSeen, killedYesterday, chanceLabel };
+
+        return { ...boss, chance: currentProb, lastSeen, killedYesterday, chanceLabel, expectedIn };
       });
       setBosses(updatedBossesWithChance);
 
