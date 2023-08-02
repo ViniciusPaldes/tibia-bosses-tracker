@@ -20,6 +20,7 @@ const FilterProvider = ({ children }) => {
     { name: 'Thais', selected: false },
     { name: 'Várias', selected: false },
     { name: 'Venore', selected: false },
+    { name: "Adventurer's Guild", selected: false },
     // Add more city buttons as needed
   ]);
 

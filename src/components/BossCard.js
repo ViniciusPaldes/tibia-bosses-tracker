@@ -113,7 +113,6 @@ const BossCard = ({ boss, handleCheck, key }) => {
         return false;
     };
 
-
     return (
         <Card className={classes.root} key={key}>
             <CardActionArea>
@@ -132,10 +131,10 @@ const BossCard = ({ boss, handleCheck, key }) => {
                     </Typography>
                     <div className={classes.lastCheck}>
                         <Typography variant="body2" className={classes.lastCheckLabel}>
-                            {boss.checkable ? 'Check' : 'Novamente em'}
+                            {boss.checkable && boss.chanceLabel !== "Sem chance" ? 'Check' : 'Novamente em'}
                         </Typography>
                         <Typography variant="body2" className={classes.lastCheckTimestamp}>
-                            {boss.checkable ? getMostRecentTimestamp(boss) : `${boss.expectedIn} dias`}
+                            {boss.checkable && boss.chanceLabel !== "Sem chance" ? getMostRecentTimestamp(boss) : `${boss.expectedIn} dias`}
                         </Typography>
                     </div>
                     <Button
