@@ -14,6 +14,7 @@ const FilterProvider = ({ children }) => {
     { name: 'Farmine', selected: false },
     { name: 'Kazordoon', selected: false },
     { name: 'Liberty Bay', selected: false },
+    { name: "Oskayaat", selected: false },
     { name: 'Port Hope', selected: false },
     { name: 'Roshamuul', selected: false },
     { name: 'Svargrond', selected: false },
