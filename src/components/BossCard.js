@@ -12,7 +12,7 @@ import mediumChanceImage from '../assets/medium_chance.png';
 import lowChanceImage from '../assets/low_chance.png';
 import noChanceImage from '../assets/no_chance.png';
 
-import { getMostRecentTimestamp, isToday } from '../services/date';
+import { getMostRecentKilledTimestamp, getMostRecentTimestampFormat, isToday } from '../services/date';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,19 +70,35 @@ const useStyles = makeStyles((theme) => ({
 const BossCard = ({ boss, handleCheck, key }) => {
     const classes = useStyles();
 
+    const isFullMoonActive = () => {
+        if (boss.fullMoon) {
+          const currentDay = new Date().getDate(); // Get the current day of the month (1-31)
+      
+          // Check if the current day is between 12 and 15 (inclusive)
+          return currentDay >= 12 && currentDay <= 15;
+        }
+      
+        return false;
+      };
+
     // Function to get the chance image based on the chance color
     const getChanceImage = () => {
-        const chanceLabel = boss?.chanceLabel;
-        switch (chanceLabel) {
-            case "Alta":
-                return highChanceImage;
-            case "Média":
-                return mediumChanceImage;
-            case "Baixa": 
-                return lowChanceImage;
-            default:
-                return noChanceImage;
+        if (isFullMoonActive()) {
+            return highChanceImage
+        } else {
+            const chanceLabel = boss?.chanceLabel;
+            switch (chanceLabel) {
+                case "Alta":
+                    return highChanceImage;
+                case "Média":
+                    return mediumChanceImage;
+                case "Baixa": 
+                    return lowChanceImage;
+                default:
+                    return noChanceImage;
+            }
         }
+     
     };
 
     const getBossImage = () => {
@@ -113,6 +129,27 @@ const BossCard = ({ boss, handleCheck, key }) => {
         return false;
     };
 
+    const getButtonTextCTA = () => {
+        return isKilled() && !boss.shorterRespawn ? "Morto" : boss.checkable ? "Checar" : "Invasão será anunciada"
+    }
+
+    const isDisabledToCheck = () => {
+        return (!boss.checkable || isKilled()) && !boss.shorterRespawn
+    }
+
+    const getBossTime = () => {
+        if (boss.shorterRespawn) {
+            const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
+            const remainingTime = boss.respawnTime - minutes
+            if (remainingTime <= 0) {
+                return "a qualquer momento"
+            } else {
+                return `${remainingTime} minutos`
+            }
+        } else {
+            return boss.checkable && boss.chanceLabel !== "Sem chance" ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
+        }
+    }
     return (
         <Card className={classes.root} key={key}>
             <CardActionArea>
@@ -134,17 +171,17 @@ const BossCard = ({ boss, handleCheck, key }) => {
                             {boss.checkable && boss.chanceLabel !== "Sem chance" ? 'Check' : 'Novamente em'}
                         </Typography>
                         <Typography variant="body2" className={classes.lastCheckTimestamp}>
-                            {boss.checkable && boss.chanceLabel !== "Sem chance" ? getMostRecentTimestamp(boss) : `${boss.expectedIn} dias`}
+                            {getBossTime()}
                         </Typography>
                     </div>
                     <Button
                         className={classes.checkButton}
                         variant="contained"
                         color="primary"
-                        disabled={!boss.checkable || isKilled()}
+                        disabled={isDisabledToCheck()}
                         onClick={() => handleCheck(boss)}
                     >
-                        {isKilled() ? "Morto" : boss.checkable ? "Checar" : "Invasão será anunciada"}
+                        {getButtonTextCTA()}
                     </Button>
                 </div>
             </CardActionArea>
