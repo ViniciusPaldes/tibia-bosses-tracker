@@ -1,4 +1,4 @@
-export const getMostRecentTimestamp = (boss) => {
+export const getMostRecentTimestampFormat = (boss) => {
   if (boss?.checks && boss?.checks.length > 0) {
     const sortedChecks = boss?.checks.sort((a, b) => {
       if (!a?.timestamp && !b?.timestamp) {
@@ -19,6 +19,51 @@ export const getMostRecentTimestamp = (boss) => {
   }
 };
 
+export const getMostRecentTimestamp = (boss) => {
+  if (boss?.checks && boss?.checks.length > 0) {
+    const sortedChecks = boss?.checks.sort((a, b) => {
+      if (!a?.timestamp && !b?.timestamp) {
+        return 0;
+      } else if (!a?.timestamp) {
+        return 1;
+      } else if (!b?.timestamp) {
+        return -1;
+      } else {
+        return (b?.timestamp?.seconds || 0) - (a?.timestamp?.seconds || 0);
+      }
+    });
+    const mostRecentCheck = sortedChecks[0];
+    return mostRecentCheck?.timestamp;
+  } else {
+    return '-';
+  }
+};
+
+export const getMostRecentKilledTimestamp = (boss) => {
+  if (boss?.checks && boss?.checks.length > 0) {
+    const killedChecks = boss?.checks.filter((check) => check?.killed);
+    if (killedChecks.length === 0) {
+      return '-';
+    }
+    
+    const sortedChecks = killedChecks.sort((a, b) => {
+      if (!a?.timestamp && !b?.timestamp) {
+        return 0;
+      } else if (!a?.timestamp) {
+        return 1;
+      } else if (!b?.timestamp) {
+        return -1;
+      } else {
+        return (b?.timestamp?.seconds || 0) - (a?.timestamp?.seconds || 0);
+      }
+    });
+    
+    const mostRecentCheck = sortedChecks[0];
+    return mostRecentCheck?.timestamp;
+  } else {
+    return '-';
+  }
+};
 
 
 export const formatTimeDifference = (timestamp) => {
