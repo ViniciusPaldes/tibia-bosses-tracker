@@ -139,13 +139,18 @@ const BossCard = ({ boss, handleCheck, key }) => {
 
     const getBossTime = () => {
         if (boss.shorterRespawn) {
-            const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
-            const remainingTime = boss.respawnTime - minutes
-            if (remainingTime <= 0) {
-                return "a qualquer momento"
+            if (getMostRecentKilledTimestamp(boss) !== '-') {
+                const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
+                const remainingTime = boss.respawnTime - minutes
+                if (remainingTime <= 0) {
+                    return "a qualquer momento"
+                } else {
+                    return `${remainingTime} minutos`
+                }
             } else {
-                return `${remainingTime} minutos`
+                return "(sem previsão, mate-o para recalibrar)"
             }
+            
         } else {
             return boss.checkable && boss.chanceLabel !== "Sem chance" ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
         }
