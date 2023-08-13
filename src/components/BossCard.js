@@ -12,7 +12,7 @@ import mediumChanceImage from '../assets/medium_chance.png';
 import lowChanceImage from '../assets/low_chance.png';
 import noChanceImage from '../assets/no_chance.png';
 
-import { getMostRecentKilledTimestamp, getMostRecentTimestampFormat, isToday } from '../services/date';
+import { getMostRecentKilledTimestamp, getMostRecentTimestampFormat, isFullMoonActive, isToday } from '../services/date';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,20 +70,11 @@ const useStyles = makeStyles((theme) => ({
 const BossCard = ({ boss, handleCheck, key }) => {
     const classes = useStyles();
 
-    const isFullMoonActive = () => {
-        if (boss.fullMoon) {
-          const currentDay = new Date().getDate(); // Get the current day of the month (1-31)
-      
-          // Check if the current day is between 12 and 15 (inclusive)
-          return currentDay >= 12 && currentDay <= 15;
-        }
-      
-        return false;
-      };
+
 
     // Function to get the chance image based on the chance color
     const getChanceImage = () => {
-        if (isFullMoonActive()) {
+        if (isFullMoonActive(boss)) {
             return highChanceImage
         } else {
             const chanceLabel = boss?.chanceLabel;
@@ -143,18 +134,42 @@ const BossCard = ({ boss, handleCheck, key }) => {
                 const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
                 const remainingTime = boss.respawnTime - minutes
                 if (remainingTime <= 0) {
-                    return "a qualquer momento"
+                    if (remainingTime < -10) {
+                        return `Possível aparição a ${Math.abs(remainingTime)} minutos`
+                    } else {
+                        return "a qualquer momento"
+                    }
+                    
                 } else {
                     return `${remainingTime} minutos`
                 }
             } else {
-                return "(sem previsão, mate-o para recalibrar)"
+                return "-"
             }
             
         } else {
             return boss.checkable && boss.chanceLabel !== "Sem chance" ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
         }
     }
+
+    const getBossCheckLabel = () => {
+        if (boss.shorterRespawn) {
+            if (getMostRecentKilledTimestamp(boss) !== '-') {
+                const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
+                const remainingTime = boss.respawnTime - minutes
+                if (remainingTime < -10) {
+                    return "Mate-o para recalibrar"
+                } else {
+                    return "Novamente em"
+                }
+            } else {
+                return "Mate-o para recalibrar"
+            }
+        } else {
+            return boss.checkable && boss.chanceLabel !== "Sem chance" ? 'Check' : 'Novamente em'
+        }
+    }
+
     return (
         <Card className={classes.root} key={key}>
             <CardActionArea>
@@ -173,7 +188,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
                     </Typography>
                     <div className={classes.lastCheck}>
                         <Typography variant="body2" className={classes.lastCheckLabel}>
-                            {boss.checkable && boss.chanceLabel !== "Sem chance" ? 'Check' : 'Novamente em'}
+                            {getBossCheckLabel()}
                         </Typography>
                         <Typography variant="body2" className={classes.lastCheckTimestamp}>
                             {getBossTime()}

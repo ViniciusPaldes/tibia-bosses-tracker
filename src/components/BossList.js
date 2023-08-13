@@ -15,6 +15,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useFilterContext } from '../context/FilterContext';
+import { isFullMoonActive } from '../services/date';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -297,8 +298,11 @@ function BossesList() {
 
         bossList.forEach((boss) => {
           const chanceLabel = boss.chanceLabel;
-
-          switch( chanceLabel) {
+          if (boss.shorterRespawn && isFullMoonActive(boss)) {
+            altaCount++;
+            return;
+          }
+          switch(chanceLabel) {
             case "Alta":
               altaCount++;
               break;
