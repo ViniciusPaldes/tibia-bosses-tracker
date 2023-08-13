@@ -96,3 +96,14 @@ export const isYesterday = (date) => {
   yesterday.setDate(yesterday.getDate() - 1);
   return date.toDateString() === yesterday.toDateString();
 };
+
+export const isFullMoonActive = (boss) => {
+  if (boss.fullMoon) {
+    const currentDay = new Date().getDate(); // Get the current day of the month (1-31)
+
+    // Check if the current day is between 12 and 15 (inclusive)
+    return currentDay >= 12 && currentDay <= 15;
+  }
+
+  return false;
+};
