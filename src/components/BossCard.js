@@ -11,6 +11,7 @@ import highChanceImage from '../assets/high_chance.png';
 import mediumChanceImage from '../assets/medium_chance.png';
 import lowChanceImage from '../assets/low_chance.png';
 import noChanceImage from '../assets/no_chance.png';
+import wipImage from '../assets/wip.png';
 
 import { getMostRecentKilledTimestamp, getMostRecentTimestampFormat, isFullMoonActive, isToday } from '../services/date';
 
@@ -70,10 +71,11 @@ const useStyles = makeStyles((theme) => ({
 const BossCard = ({ boss, handleCheck, key }) => {
     const classes = useStyles();
 
-
-
     // Function to get the chance image based on the chance color
     const getChanceImage = () => {
+        if (boss.wip) {
+            return wipImage;
+        }
         if (isFullMoonActive(boss)) {
             return highChanceImage
         } else {
@@ -83,17 +85,17 @@ const BossCard = ({ boss, handleCheck, key }) => {
                     return highChanceImage;
                 case "Média":
                     return mediumChanceImage;
-                case "Baixa": 
+                case "Baixa":
                     return lowChanceImage;
                 default:
                     return noChanceImage;
             }
         }
-     
+
     };
 
     const getBossImage = () => {
-        if (boss.chance === 0) {
+        if (boss.chance === 0 && !boss.wip) {
             return boss.dead_image;
         } else {
             return boss.image;
@@ -144,7 +146,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
                         } else {
                             return "a qualquer momento"
                         }
-                        
+
                     } else {
                         return `${remainingTime} minutos`
                     }
@@ -154,10 +156,10 @@ const BossCard = ({ boss, handleCheck, key }) => {
             } else {
                 return "Todo mês dos dias 12 ao 15 (SS)"
             }
-           
-            
+
+
         } else {
-            return boss.checkable && boss.chanceLabel !== "Sem chance" ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
+            return ((boss.checkable && boss.chanceLabel !== "Sem chance") || boss.wip) ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
         }
     }
 
@@ -178,9 +180,13 @@ const BossCard = ({ boss, handleCheck, key }) => {
             } else {
                 return "Aguarde a próxima lua cheia"
             }
-            
+
         } else {
-            return boss.checkable && boss.chanceLabel !== "Sem chance" ? 'Check' : 'Novamente em'
+            if (boss.wip) {
+                return "Pendente de integração"
+            } else {
+                return boss.checkable && boss.chanceLabel !== "Sem chance" ? 'Check' : 'Novamente em'
+            }
         }
     }
 

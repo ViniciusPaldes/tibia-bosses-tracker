@@ -41,7 +41,7 @@ const Home = () => {
     <div>
       <KilledBosses />
       <Typography variant="h5" component="h2" className={classes.title}>
-        Previsões de Venebra
+        Previsões para Venebra
       </Typography>
       {/* Display the selected filters */}
 
