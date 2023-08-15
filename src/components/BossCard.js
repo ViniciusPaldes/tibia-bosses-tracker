@@ -125,27 +125,36 @@ const BossCard = ({ boss, handleCheck, key }) => {
     }
 
     const isDisabledToCheck = () => {
-        return (!boss.checkable || isKilled()) && !boss.shorterRespawn
+        if (!isFullMoonActive(boss) && boss.shorterRespawn) {
+            return true
+        } else {
+            return (!boss.checkable || isKilled()) && !boss.shorterRespawn
+        }
     }
 
     const getBossTime = () => {
         if (boss.shorterRespawn) {
-            if (getMostRecentKilledTimestamp(boss) !== '-') {
-                const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
-                const remainingTime = boss.respawnTime - minutes
-                if (remainingTime <= 0) {
-                    if (remainingTime < -10) {
-                        return `Possível aparição a ${Math.abs(remainingTime)} minutos`
+            if (isFullMoonActive(boss)) {
+                if (getMostRecentKilledTimestamp(boss) !== '-') {
+                    const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
+                    const remainingTime = boss.respawnTime - minutes
+                    if (remainingTime <= 0) {
+                        if (remainingTime < -10) {
+                            return `Possível aparição a ${Math.abs(remainingTime)} minutos`
+                        } else {
+                            return "a qualquer momento"
+                        }
+                        
                     } else {
-                        return "a qualquer momento"
+                        return `${remainingTime} minutos`
                     }
-                    
                 } else {
-                    return `${remainingTime} minutos`
+                    return "-"
                 }
             } else {
-                return "-"
+                return "Todo mês dos dias 12 ao 15 (SS)"
             }
+           
             
         } else {
             return boss.checkable && boss.chanceLabel !== "Sem chance" ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
@@ -154,17 +163,22 @@ const BossCard = ({ boss, handleCheck, key }) => {
 
     const getBossCheckLabel = () => {
         if (boss.shorterRespawn) {
-            if (getMostRecentKilledTimestamp(boss) !== '-') {
-                const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
-                const remainingTime = boss.respawnTime - minutes
-                if (remainingTime < -10) {
-                    return "Mate-o para recalibrar"
+            if (isFullMoonActive(boss)) {
+                if (getMostRecentKilledTimestamp(boss) !== '-') {
+                    const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
+                    const remainingTime = boss.respawnTime - minutes
+                    if (remainingTime < -10) {
+                        return "Mate-o para recalibrar"
+                    } else {
+                        return "Novamente em"
+                    }
                 } else {
-                    return "Novamente em"
+                    return "Mate-o para recalibrar"
                 }
             } else {
-                return "Mate-o para recalibrar"
+                return "Aguarde a próxima lua cheia"
             }
+            
         } else {
             return boss.checkable && boss.chanceLabel !== "Sem chance" ? 'Check' : 'Novamente em'
         }

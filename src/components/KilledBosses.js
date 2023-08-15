@@ -2,19 +2,23 @@ import React from 'react';
 import { useFetchBosses } from '../services/firebase';
 import KilledBossItem from './KilledBossItem';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    flex:1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: theme.spacing(2),
   },
   title: {
-    marginBottom: theme.spacing(1),
     fontWeight: 'bold',
-    color: '#3f51b5',
+    color: '#a0a0a0',
+  },
+  content: {
+    display: 'flex',
+    justifyContent: 'center',
   },
   listContainer: {
     display: 'flex',
@@ -25,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   navigationButtons: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     width: '100%',
   },
   backButton: {
@@ -38,26 +42,45 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center',
     marginLeft: theme.spacing(2),
   },
+  accordion: {
+    width: '100%',
+  },
 }));
 
 const KilledBosses = () => {
   const classes = useStyles();
   const bosses = useFetchBosses();
-  const bossesWithKilledYesterday = bosses?.filter((boss) => boss.killedYesterday > 0);
+  const bossesWithKilledYesterdayAndUniqueNames = bosses?.filter((boss) => boss.killedYesterday > 0)
+    .reduce((uniqueBosses, boss) => {
+      if (!uniqueBosses[boss.name]) {
+        uniqueBosses[boss.name] = boss;
+      }
+      return uniqueBosses;
+    }, {});
 
+  const uniqueBossesArray = Object.values(bossesWithKilledYesterdayAndUniqueNames);
   return (
     <div className={classes.container}>
-      <Typography variant="h5" component="h2" className={classes.title}>
-        Bosses mortos ontem
-      </Typography>
-      <div className={classes.navigationButtons}>
-        <div className={classes.listContainer}>
-          {(bossesWithKilledYesterday && bossesWithKilledYesterday.length > 0) &&
-            bossesWithKilledYesterday.map((boss) => (
+      <Accordion className={classes.accordion} defaultExpanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="killed-bosses-content"
+          id="killed-bosses-header"
+        >
+          <Typography variant="h5" className={classes.title}>
+            Bosses mortos ontem
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails className={classes.content}>
+          <div className={classes.listContainer}>
+            {uniqueBossesArray.map((boss) => (
+
               <KilledBossItem key={boss.id} boss={boss} />
+
             ))}
-        </div>
-      </div>
+          </div>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 };
