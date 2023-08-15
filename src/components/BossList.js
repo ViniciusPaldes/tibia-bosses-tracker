@@ -193,9 +193,9 @@ function BossesList() {
     const loot = lootText?.trim(); // Remove leading/trailing whitespace
     try {
       await saveCheckToFirestore(null, selectedBoss.id, killed, loot);
-      setConfirmationMessage('Saved successfully!');
+      setConfirmationMessage('Check salvo!');
     } catch (error) {
-      setConfirmationMessage('Failed to save. Please try again.');
+      setConfirmationMessage('Falhou ao salvar, favor reportar para Sabarath Hur.');
     } finally {
       handleConfirmDialogClose();
     }
@@ -232,7 +232,6 @@ function BossesList() {
     // Filter bosses based on selected cities and chances
     const filteredBosses = bosses.filter((boss) => {
       // Check if the boss's city is included in the selectedCities array
-      
       let isCityMatch = true
       if (selectedCities.length > 0) {
         isCityMatch = selectedCities.includes(boss.city);
@@ -240,7 +239,11 @@ function BossesList() {
       // Check if the boss's chance is included in the selectedChances array
       let isChanceMatch = true
       if (selectedChances.length > 0) {
-        isChanceMatch = selectedChances.includes(boss.chanceLabel);
+        if (boss.wip) {
+          return false
+        } else {
+          isChanceMatch = selectedChances.includes(boss.chanceLabel);
+        }
       }
       // Return true if both city and chance match, otherwise return false
       return isCityMatch && isChanceMatch;
@@ -259,14 +262,14 @@ function BossesList() {
     }
     // Sort bosses within the same type by chance (descending order)
     acc[bossCity].sort((a, b) => {
-      if (b.checkable && !a.checkable) {
+      if ((b.checkable && !a.checkable) || boss.wip) {
         // If 'b' is checkable and 'a' is not, 'b' comes first
         return 1;
       } else if (!b.checkable && a.checkable) {
         // If 'a' is checkable and 'b' is not, 'a' comes first
         return -1;
       } else {
-        // If both have the same checkable value, sort by chance (descending order)
+        // If both have the same checkable value, sort by chance (descending order) 
         return b.chance - a.chance;
       }
     });
@@ -295,11 +298,16 @@ function BossesList() {
         let mediaCount = 0;
         let baixaCount = 0;
         let semChanceCount = 0;
+        let wipCount = 0;
 
         bossList.forEach((boss) => {
           const chanceLabel = boss.chanceLabel;
           if (boss.shorterRespawn && isFullMoonActive(boss)) {
             altaCount++;
+            return;
+          }
+          if (boss.wip) {
+            wipCount++;
             return;
           }
           switch(chanceLabel) {
@@ -338,6 +346,8 @@ function BossesList() {
                   {baixaCount > 0 && <span className="baixa">{`${baixaCount} baixa`}</span>}
                   {semChanceCount > 0 && ((altaCount > 0 || mediaCount > 0 || baixaCount > 0) ? `, ` : null)}
                   {semChanceCount > 0 && <span className="semChance">{`${semChanceCount} sem chance`}</span>}
+                  {wipCount > 0 && ((altaCount > 0 || mediaCount > 0 || baixaCount > 0 || semChanceCount > 0) ? `, ` : null)}
+                  {wipCount > 0 && <span className="wip">{`${wipCount} em construção`}</span>}
                 </div>
 
               </div>
