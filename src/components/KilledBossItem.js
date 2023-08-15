@@ -44,7 +44,7 @@ const KilledBossItem = ({ boss }) => {
       <CardActionArea>
         <div className={classes.imageContainer}>
           <div className={classes.bossImageContainer}>
-            <img src={boss.image} alt={boss.name} className={classes.image} />
+            <img src={boss.dead_image} alt={boss.name} className={classes.image} />
           </div>
         </div>
         <div className={classes.cardContent}>

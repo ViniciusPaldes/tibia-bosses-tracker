@@ -7,8 +7,7 @@ import WhiteDeleteIcon from '../components/WhiteDeleteIcon'; // Import the custo
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
     fontWeight: 'bold',
     color: '#3f51b5',
     textAlign: 'center',
@@ -42,7 +41,7 @@ const Home = () => {
     <div>
       <KilledBosses />
       <Typography variant="h5" component="h2" className={classes.title}>
-        Previsões de Venebra para
+        Previsões de Venebra
       </Typography>
       {/* Display the selected filters */}
 
