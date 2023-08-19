@@ -93,7 +93,7 @@ export const isToday = (date) => {
   fiveAM.setHours(5, 0, 0, 0);
 
   return (date.toDateString() === today.toDateString()) ||
-         (date.toDateString() === yesterday.toDateString() && date <= fiveAM);
+         (date.toDateString() === yesterday.toDateString() && today <= fiveAM);
 };
 
 // Helper function to check if a given date is yesterday
