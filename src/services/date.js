@@ -87,7 +87,13 @@ export const formatTimeDifference = (timestamp) => {
 // Helper function to check if a given date is today
 export const isToday = (date) => {
   const today = new Date();
-  return date.toDateString() === today.toDateString();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const fiveAM = new Date(today);
+  fiveAM.setHours(5, 0, 0, 0);
+
+  return (date.toDateString() === today.toDateString()) ||
+         (date.toDateString() === yesterday.toDateString() && date <= fiveAM);
 };
 
 // Helper function to check if a given date is yesterday
