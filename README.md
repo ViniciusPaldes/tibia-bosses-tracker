@@ -25,3 +25,15 @@ The primary data source is GuildStats. However, this API also connects to TibiaB
 - Implement user management.
 - Add additional worlds.
 - Introduce a Boss Detail page with a Probability Graph.
+
+## Screenshots
+
+Main Page
+![Main View](https://i.ibb.co/LQJ0TTZ/Screenshot-2024-01-24-at-08-10-18.png)
+
+
+Filters
+![enter image description here](https://i.ibb.co/nsLJXRH/Screenshot-2024-01-24-at-08-11-06.png)
+
+Check bosses timeline
+![enter image description here](https://i.ibb.co/Ny2tD9Y/Screenshot-2024-01-24-at-08-11-19.png)
