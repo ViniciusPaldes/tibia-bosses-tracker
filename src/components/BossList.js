@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { saveCheckToFirestore, useFetchBosses } from '../services/firebase';
+import { saveCheckToFirestore, useFetchBosses } from '../services/firebase-service';
 import { Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import BossCard from './BossCard';

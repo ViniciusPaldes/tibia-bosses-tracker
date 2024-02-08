@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFetchBosses } from '../services/firebase';
+import { useFetchBosses } from '../services/firebase-service';
 import KilledBossItem from './KilledBossItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';

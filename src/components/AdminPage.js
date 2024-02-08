@@ -4,7 +4,7 @@ import getBossesFromFirestore, {
   fetchBossesLastDayKilled,
   getDaysSinceLastKill,
   calculateBossChance,
-} from '../services/firebase';
+} from '../services/firebase-service';
 
 const AdminPage = () => {
   const handleSaveKillStatistics = () => {

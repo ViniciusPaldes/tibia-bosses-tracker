@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFetchBosses } from '../services/firebase';
+import { useFetchBosses } from '../services/firebase-service';
 import { makeStyles } from '@material-ui/core/styles';
 import TimelineItem from '../components/TimelineItem';
 
