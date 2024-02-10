@@ -1,3 +1,6 @@
+import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+
 export const getMostRecentTimestampFormat = (boss) => {
   if (boss?.checks && boss?.checks.length > 0) {
     const sortedChecks = boss?.checks.sort((a, b) => {
@@ -13,9 +16,9 @@ export const getMostRecentTimestampFormat = (boss) => {
     });
     const mostRecentCheck = sortedChecks[0];
     const date = mostRecentCheck?.timestamp?.toDate();
-    return date?.toLocaleString('pt-BR') || '-';
+    return date?.toLocaleString("pt-BR") || "-";
   } else {
-    return '-';
+    return "-";
   }
 };
 
@@ -35,7 +38,7 @@ export const getMostRecentTimestamp = (boss) => {
     const mostRecentCheck = sortedChecks[0];
     return mostRecentCheck?.timestamp;
   } else {
-    return '-';
+    return "-";
   }
 };
 
@@ -43,9 +46,9 @@ export const getMostRecentKilledTimestamp = (boss) => {
   if (boss?.checks && boss?.checks.length > 0) {
     const killedChecks = boss?.checks.filter((check) => check?.killed);
     if (killedChecks.length === 0) {
-      return '-';
+      return "-";
     }
-    
+
     const sortedChecks = killedChecks.sort((a, b) => {
       if (!a?.timestamp && !b?.timestamp) {
         return 0;
@@ -57,32 +60,20 @@ export const getMostRecentKilledTimestamp = (boss) => {
         return (b?.timestamp?.seconds || 0) - (a?.timestamp?.seconds || 0);
       }
     });
-    
+
     const mostRecentCheck = sortedChecks[0];
     return mostRecentCheck?.timestamp;
   } else {
-    return '-';
+    return "-";
   }
 };
-
 
 export const formatTimeDifference = (timestamp) => {
-  const currentTime = new Date();
-  const minutes = Math.floor((currentTime - timestamp?.toDate()) / (1000 * 60));
+  const formattedTimestamp = timestamp.toDate();
+  const formattedDistance = formatDistanceToNow(formattedTimestamp, { locale: ptBR });
 
-  if (minutes < 60) {
-      return `${minutes} minuto${minutes !== 1 ? 's' : ''} atrás`;
-  } else if (minutes >= 60 && minutes < 1440) {
-      const hours = Math.floor(minutes / 60);
-      const remainingMinutes = minutes % 60;
-      return `${hours} hora${hours !== 1 ? 's' : ''} e ${remainingMinutes} minuto${remainingMinutes !== 1 ? 's' : ''} atrás`;
-  } else {
-      const days = Math.floor(minutes / 1440);
-      const remainingMinutes = minutes % 1440;
-      return `${days} dia${days !== 1 ? 's' : ''} e ${remainingMinutes} minuto${remainingMinutes !== 1 ? 's' : ''} atrás`;
-  }
+  return `${formattedDistance} atrás`;
 };
-
 
 // Helper function to check if a given date is today
 export const isToday = (date) => {
@@ -92,8 +83,10 @@ export const isToday = (date) => {
   const fiveAM = new Date(today);
   fiveAM.setHours(5, 0, 0, 0);
 
-  return (date.toDateString() === today.toDateString()) ||
-         (date.toDateString() === yesterday.toDateString() && today <= fiveAM);
+  return (
+    date.toDateString() === today.toDateString() ||
+    (date.toDateString() === yesterday.toDateString() && today <= fiveAM)
+  );
 };
 
 // Helper function to check if a given date is yesterday
@@ -110,7 +103,10 @@ export const isFullMoonActive = (boss) => {
 
     // Check if the current day is between 12 and 15 (inclusive)
     // and the current time is after 05:00 AM
-    if ((currentDay === 12 && currentHour >= 5) || (currentDay > 12 && currentDay < 15)) {
+    if (
+      (currentDay === 12 && currentHour >= 5) ||
+      (currentDay > 12 && currentDay < 15)
+    ) {
       return true;
     }
 

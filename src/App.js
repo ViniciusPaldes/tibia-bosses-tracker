@@ -9,6 +9,7 @@ import Home from './screen/Home';
 import Timeline from './screen/Timeline';
 import Filters from './screen/Filters';
 import { FilterProvider } from './context/FilterContext';
+import Releases from './screen/Releases';
 
 const theme = createTheme({
   typography: {
@@ -62,6 +63,7 @@ function App() {
             <div style={{ flexGrow: 1, padding: '16px' }}>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/releases" element={<Releases />} />
                 {/* <Route path="/boss/:id" element={<BossDetail />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/work" element={<DependencyList />} /> */}
