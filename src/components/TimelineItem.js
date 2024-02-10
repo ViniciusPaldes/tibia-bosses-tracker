@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import { Card, CardContent, Typography, ListItemAvatar } from '@material-ui/core';
 import { formatTimeDifference } from "../services/date";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -46,6 +47,15 @@ const useStyles = makeStyles((theme) => ({
 const TimelineItem = ({ check, boss }) => {
     const classes = useStyles();
     const isKilled = check.killed === true;
+    const [formattedTimeDifference, setFormattedTimeDifference] = useState(formatTimeDifference(check.timestamp));
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setFormattedTimeDifference(formatTimeDifference(check.timestamp));
+        }, 60000); // Update every minute
+
+        return () => clearInterval(interval);
+    }, [check.timestamp]);
 
     return (
         <Card
@@ -63,7 +73,7 @@ const TimelineItem = ({ check, boss }) => {
                     </Typography>
                     <div>
                     <Typography variant="body" className={`${classes.checkedAt} ${isKilled ? classes.killedText : ""}`}>
-                        {isKilled ? "Morto: " : ""} {formatTimeDifference(check.timestamp)}
+                        {isKilled ? "Morto: " : ""} {formattedTimeDifference}
                     </Typography>
                     <Typography variant="body2" className={`${classes.fullDate} ${isKilled ? classes.killedText : ""}`}>
                         {check.timestamp?.toDate().toLocaleString('pt-BR')}

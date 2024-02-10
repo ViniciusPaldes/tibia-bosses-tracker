@@ -1,17 +1,24 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, IconButton, Badge } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import MenuOpenIcon from '@material-ui/icons/MenuOpen';
-import { useFilterContext } from '../context/FilterContext';
-import { FilterList } from '@material-ui/icons';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Badge,
+} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+import { useFilterContext } from "../context/FilterContext";
+import { FilterList } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import NewReleasesIcon from "@material-ui/icons/NewReleases";
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-  },
+  appBar: {},
   title: {
     flexGrow: 1,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   badge: {
     top: 5,
@@ -19,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   badgeContent: {
-    backgroundColor: '#C06605', // Set the background color of the number on the badge
-    fontWeight: 'bold', // Make the label bold
+    backgroundColor: "#C06605", // Set the background color of the number on the badge
+    fontWeight: "bold", // Make the label bold
   },
 }));
 
@@ -38,8 +45,8 @@ const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
             className={classes.badge}
             classes={{ badge: classes.badge }} // Apply the badge class styles
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right",
             }}
           >
             {selectedFilters.length > 0 ? (
@@ -49,9 +56,20 @@ const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
             )}
           </Badge>
         </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          Check Boss - Tibia
-        </Typography>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit", flexGrow: 1 }}>
+          <Typography variant="h6" className={classes.title}>
+            Check Boss - Tibia
+          </Typography>
+        </Link>
+
+        <Link
+          to="/releases"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <IconButton color="inherit">
+            <NewReleasesIcon />
+          </IconButton>
+        </Link>
 
         <IconButton edge="start" color="inherit" onClick={handleTimeline}>
           {timelineOpen ? <CloseIcon /> : <MenuOpenIcon />}
