@@ -16,6 +16,8 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -131,7 +133,7 @@ export const useFetchBossesKillStatistics = () => {
         checks
       );
 
-      const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/tibia-statistics');
+      const response = await axios.get(`${BASE_URL}/tibia-statistics`);
       const apiBosses = response.data || {};
 
       const updatedBossesWithChance = updatedBosses.map((boss) => {
@@ -185,7 +187,7 @@ export const useFetchBosses = () => {
         checks
       );
 
-      const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/guild-stats');
+      const response = await axios.get(`${BASE_URL}/guild-stats`);
       const apiBosses = response.data || {};
 
       const updatedBossesWithChance = updatedBosses.map((boss) => {
@@ -306,7 +308,7 @@ export const fetchBossesLastDayKilled = async () => {
     const bossesData = bossesQuerySnapshot.docs.map((doc) => doc.data());
 
     // Fetch bosses killed yesterday from the API
-    const response = await axios.get('https://checkboss-api.netlify.app/.netlify/functions/tibia-statistics-yesterday');
+    const response = await axios.get(`${BASE_URL}/tibia-statistics-yesterday`);
     const bossesKilledYesterday = response.data;
 
     // Merge boss kills data with bosses collection
