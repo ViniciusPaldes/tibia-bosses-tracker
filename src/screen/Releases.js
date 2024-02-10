@@ -22,6 +22,10 @@ const Releases = () => {
   return (
     <div>
       <h1>Notas de lançamento de versão</h1>
+      <h1>
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" height="30" width="30" style={{ marginRight: '10px' }} />
+            <a href="https://github.com/ViniciusPaldes/tibia-bosses-tracker" target="_blank" rel="noopener noreferrer">Repositório Github</a>
+        </h1>
       {releases.map((release) => (
         <div key={release.id}>
           <h2>{release.name}</h2>
