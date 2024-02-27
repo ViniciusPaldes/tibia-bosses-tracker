@@ -26,6 +26,7 @@ const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
             color="secondary"
             badgeContent={selectedFilters.length}
             className={classes.badge}
+            overlap="rectangular"
             classes={{ badge: classes.badge }} // Apply the badge class styles
             anchorOrigin={{
               vertical: "top",

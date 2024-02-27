@@ -18,7 +18,6 @@ const TimelineItem = ({ check, boss }) => {
 
     return (
         <Card
-            key={check.id}
             variant="outlined"
             className={`${classes.card} ${isKilled ? classes.killedCard : ""}`}
         >
@@ -31,7 +30,7 @@ const TimelineItem = ({ check, boss }) => {
                         {boss.name.length > 13 ? `${boss.name.slice(0, 13)}...` : boss.name}
                     </Typography>
                     <div>
-                    <Typography variant="body" className={`${classes.checkedAt} ${isKilled ? classes.killedText : ""}`}>
+                    <Typography variant="body1" className={`${classes.checkedAt} ${isKilled ? classes.killedText : ""}`}>
                         {isKilled ? "Morto: " : ""} {formattedTimeDifference}
                     </Typography>
                     <Typography variant="body2" className={`${classes.fullDate} ${isKilled ? classes.killedText : ""}`}>

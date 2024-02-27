@@ -54,9 +54,8 @@ function App() {
     setFiltersOpen(!filtersOpen)
   }
 
-
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     if (bosses.length > 1) {
       setLoading(false);

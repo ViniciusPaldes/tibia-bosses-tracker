@@ -23,6 +23,7 @@ function UserFeedback(props) {
 
 function BossesList({bosses}) {
   const classes = useStyles();
+  const BossCardMemo = React.memo(BossCard);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [lootDialogOpen, setLootDialogOpen] = useState(false);
   const [selectedBoss, setSelectedBoss] = useState(null);
@@ -152,8 +153,6 @@ function BossesList({bosses}) {
     sortedBossesByCity[bossCity] = bossesByCity[bossCity];
   });
 
-
-
   return (
     <div className={classes.main}>
       {Object.entries(sortedBossesByCity).map(([bossCity, bossList], index) => {
@@ -218,11 +217,12 @@ function BossesList({bosses}) {
             </AccordionSummary>
             <AccordionDetails className={classes.gridContainer}>
               {bossList.map((boss) => (
-                <BossCard
-                  boss={boss}
-                  handleCheck={handleCheck}
-                  key={boss.id}
-                />
+                <React.Fragment key={boss.id}>
+                  <BossCardMemo
+                    boss={boss}
+                    handleCheck={handleCheck}
+                  />
+                </React.Fragment>
               ))}
             </AccordionDetails>
           </Accordion>

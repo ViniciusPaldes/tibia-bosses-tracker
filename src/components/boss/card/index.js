@@ -2,7 +2,6 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import {
     getChanceImage,
     getBossImage
@@ -11,7 +10,7 @@ import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from 'ser
 import { useStyles } from './styles';
 import { isKilled } from 'services/bosses';
 
-const BossCard = ({ boss, handleCheck, key }) => {
+const BossCard = ({ boss, handleCheck }) => {
     const classes = useStyles();
 
     const getButtonTextCTA = () => {
@@ -54,7 +53,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
     }
 
     return (
-        <Card className={classes.root} key={key}>
+        <Card className={classes.root}>
             <CardActionArea>
                 <div className={classes.imageContainer}>
                     {/* Add the chance image */}
@@ -67,7 +66,7 @@ const BossCard = ({ boss, handleCheck, key }) => {
                 </div>
                 <div className={classes.cardContent}>
                     <Typography variant="h6" component="h3" gutterBottom className={classes.bossName}>
-                        {boss.name.length > 25 ? `${boss.name.slice(0, 25)}...` : boss.name}
+                        {boss.name.length > 20 ? `${boss.name.slice(0, 20)}...` : boss.name}
                     </Typography>
                     <div className={classes.lastCheck}>
                         <Typography variant="body2" className={classes.lastCheckLabel}>
@@ -77,15 +76,12 @@ const BossCard = ({ boss, handleCheck, key }) => {
                             {getBossTime(boss)}
                         </Typography>
                     </div>
-                    <Button
-                        className={classes.checkButton}
-                        variant="contained"
-                        color="primary"
-                        disabled={isDisabledToCheck()}
-                        onClick={() => handleCheck(boss)}
+                    <div
+                        className={`${classes.materialButtonStyle} ${isDisabledToCheck() ? classes.disabled : ''}`}
+                        onClick={() => !isDisabledToCheck() && handleCheck(boss)}
                     >
                         {getButtonTextCTA()}
-                    </Button>
+                    </div>
                 </div>
             </CardActionArea>
         </Card>
