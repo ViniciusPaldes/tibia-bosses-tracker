@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import { useStyles } from './style';
-import { useFilterContext } from '../../context/FilterContext';
+import { useFilterContext } from 'context/FilterContext';
 
 const FilterButton = ({ name, type, handleClick }) => {
   const classes = useStyles();

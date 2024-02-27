@@ -1,12 +1,12 @@
 import React from 'react';
-import KilledBosses from '../../components/killed-bosses';
-import BossList from '../../components/boss/list';
+import KilledBosses from 'components/killed-bosses';
+import BossList from 'components/boss/list';
 import { Chip, Typography } from '@material-ui/core';
-import { useFilterContext } from '../../context/FilterContext';
-import WhiteDeleteIcon from '../../components/white-delete-icon'; // Import the custom delete icon
+import { useFilterContext } from 'context/FilterContext';
+import WhiteDeleteIcon from 'components/white-delete-icon'; // Import the custom delete icon
 import { useStyles } from './styles';
 
-const Home = () => {
+const Home = ({bosses}) => {
   const classes = useStyles();
   const {
     selectedFilters,
@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <div>
-      <KilledBosses />
+      <KilledBosses bosses={bosses}/>
       <Typography variant="h5" component="h2" className={classes.title}>
         Previsões para Venebra
       </Typography>
@@ -32,7 +32,7 @@ const Home = () => {
         <Chip key={filter.name}  label={filter.name} className={classes.chip} onDelete={() => handleFilterClick(filter)} deleteIcon={<WhiteDeleteIcon />} // Use the custom delete icon
         />
       ))}
-      <BossList />
+      <BossList bosses={bosses} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import mediumChanceImage from './medium_chance.png';
 import lowChanceImage from './low_chance.png';
 import noChanceImage from './no_chance.png';
 import wipImage from './wip.png';
-import { isFullMoonActive } from '../../services/date';
+import { isFullMoonActive } from 'services/date';
 
 export const getChanceImage = (boss) => {
     if (boss.wip) {

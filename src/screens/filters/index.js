@@ -1,6 +1,6 @@
 import React from 'react';
-import { useFilterContext } from '../../context/FilterContext';
-import FilterButton from '../../components/filter-button';
+import { useFilterContext } from 'context/FilterContext';
+import FilterButton from 'components/filter-button';
 import { useStyles } from './styles';
 
 const Filters = ({ visible }) => {

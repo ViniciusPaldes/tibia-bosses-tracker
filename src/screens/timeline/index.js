@@ -1,11 +1,9 @@
 import React from 'react';
-import { useFetchBosses } from '../../services/firebase-service';
-import TimelineItem from '../../components/timeline-item';
+import TimelineItem from 'components/timeline-item';
 import { useStyles } from './styles';
 
-const Timeline = ({visible}) => {
+const Timeline = ({visible, bosses}) => {
   const classes = useStyles();
-  const bosses = useFetchBosses();
 
   // Create a new array that contains all the checks for all bosses
   const allChecks = bosses.reduce((checks, boss) => {

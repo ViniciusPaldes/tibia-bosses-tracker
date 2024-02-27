@@ -1,14 +1,12 @@
 import React from 'react';
-import { useFetchBosses } from '../../services/firebase-service';
 import KilledBossItem from './item';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useStyles } from './styles';
 
 
-const KilledBosses = () => {
+const KilledBosses = ({bosses}) => {
   const classes = useStyles();
-  const bosses = useFetchBosses();
   const bossesWithKilledYesterdayAndUniqueNames = bosses?.filter((boss) => boss.killedYesterday > 0)
     .reduce((uniqueBosses, boss) => {
       if (!uniqueBosses[boss.name]) {

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { saveCheckToFirestore, useFetchBosses } from '../../../services/firebase-service';
+import { saveCheckToFirestore } from 'services/firebase-service';
 import { Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import BossCard from '../card';
@@ -13,31 +13,22 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useFilterContext } from '../../../context/FilterContext';
-import { isFullMoonActive } from '../../../services/date';
-import { PacmanLoader } from 'react-spinners';
+import { useFilterContext } from 'context/FilterContext';
+import { isFullMoonActive } from 'services/date';
 import { useStyles } from './styles';
 
 function UserFeedback(props) {
   return <Alert elevation={6} variant="filled" {...props} />;
 }
 
-function BossesList() {
+function BossesList({bosses}) {
   const classes = useStyles();
-  const bosses = useFetchBosses();
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [lootDialogOpen, setLootDialogOpen] = useState(false);
   const [selectedBoss, setSelectedBoss] = useState(null);
   const [lootText, setLootText] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [confirmationOpen, setConfirmationOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (bosses.length > 1) {
-      setLoading(false);
-    }
-  }, [bosses])
 
   const handleCheck = (boss) => {
     setSelectedBoss(boss);
@@ -103,7 +94,7 @@ function BossesList() {
       .map((chanceFilter) => chanceFilter.name);
   
     // Filter bosses based on selected cities and chances
-    const filteredBosses = bosses.filter((boss) => {
+    const filteredBosses = bosses?.filter((boss) => {
       // Check if the boss's city is included in the selectedCities array
       let isCityMatch = true
       if (selectedCities.length > 0) {
@@ -165,11 +156,6 @@ function BossesList() {
 
   return (
     <div className={classes.main}>
-      {loading && 
-        <div className={classes.loader}>
-          <PacmanLoader color="#3f51b5" />
-        </div>
-      }
       {Object.entries(sortedBossesByCity).map(([bossCity, bossList], index) => {
         // Count occurrences for each chance level
         let altaCount = 0;
