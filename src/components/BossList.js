@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { saveCheckToFirestore, useFetchBosses } from '../services/firebase-service';
 import { Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
-import BossCard from './BossCard';
+import BossCard from './boss-card';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
