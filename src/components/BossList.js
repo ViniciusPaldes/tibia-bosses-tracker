@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -16,10 +16,15 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useFilterContext } from '../context/FilterContext';
 import { isFullMoonActive } from '../services/date';
+import { PacmanLoader } from 'react-spinners';
 
 const useStyles = makeStyles((theme) => ({
   main: {
     flex: 1,
+  },
+  loader: {
+    display: 'flex',
+    justifyContent: 'center',
   },
   root: {
     width: 300,
@@ -162,6 +167,13 @@ function BossesList() {
   const [lootText, setLootText] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [confirmationOpen, setConfirmationOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (bosses.length > 1) {
+      setLoading(false);
+    }
+  }, [bosses])
 
   const handleCheck = (boss) => {
     setSelectedBoss(boss);
@@ -292,6 +304,11 @@ function BossesList() {
 
   return (
     <div className={classes.main}>
+      {loading && 
+        <div className={classes.loader}>
+          <PacmanLoader color="#3f51b5" />
+        </div>
+      }
       {Object.entries(sortedBossesByCity).map(([bossCity, bossList], index) => {
         // Count occurrences for each chance level
         let altaCount = 0;
