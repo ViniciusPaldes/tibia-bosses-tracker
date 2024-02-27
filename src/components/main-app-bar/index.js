@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   Toolbar,
@@ -9,27 +8,11 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
-import { useFilterContext } from "../context/FilterContext";
+import { useFilterContext } from "../../context/FilterContext";
 import { FilterList } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import NewReleasesIcon from "@material-ui/icons/NewReleases";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {},
-  title: {
-    flexGrow: 1,
-    fontWeight: "bold",
-  },
-  badge: {
-    top: 5,
-    right: 5,
-  },
-
-  badgeContent: {
-    backgroundColor: "#C06605", // Set the background color of the number on the badge
-    fontWeight: "bold", // Make the label bold
-  },
-}));
+import { useStyles } from "./styles";
 
 const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
   const classes = useStyles();

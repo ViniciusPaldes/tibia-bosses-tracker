@@ -1,51 +1,10 @@
 import React from 'react';
-import { useFetchBosses } from '../services/firebase-service';
-import KilledBossItem from './KilledBossItem';
-import { makeStyles } from '@material-ui/core/styles';
+import { useFetchBosses } from '../../services/firebase-service';
+import KilledBossItem from './item';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    flex:1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  title: {
-    fontWeight: 'bold',
-    color: '#a0a0a0',
-  },
-  content: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  listContainer: {
-    display: 'flex',
-    overflowX: 'auto',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  navigationButtons: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  backButton: {
-    height: '40px',
-    alignSelf: 'center',
-    marginRight: theme.spacing(2),
-  },
-  forwardButton: {
-    height: '40px',
-    alignSelf: 'center',
-    marginLeft: theme.spacing(2),
-  },
-  accordion: {
-    width: '100%',
-  },
-}));
 
 const KilledBosses = () => {
   const classes = useStyles();

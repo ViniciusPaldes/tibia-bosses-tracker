@@ -1,34 +1,10 @@
 import React from 'react';
-import KilledBosses from '../components/KilledBosses';
-import BossList from '../components/BossList';
-import { Chip, Typography, makeStyles } from '@material-ui/core';
-import { useFilterContext } from '../context/FilterContext';
-import WhiteDeleteIcon from '../components/WhiteDeleteIcon'; // Import the custom delete icon
-
-const useStyles = makeStyles((theme) => ({
-  title: {
-    marginTop: theme.spacing(3),
-    fontWeight: 'bold',
-    color: '#3f51b5',
-    textAlign: 'center',
-  },
-  subtitle: {
-    marginBottom: theme.spacing(3),
-    fontWeight: 'bold',
-    color: '#555555',
-    textAlign: 'center',
-  },
-  chip: {
-    marginLeft: theme.spacing(0.5),
-    marginRight: theme.spacing(0.5),
-    marginTop: theme.spacing(0.5),
-    backgroundColor: theme.palette.tertiaryChip.main,
-    opacity: 1,
-    marginBottom: theme.spacing(2),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-}));
+import KilledBosses from '../../components/killed-bosses';
+import BossList from '../../components/boss/list';
+import { Chip, Typography } from '@material-ui/core';
+import { useFilterContext } from '../../context/FilterContext';
+import WhiteDeleteIcon from '../../components/white-delete-icon'; // Import the custom delete icon
+import { useStyles } from './styles';
 
 const Home = () => {
   const classes = useStyles();

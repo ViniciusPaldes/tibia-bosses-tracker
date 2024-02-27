@@ -6,10 +6,10 @@ import Button from '@material-ui/core/Button';
 import {
     getChanceImage,
     getBossImage
-} from '../../assets/images';
-import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from '../../services/date';
+} from '../../../assets/images';
+import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from '../../../services/date';
 import { useStyles } from './styles';
-import { isKilled } from '../../services/bosses';
+import { isKilled } from '../../../services/bosses';
 
 const BossCard = ({ boss, handleCheck, key }) => {
     const classes = useStyles();

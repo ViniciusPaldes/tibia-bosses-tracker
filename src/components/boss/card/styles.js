@@ -34,21 +34,21 @@ export const useStyles = makeStyles((theme) => ({
     },
     imageContainer: {
         display: 'flex',
-        position: 'relative', // Add position relative to the image container
+        position: 'relative',
         justifyContent: 'center',
         alignItems: 'center',
     },
     chanceImageContainer: {
-        position: 'absolute', // Position the chance image container
-        top: theme.spacing(1), // Adjust the top spacing as needed
-        left: theme.spacing(1), // Adjust the left spacing as needed
-        zIndex: 1, // Ensure the chance image appears above the boss image
+        position: 'absolute',
+        top: theme.spacing(1),
+        left: theme.spacing(1),
+        zIndex: 1,
     },
     bossImageContainer: {
-        zIndex: 0, // Ensure the boss image appears below the chance image
+        zIndex: 0,
     },
     chanceImage: {
-        width: 50, // Adjust the width of the chance image as needed
-        height: 50, // Adjust the height of the chance image as needed
+        width: 50,
+        height: 50,
     },
 }));

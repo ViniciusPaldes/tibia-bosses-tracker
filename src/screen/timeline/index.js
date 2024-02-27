@@ -1,21 +1,7 @@
 import React from 'react';
-import { useFetchBosses } from '../services/firebase-service';
-import { makeStyles } from '@material-ui/core/styles';
-import TimelineItem from '../components/TimelineItem';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#3f51b5',
-    padding: '16px',
-  },
-  title: { 
-    color: "white",
-    textAlign:'center',
-  },
-}));
+import { useFetchBosses } from '../../services/firebase-service';
+import TimelineItem from '../../components/timeline-item';
+import { useStyles } from './styles';
 
 const Timeline = ({visible}) => {
   const classes = useStyles();

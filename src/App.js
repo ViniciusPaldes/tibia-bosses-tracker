@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainAppBar from './components/MainAppBar';
-// import BossDetail from './components/BossDetail';
-// import AdminPage from './components/AdminPage';
+import MainAppBar from './components/main-app-bar';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Home from './screen/Home';
-import Timeline from './screen/Timeline';
-import Filters from './screen/Filters';
+import Home from './screen/home';
+import Timeline from './screen/timeline';
+import Filters from './screen/filters';
+import Releases from './screen/releases';
 import { FilterProvider } from './context/FilterContext';
-import Releases from './screen/Releases';
+
 
 const theme = createTheme({
   typography: {
@@ -64,9 +63,6 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/releases" element={<Releases />} />
-                {/* <Route path="/boss/:id" element={<BossDetail />} />
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/work" element={<DependencyList />} /> */}
               </Routes>
             </div>
             <Timeline visible={timelineOpen} />
