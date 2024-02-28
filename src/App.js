@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainAppBar from './components/MainAppBar';
-// import BossDetail from './components/BossDetail';
-// import AdminPage from './components/AdminPage';
+import MainAppBar from 'components/main-app-bar';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Home from './screen/Home';
-import Timeline from './screen/Timeline';
-import Filters from './screen/Filters';
+import Home from 'screens/home';
+import Filters from 'screens/filters';
+import Releases from 'screens/releases';
+import Timeline from 'screens/timeline';
 import { FilterProvider } from './context/FilterContext';
-import Releases from './screen/Releases';
+import { useFetchBosses } from 'services/firebase-service';
+import { PacmanLoader } from 'react-spinners';
 
 const theme = createTheme({
   typography: {
@@ -44,6 +44,8 @@ function App() {
   const [timelineOpen, setTimelineOpen] = useState(null);
   const [filtersOpen, setFiltersOpen] = useState(null);
 
+  const bosses = useFetchBosses();
+
   const switchTimelineVisibility = () => {
     setTimelineOpen(!timelineOpen)
   }
@@ -52,25 +54,36 @@ function App() {
     setFiltersOpen(!filtersOpen)
   }
 
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    if (bosses.length > 1) {
+      setLoading(false);
+    }
+  }, [bosses])
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <FilterProvider>
           <MainAppBar handleTimeline={switchTimelineVisibility} timelineOpen={timelineOpen} handleFilter={switchFiltersVisibility} filtersOpen={filtersOpen} />
-          <div style={{ display: 'flex' }}>
-            <Filters visible={filtersOpen} />
-            <div style={{ flexGrow: 1, padding: '16px' }}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/releases" element={<Releases />} />
-                {/* <Route path="/boss/:id" element={<BossDetail />} />
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/work" element={<DependencyList />} /> */}
-              </Routes>
+          {loading ?
+            <div style={{display: "flex", justifyContent: "center", margin: 32}}>
+              <PacmanLoader color="#3f51b5" />
             </div>
-            <Timeline visible={timelineOpen} />
-          </div>
+          : 
+            <div style={{ display: 'flex' }}>
+              <Filters visible={filtersOpen} />
+              <div style={{ flexGrow: 1, padding: '16px' }}>
+                <Routes>
+                  <Route path="/" element={<Home bosses={bosses} />} />
+                  <Route path="/releases" element={<Releases />} />
+                </Routes>
+              </div>
+              <Timeline visible={timelineOpen} bosses={bosses} />
+            </div>
+          }
         </FilterProvider>
       </Router>
     </ThemeProvider>

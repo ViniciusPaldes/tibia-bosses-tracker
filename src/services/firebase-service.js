@@ -2,7 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import bosses from './bosses.json';
 import axios from 'axios';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDebouncedCallback } from 'use-debounce';
 
 const firebaseConfig = {
@@ -161,75 +161,144 @@ export const useFetchBossesKillStatistics = () => {
   return bosses;
 };
 
+ // Placeholder for processing API bosses - implement according to your needs
+ const processApiBosses = (apiData, initialBosses) => {
+  const flattenedApiBosses = Object.values(apiData).flat();
+  return initialBosses.map((boss) => {
+    const apiBoss = flattenedApiBosses.find(apiBoss => apiBoss.name.toLowerCase() === boss.name.toLowerCase());
+    return {
+      ...boss,
+      chance: apiBoss?.chance || 0,
+      lastSeen: apiBoss?.lastSeen || '',
+      killedYesterday: apiBoss?.killedYesterday || 0,
+      expectedIn: apiBoss?.expectedIn || '0',
+      chanceLabel: calculateChanceLabel(apiBoss?.chance),
+    };
+  });
+};
+
+// Helper function to calculate chance label
+const calculateChanceLabel = (chance) => {
+  if (!chance) return 'Sem chance';
+  if (chance > 0.1) return 'Alta';
+  if (chance > 0.01) return 'Média';
+  return chance > 0 ? 'Baixa' : 'Sem chance';
+};
+
+
 export const useFetchBosses = () => {
   const [bosses, setBosses] = useState([]);
-
-  const fetchBosses = async () => {
-    try {
-      const bossesCollection = await firebase.firestore().collection('bosses').get();
-
-      const unsubscribeChecks = firebase.firestore().collection('checks')
-        .onSnapshot((snapshot) => {
-          const checks = snapshot.docs.map((doc) => doc.data());
-          setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
-        });
-
-      const checksSnapshot = await firebase.firestore()
-        .collection('checks')
-        .orderBy('timestamp', 'desc')
-        .limit(300)
-        .get();
-
-      const checks = checksSnapshot.docs.map((doc) => doc.data());
-
-      const updatedBosses = addChecksIntoBosses(
-        bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })),
-        checks
-      );
-
-      const response = await axios.get(`${BASE_URL}/guild-stats`);
-      const apiBosses = response.data || {};
-
-      const updatedBossesWithChance = updatedBosses.map((boss) => {
-        const bossData = Object.values(apiBosses).flat().find((item) => item.name.toLowerCase() === boss.name.toLowerCase());
-
-        const currentProb = bossData ? bossData.chance : 0;
-        let chanceLabel = 'Sem chance';
-        if (bossData && bossData.chance) {
-
-          if (bossData.chance > 0.1) {
-            chanceLabel = 'Alta';
-          } else if (bossData.chance > 0.01) {
-            chanceLabel = 'Média';
-          } else if (bossData.chance > 0) {
-            chanceLabel = 'Baixa';
-          }
-        }
-        const lastSeen = bossData ? bossData.lastSeen : '';
-        const killedYesterday = bossData ? bossData.killedYesterday : 0;
-        const expectedIn = bossData ? bossData.expectedIn : '0';
-
-
-        return { ...boss, chance: currentProb, lastSeen, killedYesterday, chanceLabel, expectedIn };
-      });
-      setBosses(updatedBossesWithChance);
-
-      return () => {
-        unsubscribeChecks();
-      };
-    } catch (error) {
-      console.error('Error fetching bosses:', error);
-    }
-  };
-
-  const debouncedFetchBosses = useDebouncedCallback(fetchBosses, 1000); // Adjust the debounce delay as needed
+  const initialized = useRef(false);
 
   useEffect(() => {
-    debouncedFetchBosses();
-  }, [debouncedFetchBosses]);
+    if (initialized.current) {
+      return;
+    }
+    initialized.current = true;
+
+    let unsubscribeChecks = () => {};
+    const fetchAndSubscribe = async () => {
+      try {
+        const bossesCollectionPromise = firebase.firestore().collection('bosses').get();
+        const apiDataPromise = axios.get(`${BASE_URL}/guild-stats`);
+        const [bossesCollection, apiResponse] = await Promise.all([bossesCollectionPromise, apiDataPromise]);
+
+        const initialBosses = bossesCollection.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const apiData = apiResponse.data;
+        const processedBosses = processApiBosses(apiData, initialBosses); // Assume this function exists
+
+        setBosses(processedBosses);
+
+        unsubscribeChecks = firebase.firestore().collection('checks')
+          .orderBy('timestamp', 'desc')
+          .onSnapshot(snapshot => {
+            const checks = snapshot.docs.map(doc => doc.data());
+            setBosses(prevBosses => addChecksIntoBosses(prevBosses, checks)); // Assume this function exists
+          });
+
+      } catch (error) {
+        console.error('Error fetching bosses:', error);
+      }
+    };
+
+    fetchAndSubscribe();
+
+    return () => {
+      unsubscribeChecks();
+    };
+  }, []);
 
   return bosses;
 };
+
+// export const oldUseFetchBosses = () => {
+//   const [bosses, setBosses] = useState([]);
+
+//   const fetchBosses = async () => {
+//     try {
+//       const bossesCollection = await firebase.firestore().collection('bosses').get();
+//       const unsubscribeChecks = firebase.firestore().collection('checks')
+//         .onSnapshot((snapshot) => {
+//           const checks = snapshot.docs.map((doc) => doc.data());
+//           setBosses((prevBosses) => addChecksIntoBosses(prevBosses, checks));
+//         });
+
+//       const checksSnapshot = await firebase.firestore()
+//         .collection('checks')
+//         .orderBy('timestamp', 'desc')
+//         .limit(50)
+//         .get();
+
+//       const checks = checksSnapshot.docs.map((doc) => doc.data());
+
+//       const updatedBosses = addChecksIntoBosses(
+//         bossesCollection.docs.map((doc) => ({ id: doc.id, ...doc.data(), timestamp: null })),
+//         checks
+//       );
+
+//       const response = await axios.get(`${BASE_URL}/guild-stats`);
+//       const apiBosses = response.data || {};
+
+//       const updatedBossesWithChance = updatedBosses.map((boss) => {
+//         const bossData = Object.values(apiBosses).flat().find((item) => item.name.toLowerCase() === boss.name.toLowerCase());
+
+//         const currentProb = bossData ? bossData.chance : 0;
+//         let chanceLabel = 'Sem chance';
+//         if (bossData && bossData.chance) {
+
+//           if (bossData.chance > 0.1) {
+//             chanceLabel = 'Alta';
+//           } else if (bossData.chance > 0.01) {
+//             chanceLabel = 'Média';
+//           } else if (bossData.chance > 0) {
+//             chanceLabel = 'Baixa';
+//           }
+//         }
+//         const lastSeen = bossData ? bossData.lastSeen : '';
+//         const killedYesterday = bossData ? bossData.killedYesterday : 0;
+//         const expectedIn = bossData ? bossData.expectedIn : '0';
+
+
+//         return { ...boss, chance: currentProb, lastSeen, killedYesterday, chanceLabel, expectedIn };
+//       });
+//       setBosses(updatedBossesWithChance);
+
+//       return () => {
+//         unsubscribeChecks();
+//       };
+//     } catch (error) {
+//       console.error('Error fetching bosses:', error);
+//     }
+//   };
+
+//   const debouncedFetchBosses = useDebouncedCallback(fetchBosses, 1000); // Adjust the debounce delay as needed
+
+//   useEffect(() => {
+//     debouncedFetchBosses();
+//   }, [debouncedFetchBosses]);
+
+//   return bosses;
+// };
 
 
 

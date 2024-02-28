@@ -1,41 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '170px',
-    margin: theme.spacing(2),
-  },
-  bossName: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  image: {
-    objectFit: 'none',
-    minHeight: '100px',
-  },
-  imageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  chanceImage: {
-    width: 40,
-    height: 40,
-  },
-  chanceImageContainer: {
-    position: 'absolute', // Position the chance image container
-    top: theme.spacing(1), // Adjust the top spacing as needed
-    left: theme.spacing(1), // Adjust the left spacing as needed
-    zIndex: 1, // Ensure the chance image appears above the boss image
-  },
-  bossImageContainer: {
-    zIndex: 0, // Ensure the boss image appears below the chance image
-  },
-}));
+import { useStyles } from './styles';
 
 const KilledBossItem = ({ boss }) => {
   const classes = useStyles();

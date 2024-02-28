@@ -118,3 +118,32 @@ export const isFullMoonActive = (boss) => {
 
   return false;
 };
+
+export const getBossTime = (boss) => {
+  if (boss.shorterRespawn) {
+      if (isFullMoonActive(boss)) {
+          if (getMostRecentKilledTimestamp(boss) !== '-') {
+              const minutes = Math.floor((new Date() - getMostRecentKilledTimestamp(boss)?.toDate()) / (1000 * 60));
+              const remainingTime = boss.respawnTime - minutes
+              if (remainingTime <= 0) {
+                  if (remainingTime < -10) {
+                      return `Possível aparição a ${Math.abs(remainingTime)} minutos`
+                  } else {
+                      return "a qualquer momento"
+                  }
+
+              } else {
+                  return `${remainingTime} minutos`
+              }
+          } else {
+              return "-"
+          }
+      } else {
+          return "Todo mês dos dias 12 ao 15 (SS)"
+      }
+
+
+  } else {
+      return ((boss.checkable && boss.chanceLabel !== "Sem chance") || boss.wip) ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
+  }
+}

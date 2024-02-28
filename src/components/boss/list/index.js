@@ -1,179 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { saveCheckToFirestore, useFetchBosses } from '../services/firebase-service';
+import { saveCheckToFirestore } from 'services/firebase-service';
 import { Snackbar, TextareaAutosize } from '@material-ui/core';
 import { Alert } from '@mui/material';
-import BossCard from './BossCard';
+import BossCard from '../card';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useFilterContext } from '../context/FilterContext';
-import { isFullMoonActive } from '../services/date';
-import { PacmanLoader } from 'react-spinners';
-
-const useStyles = makeStyles((theme) => ({
-  main: {
-    flex: 1,
-  },
-  loader: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  root: {
-    width: 300,
-    marginBottom: theme.spacing(2),
-  },
-  bossName: {
-    fontWeight: 'bold',
-    textAlign: 'center'
-  },
-  media: {
-    height: 100,
-    objectFit: 'contain',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  checkButton: {
-    marginTop: theme.spacing(2),
-    width: '100%',
-    alignSelf: 'bottom'
-  },
-  gridContainer: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    justifyItems: 'center'
-  },
-  tableContainer: {
-    marginBottom: theme.spacing(4),
-    borderTopWidth: '2px',
-    borderTopStyle: 'solid',
-    borderTopColor: '#dedede',
-    paddingTop: theme.spacing(3),
-  },
-  tableTitle: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  imageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    objectFit: 'none',
-    minHeight: '100px',
-  },
-
-  dialogTitle: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: theme.spacing(2),
-  },
-  dialogContent: {
-    width: '400px',
-  },
-  dialogActions: {
-    justifyContent: 'center',
-  },
-  confirmationButton: {
-    margin: theme.spacing(2),
-  },
-  lootTextarea: {
-    width: '100%',
-    resize: 'vertical',
-    minHeight: '100px',
-    marginBottom: theme.spacing(2),
-  },
-  lastCheck: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  lastCheckLabel: {
-    fontWeight: 'bold',
-  },
-  lastCheckTimestamp: {
-    marginLeft: 8,
-    color: '#555555',
-  },
-  chanceHigh: {
-    color: 'green',
-  },
-  chanceMedium: {
-    color: 'yellow',
-  },
-  chanceLow: {
-    color: 'red',
-  },
-  whiteBackground: {
-    backgroundColor: 'white',
-  },
-
-  greyBackground: {
-    backgroundColor: '#f6f6f6',
-  },
-
-  accordionSummaryRoot: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  chanceInfo: {
-    display: 'flex',
-    alignItems: 'center',
-    color: '#888',
-    fontSize: '14px',
-    marginLeft: '10px',
-    '& span': {
-      fontWeight: 'bold',
-      marginLeft: '5px',
-    },
-    '& .alta': {
-      color: '#58bc6c',
-    },
-    '& .media': {
-      color: '#f1d756',
-    },
-    '& .baixa': {
-      color: '#E4A734',
-    },
-    '& .semChance': {
-      color: '#e8463c',
-    },
-  },
-}));
+import { useFilterContext } from 'context/FilterContext';
+import { isFullMoonActive } from 'services/date';
+import { useStyles } from './styles';
 
 function UserFeedback(props) {
   return <Alert elevation={6} variant="filled" {...props} />;
 }
 
-function BossesList() {
+function BossesList({bosses}) {
   const classes = useStyles();
-  const bosses = useFetchBosses();
+  const BossCardMemo = React.memo(BossCard);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [lootDialogOpen, setLootDialogOpen] = useState(false);
   const [selectedBoss, setSelectedBoss] = useState(null);
   const [lootText, setLootText] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
   const [confirmationOpen, setConfirmationOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (bosses.length > 1) {
-      setLoading(false);
-    }
-  }, [bosses])
 
   const handleCheck = (boss) => {
     setSelectedBoss(boss);
@@ -207,7 +63,7 @@ function BossesList() {
       await saveCheckToFirestore(null, selectedBoss.id, killed, loot);
       setConfirmationMessage('Check salvo!');
     } catch (error) {
-      setConfirmationMessage('Falhou ao salvar, favor reportar para Sabarath Hur.');
+      setConfirmationMessage('Falhou ao salvar, favor reportar para Sabarath.');
     } finally {
       handleConfirmDialogClose();
     }
@@ -221,9 +77,6 @@ function BossesList() {
     }
     setConfirmationOpen(false);
   };
-
-  // Organize bosses by type and order by chance
-
 
   const { selectedFilters } = useFilterContext();
 
@@ -242,7 +95,7 @@ function BossesList() {
       .map((chanceFilter) => chanceFilter.name);
   
     // Filter bosses based on selected cities and chances
-    const filteredBosses = bosses.filter((boss) => {
+    const filteredBosses = bosses?.filter((boss) => {
       // Check if the boss's city is included in the selectedCities array
       let isCityMatch = true
       if (selectedCities.length > 0) {
@@ -300,15 +153,8 @@ function BossesList() {
     sortedBossesByCity[bossCity] = bossesByCity[bossCity];
   });
 
-
-
   return (
     <div className={classes.main}>
-      {loading && 
-        <div className={classes.loader}>
-          <PacmanLoader color="#3f51b5" />
-        </div>
-      }
       {Object.entries(sortedBossesByCity).map(([bossCity, bossList], index) => {
         // Count occurrences for each chance level
         let altaCount = 0;
@@ -371,11 +217,12 @@ function BossesList() {
             </AccordionSummary>
             <AccordionDetails className={classes.gridContainer}>
               {bossList.map((boss) => (
-                <BossCard
-                  boss={boss}
-                  handleCheck={handleCheck}
-                  key={boss.id}
-                />
+                <React.Fragment key={boss.id}>
+                  <BossCardMemo
+                    boss={boss}
+                    handleCheck={handleCheck}
+                  />
+                </React.Fragment>
               ))}
             </AccordionDetails>
           </Accordion>

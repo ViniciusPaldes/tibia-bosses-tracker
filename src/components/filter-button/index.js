@@ -1,20 +1,8 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { useFilterContext } from '../context/FilterContext';
+import { useTheme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-
-const useStyles = makeStyles((theme) => ({
-  filterButton: {
-    margin: '4px',
-    borderRadius: '4px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    '& .MuiChip-label': {
-      color: 'white',
-      padding: '8px 16px',
-    },
-  },
-}));
+import { useStyles } from './style';
+import { useFilterContext } from 'context/FilterContext';
 
 const FilterButton = ({ name, type, handleClick }) => {
   const classes = useStyles();

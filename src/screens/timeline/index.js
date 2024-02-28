@@ -1,25 +1,10 @@
 import React from 'react';
-import { useFetchBosses } from '../services/firebase-service';
-import { makeStyles } from '@material-ui/core/styles';
-import TimelineItem from '../components/TimelineItem';
+import TimelineItem from 'components/timeline-item';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#3f51b5',
-    padding: '16px',
-  },
-  title: { 
-    color: "white",
-    textAlign:'center',
-  },
-}));
-
-const Timeline = ({visible}) => {
+const Timeline = ({visible, bosses}) => {
   const classes = useStyles();
-  const bosses = useFetchBosses();
+  const TimelineItemMemo = React.memo(TimelineItem);
 
   // Create a new array that contains all the checks for all bosses
   const allChecks = bosses.reduce((checks, boss) => {
@@ -30,15 +15,17 @@ const Timeline = ({visible}) => {
   const sortedChecks = allChecks.sort((a, b) => b.timestamp - a.timestamp).slice(0, 50);
   
   if (!visible) return
+
   return (
     <div className={classes.root}>
       <h2 className={classes.title}>Últimos bosses checados</h2>
       {sortedChecks.map((check) => {
         const boss = bosses.find((b) => b.id === check.bossId);
-        if (!boss) return null;
-
+        
         return (
-          <TimelineItem key={check.id} boss={boss} check={check}/>
+          <React.Fragment key={check.timestamp}>
+            <TimelineItemMemo boss={boss} check={check}/>
+          </React.Fragment>
         );
       })}
     </div>
