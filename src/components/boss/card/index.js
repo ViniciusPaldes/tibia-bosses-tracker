@@ -6,8 +6,8 @@ import {
     getBossImage
 } from 'assets/images';
 import React from 'react';
-import { isKilled } from 'services/bosses';
-import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from 'services/date';
+import { isKilled } from 'utils/bosses';
+import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from 'utils/date';
 
 import { useStyles } from './styles';
 

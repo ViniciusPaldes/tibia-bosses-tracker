@@ -1,11 +1,10 @@
-import { Snackbar } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Alert } from "@mui/material";
 import { ChanceInfo } from "components/chance-info";
+import { Toast } from "components/toast";
 import { useFilterContext } from "context/FilterContext";
 import React, { useState } from "react";
 
@@ -14,18 +13,14 @@ import { CheckDialog } from "../dialog/check";
 
 import { useStyles } from "./styles";
 
-function UserFeedback(props) {
-  return <Alert elevation={6} variant="filled" {...props} />;
-}
-
 function BossesList({ bosses }) {
   const classes = useStyles();
   const BossCardMemo = React.memo(BossCard);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [selectedBoss, setSelectedBoss] = useState(null);
-  const [confirmationMessage, setConfirmationMessage] = useState("");
-  const [confirmationSuccess, setConfirmationSuccess] = useState(false);
-  const [confirmationOpen, setConfirmationOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastSuccess, setToastSuccess] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
 
   const handleCheck = (boss) => {
     setSelectedBoss(boss);
@@ -37,17 +32,17 @@ function BossesList({ bosses }) {
     setSelectedBoss(null);
   };
 
-  const save = async ({success, message}) => {
-    setConfirmationMessage(message);
-    setConfirmationSuccess(success)
-    setConfirmationOpen(true);
-  }
+  const save = async ({ success, message }) => {
+    setToastMessage(message);
+    setToastSuccess(success);
+    setToastOpen(true);
+  };
 
   const handleConfirmationClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setConfirmationOpen(false);
+    setToastOpen(false);
   };
 
   const { selectedFilters } = useFilterContext();
@@ -149,7 +144,7 @@ function BossesList({ bosses }) {
                 >
                   {bossCity}
                 </Typography>
-                <ChanceInfo bosses={bossList}/>
+                <ChanceInfo bosses={bossList} />
               </div>
             </AccordionSummary>
             <AccordionDetails className={classes.gridContainer}>
@@ -168,21 +163,12 @@ function BossesList({ bosses }) {
         onClose={closeDialog}
         onSave={save}
       />
-
-      <Snackbar
-        open={confirmationOpen}
-        autoHideDuration={3000}
-        onClose={handleConfirmationClose}
-      >
-        <UserFeedback
-          onClose={handleConfirmationClose}
-          severity={
-            confirmationSuccess ? "success": "error"
-          }
-        >
-          {confirmationMessage}
-        </UserFeedback>
-      </Snackbar>
+      <Toast
+        visible={toastOpen}
+        handleClose={handleConfirmationClose}
+        success={toastSuccess}
+        message={toastMessage}
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, ListItemAvatar } from '@material-ui/core';
 import { useEffect, useState } from "react";
-import { formatTimeDifference } from "services/date";
+import { formatTimeDifference } from "utils/date";
 
 import { useStyles } from "./style";
 

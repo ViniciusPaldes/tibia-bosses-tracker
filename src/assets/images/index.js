@@ -1,4 +1,4 @@
-import { isFullMoonActive } from 'services/date';
+import { isFullMoonActive } from 'utils/date';
 
 import highChanceImage from './high_chance.png';
 import lowChanceImage from './low_chance.png';

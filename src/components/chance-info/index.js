@@ -1,5 +1,5 @@
 import React from "react";
-import { countChances } from "services/bosses";
+import { countChances } from "utils/bosses";
 
 import { useStyles } from "./style";
 
