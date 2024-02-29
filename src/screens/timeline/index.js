@@ -6,11 +6,12 @@ import { useStyles } from './styles';
 const Timeline = ({visible, bosses}) => {
   const classes = useStyles();
   const TimelineItemMemo = React.memo(TimelineItem);
-
   // Create a new array that contains all the checks for all bosses
   const allChecks = bosses.reduce((checks, boss) => {
     return checks.concat(boss.checks);
   }, []);
+  const allChecksContainOnlyUndefined = allChecks.every(check => check === undefined);
+  if (allChecksContainOnlyUndefined) return
 
   // Sort the checks by the latest timestamp
   const sortedChecks = allChecks.sort((a, b) => b.timestamp - a.timestamp).slice(0, 50);
