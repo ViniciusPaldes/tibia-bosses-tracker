@@ -63,3 +63,39 @@ export const countChances = (bosses) => {
     wip: wipCount,
   };
 };
+
+export const filterBosses = ({selectedFilters, bosses}) => {
+  if (selectedFilters.length === 0) {
+    return bosses;
+  }
+
+  const selectedCities = selectedFilters
+    .filter((filter) => filter.type === "city")
+    .map((cityFilter) => cityFilter.name);
+
+  const selectedChances = selectedFilters
+    .filter((filter) => filter.type === "chance")
+    .map((chanceFilter) => chanceFilter.name);
+
+  // Filter bosses based on selected cities and chances
+  const filteredBosses = bosses?.filter((boss) => {
+    // Check if the boss's city is included in the selectedCities array
+    let isCityMatch = true;
+    if (selectedCities.length > 0) {
+      isCityMatch = selectedCities.includes(boss.city);
+    }
+    // Check if the boss's chance is included in the selectedChances array
+    let isChanceMatch = true;
+    if (selectedChances.length > 0) {
+      if (boss.wip) {
+        return false;
+      } else {
+        isChanceMatch = selectedChances.includes(boss.chanceLabel);
+      }
+    }
+    // Return true if both city and chance match, otherwise return false
+    return isCityMatch && isChanceMatch;
+  });
+
+  return filteredBosses;
+}

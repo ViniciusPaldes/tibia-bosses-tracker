@@ -21,7 +21,7 @@ const Timeline = ({visible, bosses}) => {
     <div className={classes.root}>
       <h2 className={classes.title}>Últimos bosses checados</h2>
       {sortedChecks.map((check) => {
-        const boss = bosses.find((b) => b.id === check.bossId);
+        const boss = bosses.find((b) => b.id === check?.bossId);
         
         return (
           <React.Fragment key={check.timestamp}>

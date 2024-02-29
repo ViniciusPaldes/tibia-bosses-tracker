@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { useState, useEffect, useRef } from "react";
 import { useDebouncedCallback } from 'use-debounce';
+import { getChanceLabel } from 'utils/chances';
 
 import bosses from './bosses.json';
 
@@ -173,18 +174,12 @@ export const useFetchBossesKillStatistics = () => {
       lastSeen: apiBoss?.lastSeen || '',
       killedYesterday: apiBoss?.killedYesterday || 0,
       expectedIn: apiBoss?.expectedIn || '0',
-      chanceLabel: calculateChanceLabel(apiBoss?.chance),
+      chanceLabel: getChanceLabel(apiBoss?.chance),
     };
   });
 };
 
-// Helper function to calculate chance label
-const calculateChanceLabel = (chance) => {
-  if (!chance) return 'Sem chance';
-  if (chance > 0.1) return 'Alta';
-  if (chance > 0.01) return 'Média';
-  return chance > 0 ? 'Baixa' : 'Sem chance';
-};
+
 
 
 export const useFetchBosses = () => {
