@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     color: "white",
     background: "black",
-    fontFamily: "Montserrat",
+    fontFamily: '"Montserrat",sans-serif',
     fontWeight: "bold",
   },
   chanceLabel: {
