@@ -52,29 +52,6 @@ export const useStyles = makeStyles((theme) => ({
       objectFit: 'none',
       minHeight: '100px',
     },
-  
-    dialogTitle: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      padding: theme.spacing(2),
-    },
-    dialogContent: {
-      width: '400px',
-    },
-    dialogActions: {
-      justifyContent: 'center',
-    },
-    confirmationButton: {
-      margin: theme.spacing(2),
-    },
-    lootTextarea: {
-      width: '100%',
-      resize: 'vertical',
-      minHeight: '100px',
-      marginBottom: theme.spacing(2),
-    },
     lastCheck: {
       display: 'flex',
       alignItems: 'center',
@@ -109,29 +86,5 @@ export const useStyles = makeStyles((theme) => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-    },
-  
-    chanceInfo: {
-      display: 'flex',
-      alignItems: 'center',
-      color: '#888',
-      fontSize: '14px',
-      marginLeft: '10px',
-      '& span': {
-        fontWeight: 'bold',
-        marginLeft: '5px',
-      },
-      '& .alta': {
-        color: '#58bc6c',
-      },
-      '& .media': {
-        color: '#f1d756',
-      },
-      '& .baixa': {
-        color: '#E4A734',
-      },
-      '& .semChance': {
-        color: '#e8463c',
-      },
     },
   }));
