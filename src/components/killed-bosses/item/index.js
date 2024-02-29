@@ -1,7 +1,8 @@
-import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
+import React from 'react';
+
 import { useStyles } from './styles';
 
 const KilledBossItem = ({ boss }) => {

@@ -1,14 +1,15 @@
-import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import {
-    getChanceImage,
     getBossImage
 } from 'assets/images';
-import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from 'services/date';
+import ChanceIcon from 'components/chance-icon';
+import React from 'react';
+import { isKilled } from 'utils/bosses';
+import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from 'utils/date';
+
 import { useStyles } from './styles';
-import { isKilled } from 'services/bosses';
 
 const BossCard = ({ boss, handleCheck }) => {
     const classes = useStyles();
@@ -52,13 +53,15 @@ const BossCard = ({ boss, handleCheck }) => {
         }
     }
 
+
+ 
     return (
         <Card className={classes.root}>
             <CardActionArea>
                 <div className={classes.imageContainer}>
                     {/* Add the chance image */}
                     <div className={classes.chanceImageContainer}>
-                        <img src={getChanceImage(boss)} className={classes.chanceImage} alt="Chance" />
+                        <ChanceIcon chance={boss.chance} wip={boss.wip} />
                     </div>
                     <div className={classes.bossImageContainer}>
                         <img src={getBossImage(boss)} alt={boss.name} className={classes.image} />

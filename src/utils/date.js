@@ -96,24 +96,27 @@ export const isYesterday = (date) => {
   return date.toDateString() === yesterday.toDateString();
 };
 
+export const isFullMoonDate = () => {
+  const currentDay = new Date().getDate();
+  const currentHour = new Date().getHours();
+
+  if (
+    (currentDay === 12 && currentHour >= 5) ||
+    (currentDay > 12 && currentDay < 15)
+  ) {
+    return true;
+  }
+
+  // Check if the current day is 15 and the current time is before 05:00 AM
+  if (currentDay === 15 && currentHour < 5) {
+    return true;
+  }
+  return false;
+}
+
 export const isFullMoonActive = (boss) => {
   if (boss.fullMoon) {
-    const currentDay = new Date().getDate(); // Get the current day of the month (1-31)
-    const currentHour = new Date().getHours(); // Get the current hour (0-23)
-
-    // Check if the current day is between 12 and 15 (inclusive)
-    // and the current time is after 05:00 AM
-    if (
-      (currentDay === 12 && currentHour >= 5) ||
-      (currentDay > 12 && currentDay < 15)
-    ) {
-      return true;
-    }
-
-    // Check if the current day is 15 and the current time is before 05:00 AM
-    if (currentDay === 15 && currentHour < 5) {
-      return true;
-    }
+    return isFullMoonDate()
   }
 
   return false;

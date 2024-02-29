@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,12 +5,14 @@ import {
   IconButton,
   Badge,
 } from "@material-ui/core";
+import { FilterList } from "@material-ui/icons";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
-import { useFilterContext } from "context/FilterContext";
-import { FilterList } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 import NewReleasesIcon from "@material-ui/icons/NewReleases";
+import { useFilterContext } from "context/FilterContext";
+import React from "react";
+import { Link } from "react-router-dom";
+
 import { useStyles } from "./styles";
 
 const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
