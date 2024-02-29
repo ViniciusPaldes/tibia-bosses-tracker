@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { saveCheckToFirestore } from "services/firebase-service";
+
 import { useStyles } from "./styles";
 
 export const CheckDialog = ({ visible, boss, onClose, onSave }) => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
@@ -6,9 +5,11 @@ import {
     getChanceImage,
     getBossImage
 } from 'assets/images';
-import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from 'services/date';
-import { useStyles } from './styles';
+import React from 'react';
 import { isKilled } from 'services/bosses';
+import { getBossTime, getMostRecentKilledTimestamp, isFullMoonActive } from 'services/date';
+
+import { useStyles } from './styles';
 
 const BossCard = ({ boss, handleCheck }) => {
     const classes = useStyles();

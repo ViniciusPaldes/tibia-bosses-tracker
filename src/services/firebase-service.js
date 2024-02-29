@@ -1,9 +1,10 @@
+import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import bosses from './bosses.json';
-import axios from 'axios';
 import { useState, useEffect, useRef } from "react";
 import { useDebouncedCallback } from 'use-debounce';
+
+import bosses from './bosses.json';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,

@@ -1,15 +1,16 @@
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import MainAppBar from 'components/main-app-bar';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainAppBar from 'components/main-app-bar';
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Home from 'screens/home';
+import { PacmanLoader } from 'react-spinners';
 import Filters from 'screens/filters';
+import Home from 'screens/home';
 import Releases from 'screens/releases';
 import Timeline from 'screens/timeline';
-import { FilterProvider } from './context/FilterContext';
 import { useFetchBosses } from 'services/firebase-service';
-import { PacmanLoader } from 'react-spinners';
+
+import { FilterProvider } from './context/FilterContext';
 
 const theme = createTheme({
   typography: {

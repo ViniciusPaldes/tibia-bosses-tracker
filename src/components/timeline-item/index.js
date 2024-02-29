@@ -1,6 +1,7 @@
 import { Card, CardContent, Typography, ListItemAvatar } from '@material-ui/core';
-import { formatTimeDifference } from "services/date";
 import { useEffect, useState } from "react";
+import { formatTimeDifference } from "services/date";
+
 import { useStyles } from "./style";
 
 const TimelineItem = ({ check, boss }) => {

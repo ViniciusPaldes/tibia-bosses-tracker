@@ -1,6 +1,7 @@
 import React from "react";
-import { useStyles } from "./style";
 import { countChances } from "services/bosses";
+
+import { useStyles } from "./style";
 
 export const ChanceInfo = ({ bosses }) => {
   const classes = useStyles();

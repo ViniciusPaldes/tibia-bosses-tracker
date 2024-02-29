@@ -1,5 +1,6 @@
-import React from 'react';
 import TimelineItem from 'components/timeline-item';
+import React from 'react';
+
 import { useStyles } from './styles';
 
 const Timeline = ({visible, bosses}) => {

@@ -1,16 +1,18 @@
-import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
 import { Snackbar } from "@material-ui/core";
-import { Alert } from "@mui/material";
-import BossCard from "../card";
 import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useFilterContext } from "context/FilterContext";
-import { useStyles } from "./styles";
-import { CheckDialog } from "../dialog/check";
+import { Alert } from "@mui/material";
 import { ChanceInfo } from "components/chance-info";
+import { useFilterContext } from "context/FilterContext";
+import React, { useState } from "react";
+
+import BossCard from "../card";
+import { CheckDialog } from "../dialog/check";
+
+import { useStyles } from "./styles";
 
 function UserFeedback(props) {
   return <Alert elevation={6} variant="filled" {...props} />;

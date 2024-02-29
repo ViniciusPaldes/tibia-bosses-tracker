@@ -1,9 +1,10 @@
-import React from 'react';
-import KilledBosses from 'components/killed-bosses';
-import BossList from 'components/boss/list';
 import { Chip, Typography } from '@material-ui/core';
-import { useFilterContext } from 'context/FilterContext';
+import BossList from 'components/boss/list';
+import KilledBosses from 'components/killed-bosses';
 import WhiteDeleteIcon from 'components/white-delete-icon'; // Import the custom delete icon
+import { useFilterContext } from 'context/FilterContext';
+import React from 'react';
+
 import { useStyles } from './styles';
 
 const Home = ({bosses}) => {
