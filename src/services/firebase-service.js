@@ -4,6 +4,7 @@ import 'firebase/compat/firestore';
 import { useState, useEffect, useRef } from "react";
 import { useDebouncedCallback } from 'use-debounce';
 import { getChanceLabel } from 'utils/chances';
+import { getTodaysTimestamp } from 'utils/date';
 
 import bosses from './bosses.json';
 
@@ -199,13 +200,17 @@ export const useFetchBosses = () => {
         const apiDataPromise = axios.get(`${BASE_URL}/guild-stats`);
         const [bossesCollection, apiResponse] = await Promise.all([bossesCollectionPromise, apiDataPromise]);
 
-        const initialBosses = bossesCollection.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const initialBosses = bossesCollection.docs.map(doc => ({ id: doc.id, ...doc.data(), checks: [] }));
         const apiData = apiResponse.data;
         const processedBosses = processApiBosses(apiData, initialBosses); // Assume this function exists
 
         setBosses(processedBosses);
 
+        const { start, end } = getTodaysTimestamp();
+        
         unsubscribeChecks = firebase.firestore().collection('checks')
+          .where('timestamp', '>=', start)
+          .where('timestamp', '<', end)
           .orderBy('timestamp', 'desc')
           .onSnapshot(snapshot => {
             const checks = snapshot.docs.map(doc => doc.data());

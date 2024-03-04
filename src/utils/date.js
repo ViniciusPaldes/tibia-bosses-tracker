@@ -81,12 +81,36 @@ export const isToday = (date) => {
   const yesterday = new Date(today);
   yesterday.setDate(yesterday.getDate() - 1);
   const fiveAM = new Date(today);
-  fiveAM.setHours(5, 0, 0, 0);
+  fiveAM.setHours(6, 0, 0, 0);
 
   return (
     date.toDateString() === today.toDateString() ||
     (date.toDateString() === yesterday.toDateString() && today <= fiveAM)
   );
+};
+
+export const getTodaysTimestamp = () => {
+  const currentHour = new Date().getHours();
+  const startTimestamp = new Date();
+  const endTimestamp = new Date();
+
+  if (currentHour >= 0 && currentHour < 5) {
+    // Set the start time to 06:00 AM of the previous day
+    startTimestamp.setDate(startTimestamp.getDate() - 1);
+    startTimestamp.setHours(6, 0, 0, 0);
+
+    // Set the end time to 06:00 AM of today
+    endTimestamp.setHours(6, 0, 0, 0);
+  } else {
+    // Set the start time to 06:00 AM of today
+    startTimestamp.setHours(6, 0, 0, 0);
+
+    // Set the end time to 06:00 AM of the following day
+    endTimestamp.setDate(endTimestamp.getDate() + 1);
+    endTimestamp.setHours(6, 0, 0, 0);
+  }
+
+  return { start: startTimestamp, end: endTimestamp };
 };
 
 // Helper function to check if a given date is yesterday
@@ -148,5 +172,18 @@ export const getBossTime = (boss) => {
 
   } else {
       return ((boss.checkable && boss.chanceLabel !== "Sem chance") || boss.wip) ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
+  }
+}
+
+export const getDaysSinceLastSeen = (lastSeen) => {
+  const today = new Date();
+  const lastSeenDate = new Date(lastSeen);
+  const timeDifference = today.getTime() - lastSeenDate.getTime();
+  const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+  
+  if (!isNaN(daysDifference)) {
+    return daysDifference;
+  } else {
+    return "0";
   }
 }
