@@ -174,3 +174,16 @@ export const getBossTime = (boss) => {
       return ((boss.checkable && boss.chanceLabel !== "Sem chance") || boss.wip) ? getMostRecentTimestampFormat(boss) : `${boss.expectedIn} dias`
   }
 }
+
+export const getDaysSinceLastSeen = (lastSeen) => {
+  const today = new Date();
+  const lastSeenDate = new Date(lastSeen);
+  const timeDifference = today.getTime() - lastSeenDate.getTime();
+  const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+  
+  if (!isNaN(daysDifference)) {
+    return daysDifference;
+  } else {
+    return "0";
+  }
+}

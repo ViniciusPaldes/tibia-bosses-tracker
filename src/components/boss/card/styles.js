@@ -44,6 +44,15 @@ export const useStyles = makeStyles((theme) => ({
         left: theme.spacing(1),
         zIndex: 1,
     },
+    lastSeen: {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        top: theme.spacing(1),
+        right: theme.spacing(1),
+        zIndex: 1,
+        alignItems: 'center',
+    },
     bossImageContainer: {
         zIndex: 0,
     },
