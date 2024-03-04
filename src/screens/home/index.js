@@ -1,36 +1,43 @@
-import { Chip, Typography } from '@material-ui/core';
-import BossList from 'components/boss/list';
-import KilledBosses from 'components/killed-bosses';
-import WhiteDeleteIcon from 'components/white-delete-icon'; // Import the custom delete icon
-import { useFilterContext } from 'context/FilterContext';
-import React from 'react';
+import { Chip, Typography } from "@material-ui/core";
+import BossList from "components/boss/list";
+import KilledBosses from "components/killed-bosses";
+import WhiteDeleteIcon from "components/white-delete-icon";
+import { useFilterContext } from "context/FilterContext";
+import React from "react";
+import { getTodaysTimestamp } from "utils/date";
 
-import { useStyles } from './styles';
+import { useStyles } from "./styles";
 
-const Home = ({bosses}) => {
+const Home = ({ bosses }) => {
   const classes = useStyles();
-  const {
-    selectedFilters,
-    handleFilterClick,
-  } = useFilterContext();
-
+  const { selectedFilters, handleFilterClick } = useFilterContext();
+  const { start, end } = getTodaysTimestamp();
   return (
     <div>
-      <KilledBosses bosses={bosses}/>
+      <KilledBosses bosses={bosses} />
       <Typography variant="h5" component="h2" className={classes.title}>
         Previsões para Venebra
       </Typography>
-      {/* Display the selected filters */}
-
       <Typography variant="subtitle1" className={classes.subtitle}>
-        {new Date().toLocaleDateString('pt-BR', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
+        {start.toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
         })}
+        &nbsp; até &nbsp;
+        {end.toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })}, 06:00 AM
       </Typography>
       {selectedFilters.map((filter) => (
-        <Chip key={filter.name}  label={filter.name} className={classes.chip} onDelete={() => handleFilterClick(filter)} deleteIcon={<WhiteDeleteIcon />} // Use the custom delete icon
+        <Chip
+          key={filter.name}
+          label={filter.name}
+          className={classes.chip}
+          onDelete={() => handleFilterClick(filter)}
+          deleteIcon={<WhiteDeleteIcon />}
         />
       ))}
       <BossList bosses={bosses} />
