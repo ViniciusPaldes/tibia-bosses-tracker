@@ -1,6 +1,10 @@
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
+export const formatHours = (date) => {
+  return date?.toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit', second: '2-digit' }) || "-";
+}
+
 export const getMostRecentTimestampFormat = (boss) => {
   if (boss?.checks && boss?.checks.length > 0) {
     const sortedChecks = boss?.checks.sort((a, b) => {
@@ -16,7 +20,7 @@ export const getMostRecentTimestampFormat = (boss) => {
     });
     const mostRecentCheck = sortedChecks[0];
     const date = mostRecentCheck?.timestamp?.toDate();
-    return date?.toLocaleString("pt-BR") || "-";
+    return formatHours(date);
   } else {
     return "-";
   }
@@ -70,7 +74,7 @@ export const getMostRecentKilledTimestamp = (boss) => {
 
 export const formatTimeDifference = (timestamp) => {
   const formattedTimestamp = timestamp.toDate();
-  const formattedDistance = formatDistanceToNow(formattedTimestamp, { locale: ptBR });
+  const formattedDistance = formatDistanceToNow(formattedTimestamp, { locale: ptBR }).replace("menos de um minuto", "menos de um min");
 
   return `${formattedDistance} atrás`;
 };

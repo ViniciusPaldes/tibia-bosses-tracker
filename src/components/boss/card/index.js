@@ -8,9 +8,11 @@ import ChanceIcon from "components/chance-icon";
 import React from "react";
 import { isKilled } from "utils/bosses";
 import {
+  formatTimeDifference,
   getBossTime,
   getDaysSinceLastSeen,
   getMostRecentKilledTimestamp,
+  getMostRecentTimestamp,
   isFullMoonActive,
 } from "utils/date";
 
@@ -68,35 +70,45 @@ const BossCard = ({ boss, handleCheck }) => {
     }
   };
 
-return (
-    <Card className={classes.root}>
-        <CardActionArea>
-            <div className={classes.imageContainer}>
-                <div className={classes.chanceImageContainer}>
-                    <ChanceIcon chance={boss.chance} wip={boss.wip} />
-                </div>
+  const timeSinceLastCheck = () => {
+    const timestamp = getMostRecentTimestamp(boss);
+    if (timestamp !== "-") {
+      return `(${formatTimeDifference(timestamp)})`;
+    }
+    return '';
+  };
 
-                <div className={classes.bossImageContainer}>
-                    <img
-                        src={getBossImage(boss)}
-                        alt={boss.name}
-                        className={classes.image}
-                    />
-                </div>
-                {boss.lastSeen && (
-                    <Tooltip
-                        title={`Última vez visto: ${daysLastSeen} dia${daysLastSeen > 1 ?  's' : ''} atrás`}
-                    >
-                        <div className={classes.lastSeen}>
-                            <LastSeenIcon />
-                            <Typography variant="body2" className={classes.previewText}>
-                                {`${daysLastSeen}d`}
-                            </Typography>
-                        </div>
-                    </Tooltip>
-                )}
-            </div>
-            <div className={classes.cardContent}>
+  return (
+    <Card className={classes.root}>
+      <CardActionArea>
+        <div className={classes.imageContainer}>
+          <div className={classes.chanceImageContainer}>
+            <ChanceIcon chance={boss.chance} wip={boss.wip} />
+          </div>
+
+          <div className={classes.bossImageContainer}>
+            <img
+              src={getBossImage(boss)}
+              alt={boss.name}
+              className={classes.image}
+            />
+          </div>
+          {boss.lastSeen && (
+            <Tooltip
+              title={`Última vez visto: ${daysLastSeen} dia${
+                daysLastSeen > 1 ? "s" : ""
+              } atrás`}
+            >
+              <div className={classes.lastSeen}>
+                <LastSeenIcon />
+                <Typography variant="body2" className={classes.previewText}>
+                  {`${daysLastSeen}d`}
+                </Typography>
+              </div>
+            </Tooltip>
+          )}
+        </div>
+        <div className={classes.cardContent}>
           <Typography
             variant="h6"
             component="h3"
@@ -110,7 +122,7 @@ return (
               {getBossCheckLabel()}
             </Typography>
             <Typography variant="body2" className={classes.lastCheckTimestamp}>
-              {getBossTime(boss)}
+              {getBossTime(boss)} {timeSinceLastCheck()}
             </Typography>
           </div>
           <div
