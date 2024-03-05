@@ -61,7 +61,11 @@ const BossCard = ({ boss, handleCheck }) => {
       }
     } else {
       if (boss.wip) {
-        return "Pendente de integração";
+        if (boss.test) {
+          return "Check";
+        } else {
+          return "Pendente de integração";
+        }
       } else {
         return boss.checkable && boss.chanceLabel !== "Sem chance"
           ? "Check"
