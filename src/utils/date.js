@@ -94,7 +94,7 @@ export const getTodaysTimestamp = () => {
   const startTimestamp = new Date();
   const endTimestamp = new Date();
 
-  if (currentHour >= 0 && currentHour < 5) {
+  if (currentHour >= 0 && currentHour < 6) {
     // Set the start time to 06:00 AM of the previous day
     startTimestamp.setDate(startTimestamp.getDate() - 1);
     startTimestamp.setHours(6, 0, 0, 0);
@@ -125,14 +125,14 @@ export const isFullMoonDate = () => {
   const currentHour = new Date().getHours();
 
   if (
-    (currentDay === 12 && currentHour >= 5) ||
+    (currentDay === 12 && currentHour >= 6) ||
     (currentDay > 12 && currentDay < 15)
   ) {
     return true;
   }
 
   // Check if the current day is 15 and the current time is before 05:00 AM
-  if (currentDay === 15 && currentHour < 5) {
+  if (currentDay === 15 && currentHour < 6) {
     return true;
   }
   return false;
