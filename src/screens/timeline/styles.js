@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     backgroundColor: '#3f51b5',
     padding: '16px',
+    width: '300px',
   },
   title: { 
     color: "white",

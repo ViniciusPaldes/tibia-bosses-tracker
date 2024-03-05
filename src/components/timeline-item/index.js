@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, ListItemAvatar } from '@material-ui/core';
 import { useEffect, useState } from "react";
-import { formatTimeDifference } from "utils/date";
+import { formatHours, formatTimeDifference } from "utils/date";
 
 import { useStyles } from "./style";
 
@@ -26,16 +26,16 @@ const TimelineItem = ({ check, boss }) => {
                 <ListItemAvatar>
                     <img src={isKilled ? boss.dead_image : boss.image} alt={boss.name} className={classes.avatar} />
                 </ListItemAvatar>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className={classes.info}>
                     <Typography variant="h6" className={`${classes.bossName} ${isKilled ? classes.killedText : ""}`}>
-                        {boss.name.length > 13 ? `${boss.name.slice(0, 13)}...` : boss.name}
+                        {boss.name}
                     </Typography>
                     <div>
                     <Typography variant="body1" className={`${classes.checkedAt} ${isKilled ? classes.killedText : ""}`}>
                         {isKilled ? "Morto: " : ""} {formattedTimeDifference}
                     </Typography>
                     <Typography variant="body2" className={`${classes.fullDate} ${isKilled ? classes.killedText : ""}`}>
-                        {check.timestamp?.toDate().toLocaleString('pt-BR')}
+                        {formatHours(check.timestamp?.toDate())}
                     </Typography>    
                     </div>
                 </div>
