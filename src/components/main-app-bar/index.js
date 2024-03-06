@@ -20,7 +20,7 @@ const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
   const { selectedFilters } = useFilterContext(); // Access the selectedFilters from the filter context
 
   return (
-    <AppBar position="static" className={classes.appBar}>
+    <AppBar position="sticky" className={classes.appBar}>
       <Toolbar>
         <IconButton color="inherit" onClick={handleFilter}>
           <Badge

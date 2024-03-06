@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles((theme) => ({
     container: {
       flex:1,
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -36,9 +37,6 @@ export const useStyles = makeStyles((theme) => ({
       height: '40px',
       alignSelf: 'center',
       marginLeft: theme.spacing(2),
-    },
-    accordion: {
-      width: '100%',
     },
   }));
   

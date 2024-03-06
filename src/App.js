@@ -9,39 +9,14 @@ import Home from 'screens/home';
 import Releases from 'screens/releases';
 import Timeline from 'screens/timeline';
 import { useFetchBosses } from 'services/firebase-service';
+import { useStyles } from 'styles';
+import { theme } from 'theme';
 
 import { FilterProvider } from './context/FilterContext';
 
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Montserrat, sans-serif',
-  },
-  palette: {
-    primary: {
-      main: '#3f51b5',
-    },
-    primaryDark: {
-      main: '#135ba0',
-    },
-    secondary: {
-      main: '#C06605'
-    },
-    tertiary: {
-      main: '#C06605',
-    },
-    tertiaryChip: {
-      main: '#C06605',
-    },
-    unselected: {
-      main: '#132584', // Change this to the desired darker color than #00aaff
-    },
-  },
-  // Define a custom color for unselected state
-  
-});
 
 function App() {
-
+  const classes = useStyles();
   const [timelineOpen, setTimelineOpen] = useState(null);
   const [filtersOpen, setFiltersOpen] = useState(null);
 
@@ -70,19 +45,19 @@ function App() {
         <FilterProvider>
           <MainAppBar handleTimeline={switchTimelineVisibility} timelineOpen={timelineOpen} handleFilter={switchFiltersVisibility} filtersOpen={filtersOpen} />
           {loading ?
-            <div style={{display: "flex", justifyContent: "center", margin: 32}}>
+            <div className={classes.loader}>
               <PacmanLoader color="#3f51b5" />
             </div>
           : 
-            <div style={{ display: 'flex' }}>
-              <Filters visible={filtersOpen} />
-              <div style={{ flexGrow: 1, padding: '16px' }}>
+            <div className={classes.app}>
+              <Filters visible={filtersOpen} onClose={switchFiltersVisibility} />
+              <div className={classes.routes}>
                 <Routes>
                   <Route path="/" element={<Home bosses={bosses} />} />
                   <Route path="/releases" element={<Releases />} />
                 </Routes>
               </div>
-              <Timeline visible={timelineOpen} bosses={bosses} />
+              <Timeline visible={timelineOpen} bosses={bosses} onClose={switchTimelineVisibility} />
             </div>
           }
         </FilterProvider>
