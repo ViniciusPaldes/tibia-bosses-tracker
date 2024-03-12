@@ -87,7 +87,7 @@ const BossCard = ({ boss, handleCheck }) => {
       <CardActionArea>
         <div className={classes.imageContainer}>
           <div className={classes.chanceImageContainer}>
-            <ChanceIcon chance={boss.chance} wip={boss.wip} />
+            <ChanceIcon boss={boss} />
           </div>
 
           <div className={classes.bossImageContainer}>
