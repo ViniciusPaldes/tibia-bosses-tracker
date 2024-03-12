@@ -4,17 +4,17 @@ import {
   getChanceStyle,
   getFormattedChance,
 } from "utils/chances";
-import { isFullMoonDate } from "utils/date";
+import { isFullMoonActive } from "utils/date";
 
 import { useStyles } from "./styles";
 
 const ChanceIcon = (props) => {
-  const { wip, chance } = props;
-  let localChance = isFullMoonDate() ? 1 : chance;
+  const { boss } = props;
+  let localChance = isFullMoonActive(boss) ? 1 : boss.chance;
   const classes = useStyles();
-  const chanceLabel = wip ? "WIP" : getChanceLabel(localChance);
-  const formattedChance = wip ? "?" : getFormattedChance(localChance);
-  const style = wip ? "wip" : getChanceStyle(localChance);
+  const chanceLabel = boss.wip ? "WIP" : getChanceLabel(localChance);
+  const formattedChance = boss.wip ? "?" : getFormattedChance(localChance);
+  const style = boss.wip ? "wip" : getChanceStyle(localChance);
   return (
     <div className={`${classes.chanceCircle} ${classes[style]}`}>
       <span className={classes.chanceLabel}>{chanceLabel}</span>
