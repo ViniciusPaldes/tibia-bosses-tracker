@@ -70,13 +70,17 @@ export const saveCheckToFirestore = async (userId, bossId, killed, loot) => {
     // Create a new Firestore document reference for the check
     const checkRef = db.collection('checks').doc();
 
+    const res = await axios.get("https://api.ipify.org/?format=json");
+    const ip = res.data;
+
     // Create the check object with the provided data
     const checkData = {
       userId,
       bossId,
       killed,
       loot,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add server timestamp
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Add server timestamp
+      ip,
     };
 
     // Save the check data to Firestore
