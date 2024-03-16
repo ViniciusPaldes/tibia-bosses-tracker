@@ -7,7 +7,8 @@ import {
   TextareaAutosize,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import { AuthContext } from "context/auth";
+import React, { useContext, useState } from "react";
 import { saveCheckToFirestore } from "services/firebase-service";
 
 import { useStyles } from "./styles";
@@ -16,6 +17,7 @@ export const CheckDialog = ({ visible, boss, onClose, onSave }) => {
   const classes = useStyles();
   const [lootText, setLootText] = useState("");
   const [lootVisible, setLootVisible] = useState(false);
+  const { user } = useContext(AuthContext);
 
   const handleDialogClose = () => {
     onClose();
@@ -39,7 +41,7 @@ export const CheckDialog = ({ visible, boss, onClose, onSave }) => {
   const handleSave = async (killed) => {
     const loot = lootText?.trim();
     try {
-      await saveCheckToFirestore(null, boss.id, killed, loot);
+      await saveCheckToFirestore(user.uid, boss.id, killed, loot, user.email);
       onSave({ success: true, message: "Check salvo!" });
     } catch (error) {
       onSave({
