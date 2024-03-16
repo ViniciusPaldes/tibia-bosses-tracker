@@ -7,11 +7,13 @@ import {
 } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
 import CloseIcon from "@material-ui/icons/Close";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'; 
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import NewReleasesIcon from "@material-ui/icons/NewReleases";
 import { useFilterContext } from "context/FilterContext";
 import React from "react";
 import { Link } from "react-router-dom";
+import { logout } from "services/firebase-service";
 
 import { useStyles } from "./styles";
 
@@ -41,11 +43,18 @@ const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
             )}
           </Badge>
         </IconButton>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit", flexGrow: 1 }}>
+        <Link
+          to="/"
+          style={{ textDecoration: "none", color: "inherit", flexGrow: 1 }}
+        >
           <Typography variant="h6" className={classes.title}>
             Check Boss - Tibia
           </Typography>
         </Link>
+
+        <IconButton color="inherit" onClick={logout}>
+          <ExitToAppIcon />
+        </IconButton>
 
         <Link
           to="/releases"
