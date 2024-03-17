@@ -2,6 +2,7 @@ import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import 'firebase/compat/analytics';
 import { useState, useEffect, useRef } from "react";
 import { getChanceLabel } from 'utils/chances';
 import { getTodaysTimestamp } from 'utils/date';
@@ -181,3 +182,7 @@ export const onAuthStateChanged = (setUser) => {
 export const logout = () => {
   firebase.auth().signOut();
 };
+
+export const analytics = (userUid) => {  
+  firebase.analytics().setUserId(userUid);
+}
