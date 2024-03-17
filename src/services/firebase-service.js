@@ -2,6 +2,7 @@ import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import 'firebase/compat/analytics';
 import { useState, useEffect, useRef } from "react";
 import { getChanceLabel } from 'utils/chances';
 import { getTodaysTimestamp } from 'utils/date';
@@ -65,13 +66,10 @@ export const manuallyAddBosses = async () => {
 };
 
 // Function to save check data to Firestore
-export const saveCheckToFirestore = async (userUid, bossId, killed, loot, userEmail) => {
+export const saveCheckToFirestore = async (userUid, bossId, killed, loot, userEmail, ip) => {
   try {
     // Create a new Firestore document reference for the check
     const checkRef = db.collection('checks').doc();
-
-    const res = await axios.get("https://api.ipify.org/?format=json");
-    const ip = res?.data?.ip;
 
     // Create the check object with the provided data
     const checkData = {
@@ -181,3 +179,7 @@ export const onAuthStateChanged = (setUser) => {
 export const logout = () => {
   firebase.auth().signOut();
 };
+
+export const analytics = (userUid) => {  
+  firebase.analytics().setUserId(userUid);
+}

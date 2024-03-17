@@ -10,7 +10,7 @@ import Home from "screens/home";
 import LoginScreen from "screens/login";
 import Releases from "screens/releases";
 import Timeline from "screens/timeline";
-import { useFetchBosses } from "services/firebase-service";
+import { analytics, useFetchBosses } from "services/firebase-service";
 
 import { FilterProvider } from "./context/FilterContext";
 
@@ -47,6 +47,10 @@ function App() {
   const { user } = useContext(AuthContext);
 
   const bosses = useFetchBosses();
+
+  if (typeof window !== 'undefined' && user) {
+    analytics(user.uid);
+  }
 
   const switchTimelineVisibility = () => {
     setTimelineOpen(!timelineOpen);
