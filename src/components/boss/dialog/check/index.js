@@ -17,7 +17,7 @@ export const CheckDialog = ({ visible, boss, onClose, onSave }) => {
   const classes = useStyles();
   const [lootText, setLootText] = useState("");
   const [lootVisible, setLootVisible] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, ip } = useContext(AuthContext);
 
   const handleDialogClose = () => {
     onClose();
@@ -41,7 +41,7 @@ export const CheckDialog = ({ visible, boss, onClose, onSave }) => {
   const handleSave = async (killed) => {
     const loot = lootText?.trim();
     try {
-      await saveCheckToFirestore(user.uid, boss.id, killed, loot, user.email);
+      await saveCheckToFirestore(user.uid, boss.id, killed, loot, user.email, ip);
       onSave({ success: true, message: "Check salvo!" });
     } catch (error) {
       onSave({
