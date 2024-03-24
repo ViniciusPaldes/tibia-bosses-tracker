@@ -47,14 +47,13 @@ function BossesList({ bosses }) {
     setToastOpen(false);
   };
 
-  const { selectedFilters } = useFilterContext();
+  const { selectedFilters, thereIsFilters } = useFilterContext();
 
   const filterBosses = () => {
     // If no filters are selected, return all bosses
-    if (selectedFilters.length === 0) {
+    if (thereIsFilters()) {
       return bosses;
-    }
-
+    } 
     const selectedCities = selectedFilters
       .filter((filter) => filter.type === "city")
       .map((cityFilter) => cityFilter.name);

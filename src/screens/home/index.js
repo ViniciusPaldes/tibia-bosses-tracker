@@ -10,7 +10,7 @@ import { useStyles } from "./styles";
 
 const Home = ({ bosses }) => {
   const classes = useStyles();
-  const { selectedFilters, handleFilterClick } = useFilterContext();
+  const { selectedFilters, handleFilterClick, thereIsFilters } = useFilterContext();
   const { start, end } = getTodaysTimestamp();
   return (
     <div>
@@ -31,7 +31,7 @@ const Home = ({ bosses }) => {
           year: "numeric",
         })}, 06:00 AM
       </Typography>
-      {selectedFilters.map((filter) => (
+      {thereIsFilters()  && selectedFilters.map((filter) => (
         <Chip
           key={filter.name}
           label={filter.name}

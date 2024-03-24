@@ -19,7 +19,7 @@ import { useStyles } from "./styles";
 
 const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
   const classes = useStyles();
-  const { selectedFilters } = useFilterContext(); // Access the selectedFilters from the filter context
+  const { selectedFilters, thereIsFilters } = useFilterContext(); // Access the selectedFilters from the filter context
 
   return (
     <AppBar position="static" className={classes.appBar}>
@@ -27,7 +27,7 @@ const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
         <IconButton color="inherit" onClick={handleFilter}>
           <Badge
             color="secondary"
-            badgeContent={selectedFilters.length}
+            badgeContent={thereIsFilters() ? selectedFilters.length : 0}
             className={classes.badge}
             overlap="rectangular"
             classes={{ badge: classes.badge }} // Apply the badge class styles
@@ -36,7 +36,7 @@ const MainAppBar = ({ handleTimeline, timelineOpen, handleFilter }) => {
               horizontal: "right",
             }}
           >
-            {selectedFilters.length > 0 ? (
+            {thereIsFilters() ? (
               <FilterList className={classes.filterIcon} />
             ) : (
               <FilterList />
