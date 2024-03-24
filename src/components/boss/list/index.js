@@ -23,7 +23,7 @@ function BossesList({ bosses }) {
   const [toastSuccess, setToastSuccess] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
   const { user } = useContext(AuthContext);
-  
+
   const handleCheck = (boss) => {
     setSelectedBoss(boss);
     setDialogVisible(true);
@@ -47,13 +47,13 @@ function BossesList({ bosses }) {
     setToastOpen(false);
   };
 
-  const { selectedFilters, thereIsFilters } = useFilterContext();
+  const { selectedFilters, thereIsNoFilters } = useFilterContext();
 
   const filterBosses = () => {
     // If no filters are selected, return all bosses
-    if (thereIsFilters()) {
+    if (thereIsNoFilters()) {
       return bosses;
-    } 
+    }
     const selectedCities = selectedFilters
       .filter((filter) => filter.type === "city")
       .map((cityFilter) => cityFilter.name);
@@ -62,9 +62,16 @@ function BossesList({ bosses }) {
       .filter((filter) => filter.type === "chance")
       .map((chanceFilter) => chanceFilter.name);
 
+    const favorite = selectedFilters.filter(
+      (filter) => filter.type === "favorite"
+    );
+
+    const isFavoriteSelected = selectedFilters.some(filter => filter.type === "favorite" && filter.selected);
+
     // Filter bosses based on selected cities and chances
     const filteredBosses = bosses?.filter((boss) => {
       // Check if the boss's city is included in the selectedCities array
+      let favorite = isFavoriteSelected ? boss.favorite : true;
       let isCityMatch = true;
       if (selectedCities.length > 0) {
         isCityMatch = selectedCities.includes(boss.city);
@@ -79,7 +86,7 @@ function BossesList({ bosses }) {
         }
       }
       // Return true if both city and chance match, otherwise return false
-      return isCityMatch && isChanceMatch;
+      return isCityMatch && isChanceMatch && favorite;
     });
 
     return filteredBosses;
@@ -151,7 +158,11 @@ function BossesList({ bosses }) {
             <AccordionDetails className={classes.gridContainer}>
               {bossList.map((boss) => (
                 <React.Fragment key={boss.id}>
-                  <BossCardMemo boss={boss} handleCheck={handleCheck} userId={user.uid} />
+                  <BossCardMemo
+                    boss={boss}
+                    handleCheck={handleCheck}
+                    userId={user.uid}
+                  />
                 </React.Fragment>
               ))}
             </AccordionDetails>

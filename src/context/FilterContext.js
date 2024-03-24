@@ -51,11 +51,11 @@ const FilterProvider = ({ children }) => {
         ...chanceButton,
       })),
   ];
-  const thereIsFilters = () => {
+  const thereIsNoFilters = () => {
     if (selectedFilters.length === 1 && selectedFilters[0].selected === false) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
     }
   };
 
@@ -91,7 +91,7 @@ const FilterProvider = ({ children }) => {
         selectedFilters,
         favoritesOnly,
         handleFilterClick,
-        thereIsFilters,
+        thereIsNoFilters,
       }}
     >
       {children}
