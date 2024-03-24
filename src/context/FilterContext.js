@@ -5,6 +5,8 @@ const FilterContext = createContext();
 
 // Create the context provider component
 const FilterProvider = ({ children }) => {
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+
   const [cityButtons, setCityButtons] = useState([
     { name: "Ab'dendriel", selected: false },
     { name: 'Ankrahmun', selected: false },
@@ -35,6 +37,7 @@ const FilterProvider = ({ children }) => {
   // Logic to update the selectedFilters array based on the selected buttons
   // You can adapt this logic based on your specific filtering requirements
   const selectedFilters = [
+    favoritesOnly,
     ...cityButtons.filter((cityButton) => cityButton.selected).map((cityButton) => ({
       type: 'city',
       ...cityButton,
@@ -46,23 +49,28 @@ const FilterProvider = ({ children }) => {
   ];
 
   const handleFilterClick = (filter) => {
-    if (filter.type === 'city') {
-      setCityButtons((prevState) =>
-        prevState.map((city) =>
-          city.name === filter.name ? { ...city, selected: !city.selected } : city
-        )
-      );
-    } else if (filter.type === 'chance') {
-      setChanceButtons((prevState) =>
-        prevState.map((chance) =>
-          chance.name === filter.name ? { ...chance, selected: !chance.selected } : chance
-        )
-      );
+    if (filter.type === 'favorite') {
+      setFavoritesOnly(!favoritesOnly);
+    } else {
+      if (filter.type === 'city') {
+        setCityButtons((prevState) =>
+          prevState.map((city) =>
+            city.name === filter.name ? { ...city, selected: !city.selected } : city
+          )
+        );
+      } else if (filter.type === 'chance') {
+        setChanceButtons((prevState) =>
+          prevState.map((chance) =>
+            chance.name === filter.name ? { ...chance, selected: !chance.selected } : chance
+          )
+        );
+      }
     }
+    
   };
 
   return (
-    <FilterContext.Provider value={{ cityButtons, chanceButtons, selectedFilters, handleFilterClick }}>
+    <FilterContext.Provider value={{ cityButtons, chanceButtons, selectedFilters, favoritesOnly, handleFilterClick }}>
       {children}
     </FilterContext.Provider>
   );

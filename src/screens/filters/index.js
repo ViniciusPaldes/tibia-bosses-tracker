@@ -19,6 +19,11 @@ const Filters = ({ visible }) => {
     <div className={classes.root}>
       <h2 className={classes.title}>Filtros</h2>
       <div className={classes.filterSection}>
+        <div className={classes.label}>Seu check diário</div>
+        <div className={classes.buttonContainer}>
+            <FilterButton key="favorite" name="Favoritos" type="favorite" handleClick={() => handleFilterClick({type: 'favorite'})}/>
+        </div>
+
         {/* City Filter */}
         <div className={classes.label}>Cidades</div>
         <div className={classes.buttonContainer}>

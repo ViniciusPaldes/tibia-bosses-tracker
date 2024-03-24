@@ -47,10 +47,6 @@ export const useStyles = makeStyles((theme) => ({
     lastSeen: {
         display: 'flex',
         flexDirection: 'column',
-        position: 'absolute',
-        top: theme.spacing(1),
-        right: theme.spacing(1),
-        zIndex: 1,
         alignItems: 'center',
     },
     bossImageContainer: {
@@ -97,4 +93,12 @@ export const useStyles = makeStyles((theme) => ({
         cursor: 'default',
         pointerEvents: 'none', // Prevents click events
       },
+      rightContainer: {
+        position: 'absolute',
+        top: theme.spacing(1),
+        right: theme.spacing(1),
+        zIndex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      }
 }));

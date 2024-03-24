@@ -6,6 +6,7 @@ import LastSeenIcon from "@material-ui/icons/RemoveRedEyeSharp";
 import { getBossImage } from "assets/images";
 import ChanceIcon from "components/chance-icon";
 import React from "react";
+import { createFavorite, deleteFavorite } from "services/firebase-service";
 import { isKilled } from "utils/bosses";
 import {
   formatTimeDifference,
@@ -16,9 +17,11 @@ import {
   isFullMoonActive,
 } from "utils/date";
 
+import Favorite from "../favorite";
+
 import { useStyles } from "./styles";
 
-const BossCard = ({ boss, handleCheck }) => {
+const BossCard = ({ boss, userId, handleCheck }) => {
   const classes = useStyles();
 
   const daysLastSeen = getDaysSinceLastSeen(boss.lastSeen);
@@ -79,9 +82,16 @@ const BossCard = ({ boss, handleCheck }) => {
     if (timestamp !== "-") {
       return `(${formatTimeDifference(timestamp)})`;
     }
-    return '';
+    return "";
   };
 
+  const toggleFavorite = () => {  
+    if (boss.favorite) {
+      deleteFavorite(userId, boss.id);
+    } else {
+      createFavorite(userId, boss.id);
+    }
+  }
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -97,20 +107,26 @@ const BossCard = ({ boss, handleCheck }) => {
               className={classes.image}
             />
           </div>
-          {boss.lastSeen && (
-            <Tooltip
-              title={`Última vez visto: ${daysLastSeen} dia${
-                daysLastSeen > 1 ? "s" : ""
-              } atrás`}
-            >
-              <div className={classes.lastSeen}>
-                <LastSeenIcon />
-                <Typography variant="body2" className={classes.previewText}>
-                  {`${daysLastSeen}d`}
-                </Typography>
-              </div>
-            </Tooltip>
-          )}
+          <div className={classes.rightContainer}>
+            <Favorite
+              isFavorite={boss.favorite}
+              onClick={toggleFavorite}
+            />
+            {boss.lastSeen && (
+              <Tooltip
+                title={`Última vez visto: ${daysLastSeen} dia${
+                  daysLastSeen > 1 ? "s" : ""
+                } atrás`}
+              >
+                <div className={classes.lastSeen}>
+                  <LastSeenIcon />
+                  <Typography variant="body2" className={classes.previewText}>
+                    {`${daysLastSeen}d`}
+                  </Typography>
+                </div>
+              </Tooltip>
+            )}
+          </div>
         </div>
         <div className={classes.cardContent}>
           <Typography

@@ -5,8 +5,9 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { ChanceInfo } from "components/chance-info";
 import { Toast } from "components/toast";
+import { AuthContext } from "context/auth";
 import { useFilterContext } from "context/FilterContext";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import BossCard from "../card";
 import { CheckDialog } from "../dialog/check";
@@ -21,7 +22,8 @@ function BossesList({ bosses }) {
   const [toastMessage, setToastMessage] = useState("");
   const [toastSuccess, setToastSuccess] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
-
+  const { user } = useContext(AuthContext);
+  
   const handleCheck = (boss) => {
     setSelectedBoss(boss);
     setDialogVisible(true);
@@ -150,7 +152,7 @@ function BossesList({ bosses }) {
             <AccordionDetails className={classes.gridContainer}>
               {bossList.map((boss) => (
                 <React.Fragment key={boss.id}>
-                  <BossCardMemo boss={boss} handleCheck={handleCheck} />
+                  <BossCardMemo boss={boss} handleCheck={handleCheck} userId={user.uid} />
                 </React.Fragment>
               ))}
             </AccordionDetails>
