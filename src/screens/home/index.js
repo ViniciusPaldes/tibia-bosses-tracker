@@ -29,17 +29,24 @@ const Home = ({ bosses }) => {
           day: "2-digit",
           month: "long",
           year: "numeric",
-        })}, 06:00 AM
+        })}
+        , 06:00 AM
       </Typography>
-      {selectedFilters.map((filter) => (
-        <Chip
-          key={filter.name}
-          label={filter.name}
-          className={classes.chip}
-          onDelete={() => handleFilterClick(filter)}
-          deleteIcon={<WhiteDeleteIcon />}
-        />
-      ))}
+      {selectedFilters.map((filter) => {
+        if (filter.type === "favorite" && !filter.selected) {
+          return;
+        } else {
+          return (
+            <Chip
+              key={filter.name}
+              label={filter.name}
+              className={classes.chip}
+              onDelete={() => handleFilterClick(filter)}
+              deleteIcon={<WhiteDeleteIcon />}
+            />
+          );
+        }
+      })}
       <BossList bosses={bosses} />
     </div>
   );

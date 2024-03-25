@@ -9,11 +9,12 @@ import { useStyles } from './style';
 const FilterButton = ({ name, type, handleClick }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { cityButtons, chanceButtons } = useFilterContext();
-
+  const { cityButtons, chanceButtons, favoritesOnly } = useFilterContext();
   const buttons = type === 'city' ? cityButtons : chanceButtons;
-  const selected = buttons.find((button) => button.name === name)?.selected;
-
+  let selected =  buttons.find((button) => button.name === name)?.selected;
+  if (favoritesOnly && type === 'favorite') {
+    selected = true;
+  }
   return (
     <Chip
       label={name}
