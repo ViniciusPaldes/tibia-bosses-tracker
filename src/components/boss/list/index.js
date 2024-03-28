@@ -7,6 +7,7 @@ import { ChanceInfo } from "components/chance-info";
 import { Toast } from "components/toast";
 import { AuthContext } from "context/auth";
 import { useFilterContext } from "context/FilterContext";
+import { ListOptionsContext } from "context/list-options";
 import React, { useContext, useState } from "react";
 
 import BossCard from "../card";
@@ -48,6 +49,7 @@ function BossesList({ bosses }) {
   };
 
   const { selectedFilters, thereIsNoFilters } = useFilterContext();
+  const { listMode } = useContext(ListOptionsContext);
 
   const filterBosses = () => {
     // If no filters are selected, return all bosses
@@ -66,7 +68,9 @@ function BossesList({ bosses }) {
       (filter) => filter.type === "favorite"
     );
 
-    const isFavoriteSelected = selectedFilters.some(filter => filter.type === "favorite" && filter.selected);
+    const isFavoriteSelected = selectedFilters.some(
+      (filter) => filter.type === "favorite" && filter.selected
+    );
 
     // Filter bosses based on selected cities and chances
     const filteredBosses = bosses?.filter((boss) => {
@@ -123,9 +127,16 @@ function BossesList({ bosses }) {
 
   // Create a new object with sorted bossCity entries
   const sortedBossesByCity = {};
-  sortedBossesByCityKeys.forEach((bossCity) => {
-    sortedBossesByCity[bossCity] = bossesByCity[bossCity];
-  });
+
+  const listModeSelected = listMode.filter((item) => item.selected)[0]?.name;
+
+  if (listModeSelected === "Cidade") {
+    sortedBossesByCityKeys.forEach((bossCity) => {
+      sortedBossesByCity[bossCity] = bossesByCity[bossCity];
+    });
+  } else {
+    sortedBossesByCity['Todas cidades'] = Object.values(bossesByCity).flat();
+  }
 
   return (
     <div className={classes.main}>
