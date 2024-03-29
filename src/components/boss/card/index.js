@@ -78,7 +78,7 @@ const BossCard = ({ boss, userId, handleCheck }) => {
 
   const timeSinceLastCheck = () => {
     const timestamp = getMostRecentTimestamp(boss);
-    if (timestamp !== "-") {
+    if (timestamp !== "-" && !boss.multipleInDay) {
       return `(${formatTimeDifference(timestamp)})`;
     }
     return "";

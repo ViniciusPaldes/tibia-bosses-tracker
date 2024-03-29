@@ -143,10 +143,13 @@ export const isFullMoonDate = () => {
 }
 
 export const isFullMoonActive = (boss) => {
-  if (boss.fullMoon) {
-    return isFullMoonDate()
+  if (boss.multipleInDay) {
+    return true;
+  } else {
+    if (boss.fullMoon) {
+      return isFullMoonDate()
+    }
   }
-
   return false;
 };
 
