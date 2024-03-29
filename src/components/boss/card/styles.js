@@ -20,6 +20,12 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignContent: 'center',
     },
+    multiLocation:{
+        marginTop: '-15px',
+    },
+    singleLocation:{
+        marginTop: '5px',
+    },
     lastCheckLabel: {
         fontWeight: 'bold',
     },

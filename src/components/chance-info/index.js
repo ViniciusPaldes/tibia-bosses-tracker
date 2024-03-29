@@ -20,7 +20,7 @@ export const ChanceInfo = ({ bosses }) => {
       )}
       {wip > 0 &&
         (alta > 0 || media > 0 || baixa > 0 || semChance > 0 ? `, ` : null)}
-      {wip > 0 && <span className="wip">{`${wip} em construção`}</span>}
+      {wip > 0 && <span className="wip">{`${wip} sem previsão`}</span>}
     </div>
   );
 };

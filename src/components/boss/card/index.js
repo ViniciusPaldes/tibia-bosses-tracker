@@ -5,7 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import LastSeenIcon from "@material-ui/icons/RemoveRedEyeSharp";
 import { getBossImage } from "assets/images";
 import ChanceIcon from "components/chance-icon";
-import React from "react";
+import { ListOptionsContext } from "context/list-options";
+import React, { useContext } from "react";
 import { createFavorite, deleteFavorite } from "services/firebase-service";
 import { isKilled } from "utils/bosses";
 import {
@@ -23,6 +24,8 @@ import { useStyles } from "./styles";
 
 const BossCard = ({ boss, userId, handleCheck }) => {
   const classes = useStyles();
+  const { listMode } = useContext(ListOptionsContext);
+  const listModeSelected = listMode.filter((item) => item.selected)[0]?.name;
 
   const daysLastSeen = getDaysSinceLastSeen(boss.lastSeen);
 
@@ -64,11 +67,7 @@ const BossCard = ({ boss, userId, handleCheck }) => {
       }
     } else {
       if (boss.wip) {
-        if (boss.test) {
-          return "Check";
-        } else {
-          return "Pendente de integração";
-        }
+        return "Boss sem previsão, check";
       } else {
         return boss.checkable && boss.chanceLabel !== "Sem chance"
           ? "Check"
@@ -85,13 +84,27 @@ const BossCard = ({ boss, userId, handleCheck }) => {
     return "";
   };
 
-  const toggleFavorite = () => {  
+  const toggleFavorite = () => {
     if (boss.favorite) {
       deleteFavorite(userId, boss.id);
     } else {
       createFavorite(userId, boss.id);
     }
-  }
+  };
+
+  const bossName = () => {
+    return (
+      <Typography
+        variant="h6"
+        component="h3"
+        gutterBottom
+        className={classes.bossName}
+      >
+        {boss.name.length > 20 ? `${boss.name.slice(0, 20)}...` : boss.name}
+      </Typography>
+    );
+  };
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -108,10 +121,7 @@ const BossCard = ({ boss, userId, handleCheck }) => {
             />
           </div>
           <div className={classes.rightContainer}>
-            <Favorite
-              isFavorite={boss.favorite}
-              onClick={toggleFavorite}
-            />
+            <Favorite isFavorite={boss.favorite} onClick={toggleFavorite} />
             {boss.lastSeen && (
               <Tooltip
                 title={`Última vez visto: ${daysLastSeen} dia${
@@ -129,15 +139,28 @@ const BossCard = ({ boss, userId, handleCheck }) => {
           </div>
         </div>
         <div className={classes.cardContent}>
-          <Typography
-            variant="h6"
-            component="h3"
-            gutterBottom
-            className={classes.bossName}
-          >
-            {boss.name.length > 20 ? `${boss.name.slice(0, 20)}...` : boss.name}
-          </Typography>
+          {boss.multiLocation ? (
+            <Tooltip title="Boss presente em múltiplas cidades, com a chance sendo calculada como a média entre elas, não individualmente.">
+              {bossName()}
+            </Tooltip>
+          ) : (
+            bossName()
+          )}
+
           <div className={classes.lastCheck}>
+            {listModeSelected === "Todos" && boss.multiLocation && (
+              <Typography
+                variant="caption"
+                className={
+                  boss.multiLocation
+                    ? classes.multiLocation
+                    : classes.singleLocation
+                }
+              >
+                {boss.city}
+              </Typography>
+            )}
+
             <Typography variant="body2" className={classes.lastCheckLabel}>
               {getBossCheckLabel()}
             </Typography>
