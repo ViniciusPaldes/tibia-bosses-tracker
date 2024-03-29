@@ -1,3 +1,4 @@
+import { Tooltip } from "@material-ui/core";
 import React from "react";
 import {
   getChanceLabel,
@@ -12,9 +13,13 @@ const ChanceIcon = (props) => {
   const { boss } = props;
   let localChance = isFullMoonActive(boss) ? 1 : boss.chance;
   const classes = useStyles();
-  const chanceLabel = boss.wip ? "WIP" : getChanceLabel(localChance);
-  const formattedChance = boss.wip ? "?" : getFormattedChance(localChance);
-  const style = boss.wip ? "wip" : getChanceStyle(localChance);
+  if (boss.wip) {
+    return <></>;
+  }
+  const chanceLabel = getChanceLabel(localChance);
+  const formattedChance = getFormattedChance(localChance);
+  const style = getChanceStyle(localChance);
+
   return (
     <div className={`${classes.chanceCircle} ${classes[style]}`}>
       <span className={classes.chanceLabel}>{chanceLabel}</span>

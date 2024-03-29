@@ -19,7 +19,7 @@ const KilledBosses = ({bosses}) => {
   const uniqueBossesArray = Object.values(bossesWithKilledYesterdayAndUniqueNames);
   return (
     <div className={classes.container}>
-      <Accordion className={classes.accordion} defaultExpanded>
+      <Accordion className={classes.accordion} defaultExpanded={false}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="killed-bosses-content"

@@ -6,11 +6,11 @@ import React from 'react';
 import { useStyles } from './style';
 
 
-const FilterButton = ({ name, type, handleClick }) => {
+const FilterButton = ({ name, type, handleClick, options }) => {
   const classes = useStyles();
   const theme = useTheme();
   const { cityButtons, chanceButtons, favoritesOnly } = useFilterContext();
-  const buttons = type === 'city' ? cityButtons : chanceButtons;
+  const buttons = type === 'city' ? cityButtons : type === 'chance' ? chanceButtons : type === 'listOption' && options ? options : [];
   let selected =  buttons.find((button) => button.name === name)?.selected;
   if (favoritesOnly && type === 'favorite') {
     selected = true;
