@@ -148,7 +148,7 @@ const BossCard = ({ boss, userId, handleCheck }) => {
           )}
 
           <div className={classes.lastCheck}>
-            {listModeSelected === "Todos" && boss.multiLocation && (
+            {listModeSelected === "Todos" && (
               <Typography
                 variant="caption"
                 className={
@@ -157,7 +157,7 @@ const BossCard = ({ boss, userId, handleCheck }) => {
                     : classes.singleLocation
                 }
               >
-                {boss.city}
+                {boss.multiLocation && boss.city}
               </Typography>
             )}
 

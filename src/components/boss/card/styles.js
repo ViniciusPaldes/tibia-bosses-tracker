@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
         marginTop: '-15px',
     },
     singleLocation:{
-        marginTop: '5px',
+        marginTop: '4.5px',
     },
     lastCheckLabel: {
         fontWeight: 'bold',
