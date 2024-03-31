@@ -30,7 +30,7 @@ const Home = ({ bosses }) => {
           month: "long",
           year: "numeric",
         })}
-        , 06:00 AM
+        , 05:00 AM
       </Typography>
       {selectedFilters.map((filter) => {
         if (filter.type === "favorite" && !filter.selected) {
