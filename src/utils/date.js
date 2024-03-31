@@ -85,7 +85,7 @@ export const isToday = (date) => {
   const yesterday = new Date(today);
   yesterday.setDate(yesterday.getDate() - 1);
   const fiveAM = new Date(today);
-  fiveAM.setHours(6, 0, 0, 0);
+  fiveAM.setHours(5, 0, 0, 0);
 
   return (
     date.toDateString() === today.toDateString() ||
@@ -98,20 +98,20 @@ export const getTodaysTimestamp = () => {
   const startTimestamp = new Date();
   const endTimestamp = new Date();
 
-  if (currentHour >= 0 && currentHour < 6) {
-    // Set the start time to 06:00 AM of the previous day
+  if (currentHour >= 0 && currentHour < 5) {
+    // Set the start time to 05:00 AM of the previous day
     startTimestamp.setDate(startTimestamp.getDate() - 1);
-    startTimestamp.setHours(6, 0, 0, 0);
+    startTimestamp.setHours(5, 0, 0, 0);
 
-    // Set the end time to 06:00 AM of today
-    endTimestamp.setHours(6, 0, 0, 0);
+    // Set the end time to 05:00 AM of today
+    endTimestamp.setHours(5, 0, 0, 0);
   } else {
-    // Set the start time to 06:00 AM of today
-    startTimestamp.setHours(6, 0, 0, 0);
+    // Set the start time to 05:00 AM of today
+    startTimestamp.setHours(5, 0, 0, 0);
 
-    // Set the end time to 06:00 AM of the following day
+    // Set the end time to 05:00 AM of the following day
     endTimestamp.setDate(endTimestamp.getDate() + 1);
-    endTimestamp.setHours(6, 0, 0, 0);
+    endTimestamp.setHours(5, 0, 0, 0);
   }
 
   return { start: startTimestamp, end: endTimestamp };
@@ -129,14 +129,14 @@ export const isFullMoonDate = () => {
   const currentHour = new Date().getHours();
 
   if (
-    (currentDay === 12 && currentHour >= 6) ||
+    (currentDay === 12 && currentHour >= 5) ||
     (currentDay > 12 && currentDay < 15)
   ) {
     return true;
   }
 
   // Check if the current day is 15 and the current time is before 05:00 AM
-  if (currentDay === 15 && currentHour < 6) {
+  if (currentDay === 15 && currentHour < 5) {
     return true;
   }
   return false;
