@@ -4,6 +4,7 @@ import { AuthContext } from "context/auth";
 import LoggedNavigation from "navigation/logged";
 import NonLoggedNavigation from "navigation/non-logged";
 import React, { useContext } from "react";
+import NotAvailable from "screens/not-available";
 import { theme } from "theme";
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {!user ? <NonLoggedNavigation /> : <LoggedNavigation user={user} />}
+      {/* {!user ? <NonLoggedNavigation /> : <LoggedNavigation user={user} />} */}
+      <NotAvailable />
     </ThemeProvider>
   );
 }
